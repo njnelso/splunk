@@ -1,0 +1,47 @@
+<nav search_view="search"
+     color="#CE1126">
+  <collection label="Overview">
+	<view name="Overview"
+		default='true' />
+	<view name="authentications" />
+	<view name="network_traffic" />
+	</collection>
+  <collection label="Windows">
+    <view name="windows_summary" />
+    <view name="windows_-_account_management" />
+    <view name="windows_-_authentication" />
+    <view name="windows_baseline" />
+    <view name="windows_-_configuration_changes" />
+	<view name="conmon_controls_windows" />
+    <view name="windows_-_data_transfers" />
+	<view name="windows_-_privileged_user_actions" />
+    </collection>
+  <collection label="Linux">
+    <view name="Linux_Overview" />
+	<view name="linux_-_account_management" />
+    <view name="linux_-_authentication" />
+	<view name="linux_-_configuration_changes" />
+	<view name="conmon_controls_linux" />
+    <view name="linux_-_data_transfers" />
+	<view name="linux_-_hardwaresoftware" />
+	<view name="linux_-_privileged_user_actions" />
+    </collection>
+  <collection label="Cisco">
+    <view name="Cisco_Overview" />
+    </collection>
+  <collection label="Virtualization">
+	<view name="proxmox" />
+    <view name="vmware_overview" />
+    </collection>
+  <collection label="Lookups">
+    <view name="AD_Hosts" />
+    <view name="AD_Users" />
+    </collection>
+  <view name="splunk_management" />
+  <view name="scuba" />
+  <view name="search" />
+  <collection label="Reports">
+    <view name="weekly_audit_report" />
+    <view name="AD_audit_report" />
+    </collection>
+</nav>

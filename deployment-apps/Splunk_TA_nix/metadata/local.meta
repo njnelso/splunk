@@ -1,0 +1,11 @@
+[inputs/monitor%3A%2F%2F%2Fvar%2Flog]
+version = 8.0.3
+modtime = 1593737779.060435800
+
+[inputs/script%3A%2F%2F.%2Fbin%2Fupdate.sh]
+version = 9.3.2
+modtime = 1741113025.814049000
+
+[inputs/script%3A%2F%2F.%2Fbin%2Fversion.sh]
+version = 9.3.2
+modtime = 1741113034.166037300

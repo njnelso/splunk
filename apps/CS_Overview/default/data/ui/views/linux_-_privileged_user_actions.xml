@@ -1,0 +1,83 @@
+<form version="1.1" theme="dark">
+  <label>Linux - Privileged User Actions</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="text" token="user_token1">
+      <label>User</label>
+      <default>*</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>User Commands</title>
+      <table>
+        <title>Source = /var/log/audit/audit.log - [Use Filters Above to Drilldown]</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_CMD
+| eval Command=urldecode(ltrim(replace(cmd,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval Command=if(isnull(Command), cmd, Command)
+| join pid [ search index=nix sourcetype=audit_log type=USER_ACCT | table pid acct ]
+| search acct=$user_token1$
+| stats count latest(_time) AS _time values(host) AS host values(acct) AS User values(cwd) AS CWD values(res) AS Result by Command
+| table _time host User Command CWD Result count
+| sort - _time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Process Execution</title>
+      <table>
+        <title>Source = /var/log/audit/audit.log - [Use Filters Above to Drilldown]</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=EXECVE
+| eval arg0=urldecode(ltrim(replace(a0,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg0=if(isnull(arg0), a0, arg0)
+| eval arg1=urldecode(ltrim(replace(a1,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg1=if(isnull(arg1), a1, arg1)
+| eval arg2=urldecode(ltrim(replace(a2,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg2=if(isnull(arg2), a2, arg2)
+| eval arg3=urldecode(ltrim(replace(a3,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg3=if(isnull(arg3), a3, arg3)
+| eval cmdline=coalesce(arg0, "") + " " + coalesce(arg1, "") + " " + coalesce(arg2, "") + " " + coalesce(arg3, "")
+| eval cmdline=trim(replace(cmdline, "\s+", " "))
+| join msg [ search index=nix sourcetype=audit_log type=SYSCALL | table msg pid exe ]
+| join msg [ search index=nix sourcetype=audit_log type=CWD | table msg cwd ]
+| join pid [ search index=nix sourcetype=audit_log type=USER_ACCT | table pid acct ]
+| search acct=$user_token1$
+| stats count latest(_time) AS _time values(host) AS host values(acct) AS User values(exe) AS Executable values(cwd) AS CWD BY cmdline
+| table _time host User CWD cmdline Executable count
+| sort - _time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>User Commands</title>
+      <event>
+        <title>Source = /var/log/auth.log</title>
+        <search>
+          <query>index=nix sourcetype="auth_log" COMMAND=*</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="list.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </event>
+    </panel>
+  </row>
+</form>

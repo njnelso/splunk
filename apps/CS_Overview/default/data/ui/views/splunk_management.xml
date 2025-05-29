@@ -1,0 +1,596 @@
+
+<dashboard version="2" theme="dark">
+    <label>Splunk Management</label>
+    <description></description>
+    <definition><![CDATA[
+{
+	"visualizations": {
+		"viz_XCr1rKjY": {
+			"type": "splunk.column",
+			"options": {
+				"yAxisAbbreviation": "off",
+				"y2AxisAbbreviation": "off",
+				"showRoundedY2AxisLabels": false,
+				"legendTruncation": "ellipsisMiddle",
+				"showY2MajorGridLines": true,
+				"xAxisTitleVisibility": "hide",
+				"yAxisTitleText": "GB",
+				"overlayFields": [
+					"Limit"
+				],
+				"stackMode": "stacked",
+				"backgroundColor": "transparent"
+			},
+			"dataSources": {
+				"primary": "ds_Kv73c88n"
+			},
+			"title": "Weekly License Usage by Source"
+		},
+		"viz_3jyTNOZ1": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"backgroundColor": "#294e70",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_nSzjvMjn"
+			},
+			"title": "Splunk Server - Details",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_eLKp0Hpz": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"backgroundColor": "#294e70",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_twZZcuLW"
+			},
+			"title": "Splunk Universal Forwarders - Details",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_9ASD7RtR": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"backgroundColor": "#294e70",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_dnBI9hbE"
+			},
+			"title": "Splunk Server Disk Usage",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_2cqpodNK": {
+			"type": "splunk.fillergauge",
+			"options": {
+				"gaugeColor": "> value | rangeValue(gaugeColorRangeValueContext)",
+				"value": "> primary | seriesByIndex(0) | lastPoint()",
+				"backgroundColor": "transparent",
+				"valueDisplay": "percentage"
+			},
+			"context": {
+				"gaugeColorRangeValueContext": [
+					{
+						"to": 10,
+						"value": "#5fbcff"
+					},
+					{
+						"from": 10,
+						"to": 30,
+						"value": "#4beba8"
+					},
+					{
+						"from": 30,
+						"to": 50,
+						"value": "#f4df7a"
+					},
+					{
+						"from": 50,
+						"to": 70,
+						"value": "#fc9850"
+					},
+					{
+						"from": 70,
+						"to": 100,
+						"value": "#ff7152"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_SUlZAWOy"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Disk Usage",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_Dki066mS": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"columnFormat": {
+					"info": {
+						"rowBackgroundColors": "> table | seriesByName(\"info\") | matchValue(infoColumnColorConfig)"
+					}
+				},
+				"backgroundColor": "#294e70",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"context": {
+				"infoColumnColorConfig": [
+					{
+						"match": "failed",
+						"value": "#D93F3C"
+					},
+					{
+						"match": "succeeded",
+						"value": "#277C52"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_8O4v1wlB"
+			},
+			"title": "Splunk Web GUI Logons",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_4guzIGVR": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"backgroundColor": "#294e70",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_HikAsLP1"
+			},
+			"title": "Splunk Permissions for LDAP Groups",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_L5K2QaZQ": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"columnFormat": {
+					"action": {
+						"rowBackgroundColors": "> table | seriesByName(\"action\") | matchValue(actionColumnColorConfig)"
+					}
+				},
+				"backgroundColor": "#294e70",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"context": {
+				"actionColumnColorConfig": [
+					{
+						"match": "create_user",
+						"value": "#D93F3C"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_N2LPC2XW"
+			},
+			"title": "Splunk User Accounts Created",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		}
+	},
+	"dataSources": {
+		"ds_Kv73c88n": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=_internal [`set_local_host`] source=*license_usage.log* type=\"Usage\" \n| eval h=if(len(h)=0 OR isnull(h),\"(SQUASHED)\",h) \n| eval s=if(len(s)=0 OR isnull(s),\"(SQUASHED)\",s) \n| eval idx=if(len(idx)=0 OR isnull(idx),\"(UNKNOWN)\",idx) \n| bin _time span=1d \n| stats sum(b) as b by _time, pool, s, st, h, idx   \n| timechart span=1d sum(b) AS volumeB by s fixedrange=false  \n| join type=outer _time [search index=_internal [`set_local_host`] source=*license_usage.log* type=\"RolloverSummary\" earliest=-30d@d | eval _time=_time - 43200 | bin _time span=1d | dedup _time stack | stats sum(stacksz) AS \"Limit\" by _time] \n| fields - _timediff  | foreach * [eval <<FIELD>>=round('<<FIELD>>'/1024/1024/1024, 3)]",
+				"queryParameters": {
+					"earliest": "-7d@d",
+					"latest": "-0d@d"
+				}
+			},
+			"name": "Weekly License Usage by Source - Column chart search"
+		},
+		"ds_nSzjvMjn": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"Script:InstalledApps\" DisplayName=\"*Splunk Enterprise*\"\n| eval DateInstalled=strftime(strptime(InstallDate, \"%Y%m%d\"), \"%d %b %Y\")\n| stats values(DisplayName) AS Name latest(DisplayVersion) AS Version values(InstallLocation) AS \"Install Path\" values(DateInstalled) AS \"Date Installed\" BY host",
+				"queryParameters": {
+					"earliest": "-7d@h",
+					"latest": "now"
+				}
+			},
+			"name": "Splunk Server - Details - Table search"
+		},
+		"ds_twZZcuLW": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=_internal sourcetype=splunkd fwdType=\"uf\"\n| rename sourceIp AS \"IP Address\"\n| rename os AS \"Operating System\"\n| stats latest(version) as Version by hostname, \"Operating System\", \"IP Address\"",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "Splunk Universal Forwarders - Details - Table search"
+		},
+		"ds_dnBI9hbE": {
+			"type": "ds.search",
+			"options": {
+				"query": "| rest splunk_server=sec01 /services/server/status/partitions-space\n| join type=outer splunk_server, mount_point [\n  | fields splunk_server, mount_point]\n| eval free = if(isnotnull(available), available, free)\n| eval usage = round((capacity - free) / 1024, 2)\n| eval capacity = round(capacity / 1024, 2)\n| eval compare_usage = usage.\" / \".capacity\n| stats first(fs_type) as fs_type first(compare_usage) as compare_usage by mount_point\n| rename mount_point as \"Mount Point\", fs_type as \"File System Type\", compare_usage as \"Disk Usage (GB)\", capacity as \"Capacity (GB)\"",
+				"queryParameters": {
+					"earliest": "-7d@h",
+					"latest": "now"
+				}
+			},
+			"name": "Splunk Server Disk Usage - Table search"
+		},
+		"ds_SUlZAWOy": {
+			"type": "ds.search",
+			"options": {
+				"query": "| rest splunk_server=sec01 /services/server/status/partitions-space\n| join type=outer splunk_server, mount_point [\n  | fields splunk_server, mount_point]\n| eval free = if(isnotnull(available), available, free)\n| eval usage = round((capacity - free) / 1024, 2)\n| eval capacity = round(capacity / 1024, 2)\n| eval compare_usage = usage.\" / \".capacity\n| eval pct_usage = round(usage / capacity * 100, 2) \n| chart first(pct_usage)",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "Disk Usage ___ - Filler gauge search"
+		},
+		"ds_8O4v1wlB": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=_audit action=\"login attempt\"\n| table _time host user action info reason clientip\n| sort - _time",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "Splunk Web GUI Logons - Table search"
+		},
+		"ds_HikAsLP1": {
+			"type": "ds.search",
+			"options": {
+				"query": "| rest /services/admin/LDAP-groups splunk_server=local\n| where isnotnull(roles)\n| table title roles",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "Splunk Permissions for LDAP Groups - Table search"
+		},
+		"ds_N2LPC2XW": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=_audit action=create_user\n| table _time user action username info roles",
+				"queryParameters": {
+					"earliest": "-7d@h",
+					"latest": "now"
+				}
+			},
+			"name": "Splunk User Accounts Created - Table search"
+		},
+		"ds_w40CFqv5": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"script:get-adcomputer.bat\" IPv4address!=null\n| dedup Name IPv4address\n| table Name IPv4address\n| sort IPv4address",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "Known IP Addresses - Splunk Forwarders search"
+		},
+		"ds_LbifV7qq": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix source=\"/var/log/ufw.log\" \"[UFW BLOCK]\"\n| rename SRC AS Source\n| rename DST AS Destination\n| rename PROTO AS Protocol\n| rename SPT AS \"Source Port\"\n| rename DPT AS \"Destination Port\"\n| stats count by Source Destination Protocol\n| sort - count",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "SI-4 - Information System Monitoring - Linux Host-based Firewall - Blocked Packets Summary _Select Source_ search"
+		},
+		"ds_vDcrziW7": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix source=\"/var/log/ufw.log\" \"[UFW BLOCK]\" SRC=\"$source_ip$\" DST=$dest_ip$ DPT=$dest_port$\n| rename \"IN\" AS Interface\n| rename SRC AS Source\n| rename DST AS Destination\n| rename PROTO AS Protocol\n| rename SPT AS \"Source Port\"\n| rename DPT AS \"Destination Port\"\n| rename LEN AS Length\n| rename TTL AS \"Time-to-Live\"\n| stats count by Interface Source Destination Protocol MAC \"Source Port\" \"Destination Port\" Length \"Time-to-Live\"\n| rename count AS \"# of Packets\"\n| sort - \"# of Packets\"",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "SI-4 - Information System Monitoring - Linux Host-based Firewall - Blocked Packets Details _Drilldown_ search"
+		},
+		"ds_JmYrfvaj": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=DNS_Server source=\"WinEventLog:DNS Server\" EventCode=6004\n| table _time host Message",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "SI-4 - Information System Monitoring - Monitor for suspicious domains in DNS traffic search"
+		},
+		"ds_tJhUJR4U": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows sourcetype=DhcpSrvLog eventtype=DhcpSrvLog_start \n| stats  count latest(_time) AS _time by ip dest signature\n| rename ip AS IP_Address\n| rename dest AS Host_Name\n| rename signature as Event\n| table _time Host_Name IP_Address Event count",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "SI-4 - Information System Monitoring - Monitor for suspicious hosts and IP addresses involving DHCP search"
+		}
+	},
+	"defaults": {
+		"dataSources": {
+			"ds.search": {
+				"options": {
+					"queryParameters": {}
+				}
+			}
+		}
+	},
+	"inputs": {
+		"input_pXr1SSku": {
+			"type": "input.timerange",
+			"options": {
+				"token": "field1",
+				"defaultValue": "-7d@h,now"
+			},
+			"title": ""
+		}
+	},
+	"layout": {
+		"type": "absolute",
+		"options": {
+			"submitButton": false,
+			"height": 1200,
+			"width": 1440,
+			"display": "auto",
+			"backgroundImage": {
+				"sizeType": "cover",
+				"x": 0,
+				"y": 0,
+				"src": "splunk-enterprise-kvstore://68374fcedf496a400a01f582"
+			},
+			"showTitleAndDescription": false
+		},
+		"structure": [
+			{
+				"item": "viz_XCr1rKjY",
+				"type": "block",
+				"position": {
+					"x": 200,
+					"y": 10,
+					"w": 1230,
+					"h": 270
+				}
+			},
+			{
+				"item": "viz_3jyTNOZ1",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 420,
+					"w": 700,
+					"h": 130
+				}
+			},
+			{
+				"item": "viz_eLKp0Hpz",
+				"type": "block",
+				"position": {
+					"x": 720,
+					"y": 290,
+					"w": 710,
+					"h": 420
+				}
+			},
+			{
+				"item": "viz_9ASD7RtR",
+				"type": "block",
+				"position": {
+					"x": 220,
+					"y": 290,
+					"w": 490,
+					"h": 120
+				}
+			},
+			{
+				"item": "viz_2cqpodNK",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 70,
+					"w": 200,
+					"h": 340
+				}
+			},
+			{
+				"item": "viz_Dki066mS",
+				"type": "block",
+				"position": {
+					"x": 720,
+					"y": 720,
+					"w": 710,
+					"h": 450
+				}
+			},
+			{
+				"item": "viz_4guzIGVR",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 560,
+					"w": 700,
+					"h": 310
+				}
+			},
+			{
+				"item": "viz_L5K2QaZQ",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 880,
+					"w": 700,
+					"h": 290
+				}
+			},
+			{
+				"item": "input_pXr1SSku",
+				"type": "input",
+				"position": {
+					"x": 0,
+					"y": 0,
+					"w": 198,
+					"h": 82
+				}
+			}
+		],
+		"globalInputs": []
+	},
+	"description": "",
+	"title": "Splunk Management"
+}
+    ]]></definition>
+    <meta type="hiddenElements"><![CDATA[
+{
+	"hideEdit": false,
+	"hideOpenInSearch": false,
+	"hideExport": false
+}
+    ]]></meta>
+    <meta type="conversionReport"><![CDATA[
+{
+	"conversionErrors": [],
+	"conversionWarnings": [],
+	"counts": {
+		"visualizations": {
+			"count": 13,
+			"convertedCount": 13,
+			"configCount": 69,
+			"convertedConfigCount": 69
+		},
+		"inputs": {
+			"count": 4,
+			"convertedCount": 4,
+			"configCount": 15,
+			"convertedConfigCount": 15
+		},
+		"searches": {
+			"count": 13,
+			"convertedCount": 13,
+			"configCount": 39,
+			"convertedConfigCount": 39
+		},
+		"dataSources": 13,
+		"panels": {
+			"count": 13,
+			"convertedCount": 13,
+			"configCount": 0,
+			"convertedConfigCount": 0
+		},
+		"rows": {
+			"count": 8,
+			"convertedCount": 8,
+			"configCount": 0,
+			"convertedConfigCount": 0
+		},
+		"dashboardLevelConfigs": {
+			"count": 1,
+			"convertedCount": 1,
+			"configCount": 2,
+			"convertedConfigCount": 2
+		}
+	},
+	"conversionTime": 1748454852594,
+	"originDashboardTitle": "Splunk Management",
+	"originDashboardId": "splunk_management",
+	"originDashboardApp": "CS_Overview"
+}
+    ]]></meta>
+</dashboard>

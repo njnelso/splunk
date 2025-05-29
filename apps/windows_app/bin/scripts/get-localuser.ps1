@@ -1,0 +1,1 @@
+Get-LocalUser | Where-Object {$_.Name -notin (Get-ADUser -Filter {SamAccountName -notlike "*$"} | Select-Object -ExpandProperty SamAccountName) } | ConvertTo-Json

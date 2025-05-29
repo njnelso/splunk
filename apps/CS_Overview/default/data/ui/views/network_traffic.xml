@@ -1,0 +1,447 @@
+
+<dashboard version="2" theme="dark">
+    <label>Network Traffic</label>
+    <description></description>
+    <definition><![CDATA[
+{
+	"visualizations": {
+		"viz_o10kLbje": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"backgroundColor": "#294e70",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_w40CFqv5"
+			},
+			"title": "Known IP Addresses - Splunk Forwarders",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_9HmjJ4qd": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "cell",
+				"showInternalFields": false,
+				"columnFormat": {
+					"count": {
+						"rowBackgroundColors": "> table | seriesByName(\"count\") | gradient(countColumnColorConfig)"
+					}
+				},
+				"backgroundColor": "#294e70",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"context": {
+				"countColumnColorConfig": {
+					"colors": [
+						"#FFC0CB",
+						"#F86C6B",
+						"#D93F3C"
+					]
+				}
+			},
+			"dataSources": {
+				"primary": "ds_LbifV7qq"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "SI-4 - Information System Monitoring - Linux Host-based Firewall - Blocked Packets Summary",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_rJCoYg0Q": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"columnFormat": {
+					"# of Packets": {
+						"rowBackgroundColors": "> table | seriesByName(\"# of Packets\") | gradient(__of_PacketsColumnColorConfig)"
+					}
+				},
+				"backgroundColor": "#294e70",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"context": {
+				"__of_PacketsColumnColorConfig": {
+					"colors": [
+						"#FFC0CB",
+						"#F86C6B",
+						"#D93F3C"
+					]
+				}
+			},
+			"dataSources": {
+				"primary": "ds_vDcrziW7"
+			},
+			"title": "SI-4 - Information System Monitoring - Linux Host-based Firewall - Blocked Packets Details",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_WSYZXJ6y": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"backgroundColor": "#294e70",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_JmYrfvaj"
+			},
+			"title": "SI-4 - Information System Monitoring - Monitor for suspicious domains in DNS traffic",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_7oTM1cV1": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"columnFormat": {
+					"Host_Name": {
+						"rowBackgroundColors": "> table | seriesByName(\"Host_Name\") | matchValue(Host_NameColumnColorConfig)"
+					}
+				},
+				"backgroundColor": "#294e70",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"context": {
+				"Host_NameColumnColorConfig": [
+					{
+						"match": "192.168.0.2",
+						"value": "#55C169"
+					},
+					{
+						"match": "192.168.0.104",
+						"value": "#53A051"
+					},
+					{
+						"match": "192.168.0.11",
+						"value": "#53A051"
+					},
+					{
+						"match": "192.168.0.15",
+						"value": "#53A051"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_tJhUJR4U"
+			},
+			"title": "SI-4 - Information System Monitoring - Monitor for suspicious hosts and IP addresses involving DHCP",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		}
+	},
+	"dataSources": {
+		"ds_Kv73c88n": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=_internal [`set_local_host`] source=*license_usage.log* type=\"Usage\" \n| eval h=if(len(h)=0 OR isnull(h),\"(SQUASHED)\",h) \n| eval s=if(len(s)=0 OR isnull(s),\"(SQUASHED)\",s) \n| eval idx=if(len(idx)=0 OR isnull(idx),\"(UNKNOWN)\",idx) \n| bin _time span=1d \n| stats sum(b) as b by _time, pool, s, st, h, idx   \n| timechart span=1d sum(b) AS volumeB by s fixedrange=false  \n| join type=outer _time [search index=_internal [`set_local_host`] source=*license_usage.log* type=\"RolloverSummary\" earliest=-30d@d | eval _time=_time - 43200 | bin _time span=1d | dedup _time stack | stats sum(stacksz) AS \"Limit\" by _time] \n| fields - _timediff  | foreach * [eval <<FIELD>>=round('<<FIELD>>'/1024/1024/1024, 3)]",
+				"queryParameters": {
+					"earliest": "-7d@d",
+					"latest": "-0d@d"
+				}
+			},
+			"name": "Weekly License Usage by Source - Column chart search"
+		},
+		"ds_nSzjvMjn": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"Script:InstalledApps\" DisplayName=\"*Splunk Enterprise*\"\n| eval DateInstalled=strftime(strptime(InstallDate, \"%Y%m%d\"), \"%d %b %Y\")\n| stats values(DisplayName) AS Name latest(DisplayVersion) AS Version values(InstallLocation) AS \"Install Path\" values(DateInstalled) AS \"Date Installed\" BY host",
+				"queryParameters": {
+					"earliest": "-7d@h",
+					"latest": "now"
+				}
+			},
+			"name": "Splunk Server - Details - Table search"
+		},
+		"ds_twZZcuLW": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=_internal sourcetype=splunkd fwdType=\"uf\"\n| rename sourceIp AS \"IP Address\"\n| rename os AS \"Operating System\"\n| stats latest(version) as Version by hostname, \"Operating System\", \"IP Address\"",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "Splunk Universal Forwarders - Details - Table search"
+		},
+		"ds_dnBI9hbE": {
+			"type": "ds.search",
+			"options": {
+				"query": "| rest splunk_server=sec01 /services/server/status/partitions-space\n| join type=outer splunk_server, mount_point [\n  | fields splunk_server, mount_point]\n| eval free = if(isnotnull(available), available, free)\n| eval usage = round((capacity - free) / 1024, 2)\n| eval capacity = round(capacity / 1024, 2)\n| eval compare_usage = usage.\" / \".capacity\n| stats first(fs_type) as fs_type first(compare_usage) as compare_usage by mount_point\n| rename mount_point as \"Mount Point\", fs_type as \"File System Type\", compare_usage as \"Disk Usage (GB)\", capacity as \"Capacity (GB)\"",
+				"queryParameters": {
+					"earliest": "-7d@h",
+					"latest": "now"
+				}
+			},
+			"name": "Splunk Server Disk Usage - Table search"
+		},
+		"ds_SUlZAWOy": {
+			"type": "ds.search",
+			"options": {
+				"query": "| rest splunk_server=sec01 /services/server/status/partitions-space\n| join type=outer splunk_server, mount_point [\n  | fields splunk_server, mount_point]\n| eval free = if(isnotnull(available), available, free)\n| eval usage = round((capacity - free) / 1024, 2)\n| eval capacity = round(capacity / 1024, 2)\n| eval compare_usage = usage.\" / \".capacity\n| eval pct_usage = round(usage / capacity * 100, 2) \n| chart first(pct_usage)",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "Disk Usage ___ - Filler gauge search"
+		},
+		"ds_8O4v1wlB": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=_audit action=\"login attempt\"\n| table _time host user action info reason clientip\n| sort - _time",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "Splunk Web GUI Logons - Table search"
+		},
+		"ds_HikAsLP1": {
+			"type": "ds.search",
+			"options": {
+				"query": "| rest /services/admin/LDAP-groups splunk_server=local\n| where isnotnull(roles)\n| table title roles",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "Splunk Permissions for LDAP Groups - Table search"
+		},
+		"ds_N2LPC2XW": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=_audit action=create_user\n| table _time user action username info roles",
+				"queryParameters": {
+					"earliest": "-7d@h",
+					"latest": "now"
+				}
+			},
+			"name": "Splunk User Accounts Created - Table search"
+		},
+		"ds_w40CFqv5": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"script:get-adcomputer.bat\" IPv4address!=null\n| dedup Name IPv4address\n| table Name IPv4address\n| sort IPv4address",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "Known IP Addresses - Splunk Forwarders search"
+		},
+		"ds_LbifV7qq": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix source=\"/var/log/ufw.log\" \"[UFW BLOCK]\"\n| rename SRC AS Source\n| rename DST AS Destination\n| rename PROTO AS Protocol\n| rename SPT AS \"Source Port\"\n| rename DPT AS \"Destination Port\"\n| stats count by Source Destination Protocol\n| sort - count",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "SI-4 - Information System Monitoring - Linux Host-based Firewall - Blocked Packets Summary _Select Source_ search"
+		},
+		"ds_vDcrziW7": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix source=\"/var/log/ufw.log\" \"[UFW BLOCK]\"\n| rename \"IN\" AS Interface\n| rename SRC AS Source\n| rename DST AS Destination\n| rename PROTO AS Protocol\n| rename SPT AS \"Source Port\"\n| rename DPT AS \"Destination Port\"\n| rename LEN AS Length\n| rename TTL AS \"Time-to-Live\"\n| stats count by Interface Source Destination Protocol MAC \"Source Port\" \"Destination Port\" Length \"Time-to-Live\"\n| rename count AS \"# of Packets\"\n| sort - \"# of Packets\"",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "SI-4 - Information System Monitoring - Linux Host-based Firewall - Blocked Packets Details _Drilldown_ search"
+		},
+		"ds_JmYrfvaj": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=DNS_Server source=\"WinEventLog:DNS Server\" EventCode=6004\n| table _time host Message",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "SI-4 - Information System Monitoring - Monitor for suspicious domains in DNS traffic search"
+		},
+		"ds_tJhUJR4U": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows sourcetype=DhcpSrvLog eventtype=DhcpSrvLog_start \n| stats count latest(_time) AS _time by ip dest signature\n| eval Time = strftime(_time, \"%Y-%m-%d %H:%M:%S\")\n| rename ip AS IP_Address\n| rename dest AS Host_Name\n| rename signature as Event\n| table Time Host_Name IP_Address Event count",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "SI-4 - Information System Monitoring - Monitor for suspicious hosts and IP addresses involving DHCP search"
+		}
+	},
+	"defaults": {
+		"dataSources": {
+			"ds.search": {
+				"options": {
+					"queryParameters": {}
+				}
+			}
+		}
+	},
+	"inputs": {
+		"input_pXr1SSku": {
+			"type": "input.timerange",
+			"options": {
+				"token": "field1",
+				"defaultValue": "-7d@h,now"
+			},
+			"title": ""
+		}
+	},
+	"layout": {
+		"type": "absolute",
+		"options": {
+			"submitButton": false,
+			"height": 2082,
+			"width": 1440,
+			"display": "auto",
+			"backgroundImage": {
+				"sizeType": "cover",
+				"x": 0,
+				"y": 0,
+				"src": "splunk-enterprise-kvstore://68374fcedf496a400a01f582"
+			},
+			"showTitleAndDescription": false
+		},
+		"structure": [
+			{
+				"item": "viz_o10kLbje",
+				"type": "block",
+				"position": {
+					"x": 220,
+					"y": 10,
+					"w": 480,
+					"h": 450
+				}
+			},
+			{
+				"item": "viz_9HmjJ4qd",
+				"type": "block",
+				"position": {
+					"x": 720,
+					"y": 10,
+					"w": 710,
+					"h": 450
+				}
+			},
+			{
+				"item": "viz_rJCoYg0Q",
+				"type": "block",
+				"position": {
+					"x": 20,
+					"y": 480,
+					"w": 1400,
+					"h": 450
+				}
+			},
+			{
+				"item": "viz_WSYZXJ6y",
+				"type": "block",
+				"position": {
+					"x": 20,
+					"y": 1420,
+					"w": 1400,
+					"h": 450
+				}
+			},
+			{
+				"item": "viz_7oTM1cV1",
+				"type": "block",
+				"position": {
+					"x": 20,
+					"y": 950,
+					"w": 1400,
+					"h": 450
+				}
+			},
+			{
+				"item": "input_pXr1SSku",
+				"type": "input",
+				"position": {
+					"x": 10,
+					"y": 10,
+					"w": 198,
+					"h": 82
+				}
+			}
+		],
+		"globalInputs": []
+	},
+	"description": "",
+	"title": "Network Traffic"
+}
+    ]]></definition>
+    <meta type="hiddenElements"><![CDATA[
+{
+	"hideEdit": false,
+	"hideOpenInSearch": false,
+	"hideExport": false
+}
+    ]]></meta>
+</dashboard>

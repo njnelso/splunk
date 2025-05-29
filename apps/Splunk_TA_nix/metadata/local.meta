@@ -1,0 +1,59 @@
+[inputs/monitor%3A%2F%2F%2Fvar%2Flog]
+version = 8.0.3
+modtime = 1593737779.060435800
+
+[app/install/install_source_checksum]
+version = 9.3.3
+modtime = 1746538588.338631200
+
+[app/ui]
+version = 9.3.1
+modtime = 1736191197.373753500
+
+[app/launcher]
+version = 9.3.1
+modtime = 1736191197.397720800
+
+[app/package/check_for_updates]
+version = 9.3.1
+modtime = 1736191197.403720800
+
+[inputs/script%3A%2F%2F.%2Fbin%2Fversion.sh]
+version = 9.3.2
+modtime = 1741112939.318808700
+
+[inputs/script%3A%2F%2F.%2Fbin%2FusersWithLoginPrivs.sh]
+version = 9.3.2
+modtime = 1741112958.329170300
+
+[inputs/script%3A%2F%2F.%2Fbin%2Fupdate.sh]
+version = 9.3.2
+modtime = 1741112963.984959400
+
+[props/history_log/EXTRACT-Patch_Date]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = nnelson_sec
+version = 9.3.3
+modtime = 1746472536.934205900
+
+[props/history_log/EXTRACT-commandline]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.3
+modtime = 1747080869.215364900
+
+[props/history_log/EXTRACT-install]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.3
+modtime = 1747080874.227394400
+
+[props/history_log/EXTRACT-remove]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.3
+modtime = 1747080880.411653900

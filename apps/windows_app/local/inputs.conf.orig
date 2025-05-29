@@ -1,0 +1,29 @@
+# Index is set to "winevents" for all data
+[default]
+index=winevents
+
+# Define which Event Logs to monitor
+[WinEventLog://Application]
+disabled = 0
+
+[WinEventLog://Security]
+disabled = 0
+
+[WinEventLog://System]
+disabled = 0
+
+[WinEventLog://Setup]
+disabled = 0
+
+[WinEventLog://Symantec Endpoint Protection Client]
+disabled = 0
+
+# Windows Update Log
+[monitor://$WINDIR\WindowsUpdate.log]
+disabled = 0
+
+# Scripted input to monitor installed applications
+[script://.\bin\win_installed_apps.bat]
+disabled = 0
+## Run once per day
+interval = 86400

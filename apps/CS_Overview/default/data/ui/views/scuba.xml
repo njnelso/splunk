@@ -1,0 +1,364 @@
+<form version="1.1" theme="dark">
+  <label>SCUBA</label>
+  <description>Deep Dive - Track activity for a specific user, including logins, removable media, actions/processes, print jobs, etc.</description>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="text" token="user_token" searchWhenChanged="true">
+      <label>User (Required)</label>
+      <default></default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Windows - Interactive Logons</h1>
+      <h2>User: $user_token$</h2>
+      </div>
+      </html>
+      <table>
+        <title>Success</title>
+        <search>
+          <query>index=winevents source="wineventlog:security" user=$user_token$ (EventCode=4624 Security_ID="PROGRAM*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10)
+| dedup _time host user
+| eval Logon_Type_Description=case(Logon_Type==2, "Interactive", Logon_Type==7, "Unlock", Logon_Type==10, "Remote Interactive")
+| table _time host Logon_Type_Description
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+      <table>
+        <title>Failure</title>
+        <search>
+          <query>index=winevents source="wineventlog:security" EventCode=4625 user=$user_token$ Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 
+| dedup _time
+| eval Logon_Type_Description=case(Logon_Type==2, "Interactive", Logon_Type==7, "Unlock", Logon_Type==10, "Remote Interactive")
+| table _time host Logon_Type_Description Failure_Reason</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <format type="number" field="Logon_Type_Description"></format>
+      </table>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Linux - Interactive Logons</h1>
+      <h2>User: $user_token$</h2>
+      </div>
+      </html>
+      <table>
+        <title>Success</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" res=success acct="$user_token$"
+| eval Method=case(exe="/usr/bin/sudo", "Sudo", exe="/usr/sbin/sshd", "SSH", exe="/usr/sbin/sshd", "SSH", exe="/usr/lib/gdm3/gdm-session-worker", "GNOME", exe="/usr/libexec/gdm-session-worker", "GNOME", exe="/usr/bin/su", "SU", exe="/usr/lib/policykit-1/polkit-agent-helper-1", "PolicyKit")
+| table _time host Method
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+      <table>
+        <title>Failure</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" res=failed acct="$user_token$"
+| eval Method=case(exe="/usr/bin/sudo", "Sudo", exe="/usr/sbin/sshd", "SSH", exe="/usr/sbin/sshd", "SSH", exe="/usr/lib/gdm3/gdm-session-worker", "GNOME", exe="/usr/libexec/gdm-session-worker", "GNOME", exe="/usr/bin/su", "SU", exe="/usr/lib/policykit-1/polkit-agent-helper-1", "PolicyKit")
+| table _time host Method
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Windows External Devices Recognized by System</h1>
+      <h2>User: $user_token$</h2>
+      </div>
+      </html>
+      <table>
+        <title>External Devices - System logs do NOT correlate to specific users, this panel filters for hosts that the user has logged into</title>
+        <search>
+          <query>index=winevents EventCode=6416 (Class_Name="WPD" OR Class_Name="CDROM" OR Class_Name="Camera" OR Class_Name="Image" OR Class_Name="TapeDrive" OR Class_Name="USBDevice" OR Class_Name="WCEUSBS") [ search index=winevents source="wineventlog:security" user="$user_token$" (EventCode=4624 Security_ID="PROGRAM*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10) | dedup host | table host ]
+| table _time host Class_Name Device_Name Device_ID</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Linux - External Devices Recognized by System</h1>
+      <h2>User: $user_token$</h2>
+      </div>
+      </html>
+      <table>
+        <title>dmesg (Diagnostic Messaging Log) for hosts the user was logged into</title>
+        <search>
+          <query>index=nix sourcetype=dmesg "New USB device found" OR ("usb" AND "Manufacturer:") OR ("usb" AND "Product:") 
+[ search index=nix sourcetype=audit_log op="PAM:authentication" res=success acct="$user_token$" | dedup host | table host ]
+| stats list(_raw) AS _raw by _time host
+| table _raw _time host</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Windows - Removable Storage Objects</h1>
+      <h2>User: $user_token$</h2>
+      </div>
+      </html>
+      <table>
+        <title>Removable Storage - Windows OS automatically tags devices as removable storage in event logs. Check the device to verify it is not a secondary drive/fixed media.</title>
+        <search>
+          <query>index=winevents TaskCategory="Removable Storage" user="$user_token$" EventCode=4663 OR EventCode=4656
+| eval Result=case(Keywords="Audit Success", "Success", Keywords="Audit Failure", "Failure")
+| stats count latest(_time) AS _time by host user Process_Name Object_Type Object_Name Result
+| table _time host user Process_Name Object_Type Object_Name Result count
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Linux - Removable Media Directory Monitoring</h1>
+      <h2>User: $user_token$</h2>
+      </div>
+      </html>
+      <table>
+        <title>/dev - /media - /mnt - Commands executed in/pointed to these directories</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=EXECVE
+| eval arg0=urldecode(ltrim(replace(a0,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg0=if(isnull(arg0), a0, arg0)
+| eval arg1=urldecode(ltrim(replace(a1,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg1=if(isnull(arg1), a1, arg1)
+| eval arg2=urldecode(ltrim(replace(a2,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg2=if(isnull(arg2), a2, arg2)
+| eval arg3=urldecode(ltrim(replace(a3,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg3=if(isnull(arg3), a3, arg3)
+| eval cmdline=coalesce(arg0, "") + " " + coalesce(arg1, "") + " " + coalesce(arg2, "") + " " + coalesce(arg3, "")
+| eval cmdline=trim(replace(cmdline, "\s+", " "))
+| join msg [ search index=nix sourcetype=audit_log type=SYSCALL | table msg pid exe ]
+| join msg [ search index=nix sourcetype=audit_log type=CWD | table msg cwd ]
+| join pid [ search index=nix sourcetype=audit_log type=USER_ACCT | table pid acct ]
+| search cwd="*/dev*" OR cwd="*/media*" OR cwd="*/mount*" OR cwd="*/mnt*" OR cmdline="*mount*" OR cmdline="*USB*" OR cmdline="*mnt*" OR cmdline="*dev*" OR cmdline="*media*"
+| search acct="$user_token$"
+| table _time host acct cwd cmdline 
+| sort - _time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Windows - User Account Actions</h1>
+      <h2>User: $user_token$</h2>
+      </div>
+      </html>
+      <table>
+        <title>Account Management - Includes actions taken by/to the target user</title>
+        <search>
+          <query>index=winevents (user="$user_token$" OR src_user="$user_token$") AND (EventCode=4720 OR EventCode=4726 OR EventCode=4725 OR EventCode=4722 OR EventCode=4740)
+| dedup src_user msad_action user
+| rename src_user AS "Admin Account" 
+| rename msad_action AS Action  
+| table  _time "Admin Account" Action  user
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Linux - User Account Actions</h1>
+      <h2>User: $user_token$</h2>
+      </div>
+      </html>
+      <table>
+        <title>Account Management - For local Linux accounts only</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=EXECVE
+| eval arg0=urldecode(ltrim(replace(a0,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg0=if(isnull(arg0), a0, arg0)
+| eval arg1=urldecode(ltrim(replace(a1,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg1=if(isnull(arg1), a1, arg1)
+| eval arg2=urldecode(ltrim(replace(a2,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg2=if(isnull(arg2), a2, arg2)
+| eval arg3=urldecode(ltrim(replace(a3,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg3=if(isnull(arg3), a3, arg3)
+| eval cmdline=coalesce(arg0, "") + " " + coalesce(arg1, "") + " " + coalesce(arg2, "") + " " + coalesce(arg3, "")
+| eval cmdline=trim(replace(cmdline, "\s+", " "))
+| join msg [ search index=nix sourcetype=audit_log type=SYSCALL | table msg pid exe ]
+| join pid [ search index=nix sourcetype=audit_log type=USER_ACCT | table pid acct ]
+| search acct="$user_token$" AND (cmdline="*usermod*" OR cmdline="*useradd*" OR cmdline="*userdel*" OR cmdline="*passwd*" OR cmdline="*chage*")
+| table _time host cmdline
+| sort - _time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <input type="dropdown" token="object_type" searchWhenChanged="true">
+        <label>Object Type</label>
+        <choice value="*">All</choice>
+        <choice value="file">File</choice>
+        <choice value="key">Key</choice>
+        <choice value="process">Process</choice>
+        <default>File</default>
+        <prefix>*</prefix>
+        <suffix>*</suffix>
+        <initialValue>File</initialValue>
+      </input>
+      <html>
+      <div style="text-align: center;">
+      <h1>Windows - Object Access</h1>
+      <h2>User: $user_token$</h2>
+      </div>
+      </html>
+      <table>
+        <title>This captures events for objects that have specific audit permissions listed. Process Creation events will capture more objects within the Command Line.</title>
+        <search>
+          <query>index=winevents user="$user_token$" Object_Type="$object_type$" EventCode=4663 OR EventCode=4656
+| eval Result=case(Keywords="Audit Success", "Success", Keywords="Audit Failure", "Failure")
+| stats count latest(_time) AS _time by host user Object_Name Result
+| rename Object_Name AS "Object Name"
+| table _time host user "Object Name" Result count
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <input type="dropdown" token="process_type" searchWhenChanged="true">
+        <label>Process Type</label>
+        <choice value="*">All</choice>
+        <choice value="C:\\Users\\">Home Directory</choice>
+        <choice value="C:\\Program Files">Program Files</choice>
+        <choice value="Splunk">Splunk</choice>
+        <choice value="System32">System32</choice>
+        <choice value="C:\\Temp">Temp</choice>
+        <choice value="C:\\">C: Drive</choice>
+        <choice value="D:\\">D: Drive</choice>
+        <choice value="E:\\">E: Drive</choice>
+        <choice value="F:\\">F: Drive</choice>
+        <default>*</default>
+        <prefix>*</prefix>
+        <suffix>*</suffix>
+        <initialValue>*</initialValue>
+      </input>
+      <html>
+      <div style="text-align: center;">
+      <h1>Windows - Process Creation</h1>
+      <h2>User: $user_token$</h2>
+      </div>
+      </html>
+      <table>
+        <title>Drilldown - Select row to see process command line</title>
+        <search>
+          <query>index=winevents sourcetype=security New_Process_Name="$process_type$" user="$user_token$"
+| stats count latest(_time) AS _time BY host New_Process_Name 
+| table _time host New_Process_Name count
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <set token="process_token">$row.New_Process_Name$</set>
+          <set token="host_token">$row.host$</set>
+        </drilldown>
+      </table>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Windows - Process Command Line</h1>
+      <h2>User: $user_token$</h2>
+      </div>
+      </html>
+      <table>
+        <title>Drilldown Results - Select process name to the left to populate</title>
+        <search>
+          <query>index=winevents sourcetype=security New_Process_Name=$process_token|s$ user="$user_token$" host=$host_token$
+| table Process_Command_Line
+| sort - _time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Windows - Print Jobs</h1>
+      <h2>User: $user_token$</h2>
+      </div>
+      </html>
+      <table>
+        <title>For monitoring prints to devices as well as 'Print to PDF' - Windows OS often duplicates print job events due to internal logging configurations</title>
+        <search>
+          <query>index=winevents source=job user=$user_token$
+| table _time host user printer document size_bytes total_pages page_printed</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+</form>

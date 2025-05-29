@@ -1,0 +1,2326 @@
+
+<dashboard version="2" theme="dark">
+    <label>Overview</label>
+    <description></description>
+    <definition><![CDATA[
+{
+	"visualizations": {
+		"viz_wn90iAIj": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Enabled",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#0877a6"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#0877a6",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_a58BYt5q"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"title": "Active Directory Accounts",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_nRJHoa2s": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Locked Out",
+				"backgroundColor": "> majorValue | rangeValue(convertedColorRange)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#f58f39"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_nXmQUsLf"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"showProgressBar": true,
+			"title": "Active Directory Accounts",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_AmiUVZGi": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Disabled",
+				"backgroundColor": "> majorValue | rangeValue(convertedColorRange)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#555"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_IPCaxA8q"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"showProgressBar": true,
+			"title": "Active Directory Accounts",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_And7Wozw": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"columnFormat": {
+					"Username": {
+						"width": 60
+					}
+				},
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				},
+				"backgroundColor": "#12282b"
+			},
+			"dataSources": {
+				"primary": "ds_7ffh4ALT"
+			},
+			"title": "Active Directory Users",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_wSLGeZvs": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"columnFormat": {
+					"status": {
+						"rowBackgroundColors": "> table | seriesByName(\"status\") | matchValue(statusColumnColorConfig)"
+					},
+					"host": {
+						"width": 130
+					}
+				},
+				"backgroundColor": "#12282b",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"context": {
+				"statusColumnColorConfig": [
+					{
+						"match": "Active",
+						"value": "#277C52"
+					},
+					{
+						"match": "Not Reporting",
+						"value": "#D93F3C"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_LDhKIbNC"
+			},
+			"title": "Active Directory Systems",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Reporting to Splunk"
+		},
+		"viz_94Lac474": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Successful Logons",
+				"backgroundColor": "> majorValue | rangeValue(convertedColorRange)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_e0KCXOTD"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "authentications",
+						"newTab": true
+					}
+				}
+			],
+			"title": "Windows & Linux",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Interactive Logons"
+		},
+		"viz_VkePm3rR": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Failed Attempts",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_GqRyFmep"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "authentications",
+						"newTab": true
+					}
+				}
+			],
+			"title": "Windows & Linux",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Interactive Logons"
+		},
+		"viz_CG33ckg3": {
+			"type": "splunk.line",
+			"options": {
+				"yAxisAbbreviation": "auto",
+				"y2AxisAbbreviation": "off",
+				"showRoundedY2AxisLabels": false,
+				"legendTruncation": "ellipsisMiddle",
+				"showY2MajorGridLines": true,
+				"xAxisTitleVisibility": "hide",
+				"yAxisTitleVisibility": "hide",
+				"backgroundColor": "transparent",
+				"yAxisScale": "log"
+			},
+			"dataSources": {
+				"primary": "ds_iDV7NmpQ"
+			},
+			"title": "Removable Media Events by User",
+			"showProgressBar": true,
+			"hideWhenNoData": false,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Event ID: 4656 & 4663 (Object Access)"
+		},
+		"viz_xNDtidAP": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Systems >75% Audit Storage Capacity",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_x3HUWqhr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "AU-5(1) - Storage Capacity Alert",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "C:"
+		},
+		"viz_0tKeqtzZ": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Systems >75% Audit Storage Capacity",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_MUWxXHR8"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "AU-5(1) - Storage Capacity Alert",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "/var/log"
+		},
+		"viz_rnD9cyhh": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"dataSources": {
+				"primary": "ds_3Qv41mfA"
+			},
+			"context": {
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#d93f3c",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			},
+			"title": "Systems Reporting",
+			"description": "Active Directory Systems",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_ElIMTjio": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"dataSources": {
+				"primary": "ds_wmemMA16_ds_3Qv41mfA"
+			},
+			"context": {
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"title": "Systems Reporting",
+			"description": "Active Directory Systems",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_CkRZmmDH": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"dataSources": {
+				"primary": "ds_jpEBEzS7_ds_3Qv41mfA"
+			},
+			"context": {
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#d93f3c",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			},
+			"title": "Systems Reporting",
+			"description": "Syslog Devices",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_M1aeTRlm": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Days",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 31
+					},
+					{
+						"value": "#d93f3c",
+						"from": 31
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_2bt9jY8i_ds_x3HUWqhr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "SI-2 - Flaw Remediation",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Nessus Plugin Age"
+		},
+		"viz_o31qGbaj": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Events",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "SC-28 - Data at Rest",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Bitlocker Enabled/Disabled"
+		},
+		"viz_LVwmDM7Q": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Windows Systems",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "SI-2 - Flaw Remediation",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Not Applying Patches >30 Days"
+		},
+		"viz_LVVWZdjN": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"backgroundColor": "#708794"
+			},
+			"dataSources": {
+				"primary": "ds_A61v5MET"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "SI-3 - Antivirus Protection",
+			"description": "Oldest AV Definitions Date",
+			"containerOptions": {},
+			"showProgressBar": false,
+			"showLastUpdated": false
+		},
+		"viz_vKDJ2gCV": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Windows Systems",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "SI-3 - Antivirus Protection",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Out-of-Date AV Definitions"
+		},
+		"viz_GP3zdqgh": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Windows Systems",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_cmld5R89_ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "SI-3 - Antivirus Protection",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Systems without Full AV Scan"
+		},
+		"viz_j0rsAfE6": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Systems",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#d93f3c",
+						"to": 1
+					},
+					{
+						"value": "#0877a6",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_yfpMLDkF_ds_cmld5R89_ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Count of Windows Systems",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": ""
+		},
+		"viz_Bdog28ML": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Systems",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#708794",
+						"to": 1
+					},
+					{
+						"value": "#0877a6",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_AVTqtmtl_ds_yfpMLDkF_ds_cmld5R89_ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Count of Linux Systems",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": ""
+		},
+		"viz_lDhl3VIw": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"backgroundColor": "#708794"
+			},
+			"dataSources": {
+				"primary": "ds_LPxURQRY_ds_A61v5MET"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "SI-3 - Antivirus Protection",
+			"description": "Oldest AV Definitions Date",
+			"containerOptions": {},
+			"showProgressBar": false,
+			"showLastUpdated": false
+		},
+		"viz_CMLKZ8wS": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Linux Systems",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_YdrBIlyt_ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "SI-3 - Antivirus Protection",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Out-of-Date AV Definitions"
+		},
+		"viz_Vcmma612": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Linux Systems",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_NrJhYxZ6_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "SI-2 - Flaw Remediation",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Not Applying Patches >30 Days"
+		},
+		"viz_pkbkZM2U": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Systems Failed to Backup",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_n9TF2MsO_ds_MUWxXHR8"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "conmon_controls_windows",
+						"newTab": true
+					}
+				}
+			],
+			"title": "CP-9 Systems Backup",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Windows Server"
+		},
+		"viz_WdcaZJBb": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Systems Successfully Backed Up",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#708794",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_eX4D10Xw_ds_n9TF2MsO_ds_MUWxXHR8"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "conmon_controls_windows",
+						"newTab": true
+					}
+				}
+			],
+			"title": "CP-9 Systems Backup",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Windows Server"
+		},
+		"viz_64c0kUPK": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Linux Systems",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_F4hB4qWx_ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "SI-3 - Antivirus Protection",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Systems without Full AV Scan"
+		},
+		"viz_IqN3OpL9": {
+			"type": "splunk.singlevalueicon",
+			"options": {
+				"showValue": false,
+				"icon": "splunk-enterprise-kvstore://icon-desktop__65679a5e-ea9f-4dfc-9a72-e31b0f8b10ef.svg"
+			}
+		},
+		"viz_XzyRbddF": {
+			"type": "splunk.markdown",
+			"options": {
+				"markdown": "### Windows",
+				"fontSize": "extraLarge",
+				"fontFamily": "Splunk Data Sans"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_EMHxi9ab": {
+			"type": "splunk.singlevalueicon",
+			"options": {
+				"showValue": false,
+				"icon": "splunk-enterprise-kvstore://icon-desktop__65679a5e-ea9f-4dfc-9a72-e31b0f8b10ef.svg"
+			}
+		},
+		"viz_8jjXSbDj": {
+			"type": "splunk.markdown",
+			"options": {
+				"markdown": "###  Linux",
+				"fontSize": "extraLarge",
+				"fontFamily": "Splunk Data Sans"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_xALJ5VCj": {
+			"type": "abslayout.line"
+		},
+		"viz_1fApmTT3": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"backgroundColor": "#708794"
+			},
+			"dataSources": {
+				"primary": "ds_UACMNRXv_ds_A61v5MET"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "SI-2 - Flaw Remediation",
+			"description": "Oldest Patch Date",
+			"containerOptions": {},
+			"showProgressBar": false,
+			"showLastUpdated": false
+		},
+		"viz_UTT8KJPT": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"backgroundColor": "#708794"
+			},
+			"dataSources": {
+				"primary": "ds_YaY4uF6A_ds_LPxURQRY_ds_A61v5MET"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "SI-2 - Flaw Remediation",
+			"description": "Oldest Patch Date",
+			"containerOptions": {},
+			"showProgressBar": false,
+			"showLastUpdated": false
+		},
+		"viz_RDMrn1eG": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Events",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_ok4wWeN1_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "SC-28 - Data at Rest",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "LUKS Enabled/Disabled"
+		},
+		"viz_pqNoFS8d": {
+			"type": "splunk.singlevalueicon",
+			"options": {
+				"showValue": false,
+				"icon": "splunk-enterprise-kvstore://icon-gear__c99f1d12-649f-433a-890a-bbf5cf548a6a.svg"
+			}
+		},
+		"viz_Z1PszNpo": {
+			"type": "splunk.markdown",
+			"options": {
+				"markdown": "### Miscellaneous ",
+				"fontSize": "extraLarge",
+				"fontFamily": "Splunk Data Sans"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_6MdPl1Bw": {
+			"type": "abslayout.line"
+		}
+	},
+	"dataSources": {
+		"ds_a58BYt5q": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"script:get-aduser_details.bat\" Enabled=true\n| stats dc(SamAccountName)",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "Active Directory Accounts - Single value 1 search"
+		},
+		"ds_nXmQUsLf": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"script:get-aduser_details.bat\" LockedOut=true\n| stats dc(SamAccountName)",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "Active Directory Accounts - Single value 2 search"
+		},
+		"ds_IPCaxA8q": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"script:get-aduser_details.bat\" Enabled=false\n| stats dc(SamAccountName)",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "Active Directory Accounts - Single value 3 search"
+		},
+		"ds_y8fEd4DZ": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"script:get-adcomputer.bat\" Name=* IPv4address!=null\n| dedup Name\n| rename Name as host\n| join type=left host [search index=_internal earliest=-4h | stats count by host | eval host=upper(mvindex(split(host, \".\"), 0))]\n| eval status=if(isnull(count), \"Not Reporting\", \"Reporting\")\n| stats dc(host) AS Hosts BY status",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "Active Directory Systems Reporting to Splunk - Pie chart search"
+		},
+		"ds_7ffh4ALT": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"script:get-aduser.bat\"\n| dedup SamAccountName\n| rename SamAccountName AS Username\n| rename LastSuccessfulLogon.DateTime AS \"Last Successful Logon\"\n| table Username \"Last Successful Logon\"\n| sort Username",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "Active Directory Users - Table search"
+		},
+		"ds_LDhKIbNC": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"script:get-adcomputer.bat\" Name=* IPv4address!=null\n| dedup Name\n| rename Name as host\n| join type=left host [search index=_internal earliest=-4h | stats count by host | eval host=upper(mvindex(split(host, \".\"), 0))]\n| eval status=if(isnull(count), \"Not Reporting\", \"Active\")\n| table host status\n| sort -status +host",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "Active Directory Systems - Table search"
+		},
+		"ds_e0KCXOTD": {
+			"type": "ds.search",
+			"options": {
+				"query": "| loadjob savedsearch=\"admin:CS_Overview:Interactive Logon Count\"",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "Authentications - Windows _ Linux - Interactive Logon Successes search"
+		},
+		"ds_GqRyFmep": {
+			"type": "ds.search",
+			"options": {
+				"query": "| loadjob savedsearch=\"admin:CS_Overview:Interactive Logon Count Failures\"",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "Authentications - Windows _ Linux - Interactive Logon Failures search"
+		},
+		"ds_iDV7NmpQ": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=\"security\" Security_ID=\"PROGRAM*\" TaskCategory=\"Removable Storage\" EventCode=4663 OR EventCode=4656 \n| timechart count span=1h by user",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "Removable Media Events by User - Line chart search"
+		},
+		"ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"script:getpsdrive\" Name=\"C\"\n| dedup host Name\n| where UsedPct > 75.00\n| stats count",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "AU-5_1_ - Storage Capacity Warning _Windows_ - System Drives over 75__ Storage Capacity search"
+		},
+		"ds_GIut0Gll": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"script:getpsdrive\"\n| dedup host Name\n| table host Name UsedGB TotalGB UsedPct",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "AU-5_1_ - Storage Capacity Warning _Windows_ - All System Storage Details search"
+		},
+		"ds_MUWxXHR8": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix source=\"script:df_storage_space.sh\" mountpoint=\"/var/log*\"\n| dedup host filesystem type mountpoint\n| where used_pct > 75.00\n| stats dc(host)\n| sort +host -used_pct",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "AU-5_1_ - Storage Capacity Warning _Linux_ - Systems over 75__ Audit Storage Capacity search"
+		},
+		"ds_Er4bjTB7": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix source=\"script:df_storage_space.sh\"\n| dedup host filesystem type mountpoint\n| eval host=upper(mvindex(split(host, \".\"), 0))\n| table host filesystem type mountpoint used_gb size_gb used_pct\n| sort +host -used_pct",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "AU-5_1_ - Storage Capacity Warning _Linux_ - All System Storage Details search"
+		},
+		"ds_vRFVOSsf": {
+			"type": "ds.search",
+			"options": {
+				"query": "| tstats count where index=cisco OR index=vmware OR index=palo-alto BY index source host\n| dedup index source host\n| search host!=SEC01* host!=DC01*\n| timechart count by host",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "Devices Sending Syslog to Splunk - Events 1 search"
+		},
+		"ds_8rInYcqw": {
+			"type": "ds.chain",
+			"options": {
+				"query": "| fieldsummary maxvals=10",
+				"extend": "ds_vRFVOSsf"
+			},
+			"name": "Devices Sending Syslog to Splunk - Events 2 search"
+		},
+		"ds_DOYhSrzf": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				},
+				"query": "index=winevents sourcetype=security EventCode=4688 \"LogCollection.ps1\"\n| timechart count by Keywords"
+			},
+			"name": "LogCollection.ps1"
+		},
+		"ds_3Qv41mfA": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				},
+				"query": "index=windows source=\"script:get-adcomputer.bat\" Name=* IPv4address!=null\n| dedup Name\n| rename Name as host\n| join type=left host [search index=_internal earliest=-4h | stats count by host | eval host=upper(mvindex(split(host, \".\"), 0))]\n| eval status=if(isnull(count), \"Not Reporting\", \"Reporting\")\n| search status=\"Reporting\"\n| stats dc(host) AS Hosts"
+			},
+			"name": "Systems Reporting"
+		},
+		"ds_wmemMA16_ds_3Qv41mfA": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				},
+				"query": "index=windows source=\"script:get-adcomputer.bat\" Name=* IPv4address!=null\n| dedup Name\n| rename Name as host\n| join type=left host [search index=_internal earliest=-4h | stats count by host | eval host=upper(mvindex(split(host, \".\"), 0))]\n| eval status=if(isnull(count), \"Not Reporting\", \"Reporting\")\n| search status=\"Not Reporting\"\n| stats dc(host) AS Hosts"
+			},
+			"name": "Systems Not Reporting"
+		},
+		"ds_jpEBEzS7_ds_3Qv41mfA": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				},
+				"query": "| tstats count where index=cisco OR index=palo-alto BY index source host\n| dedup index source host\n| search host!=SEC01* host!=DC01*\n| stats dc(host)"
+			},
+			"name": "Syslog Systems Reporting"
+		},
+		"ds_VQcSGcRL": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				},
+				"query": "index=winevents sourcetype=win_backups EventCode=19 OR EventCode=49\n| dedup _time host\n| timechart count by host"
+			},
+			"name": "System Backup"
+		},
+		"ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=\"nessus\" source=\"C:\\\\ProgramData\\\\Tenable\\\\Nessus\\\\nessus\\\\plugins\\\\plugin_feed_info.inc\" sourcetype=\"nessuscli\"\n| eval plugin_days = strptime(PLUGIN_SET, \"%Y%m%d%H%M\")\n| eval days = round((now()-plugin_days)/86400)\n| stats latest(days) AS \"Days Passed\"",
+				"queryParameters": {
+					"earliest": "0",
+					"latest": ""
+				}
+			},
+			"name": "Flaw Remediation"
+		},
+		"ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=bitlocker-api EventCode=773 OR EventCode=774 OR EventCode=770 OR EventCode=768\n| stats count",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "Bitlocker Events"
+		},
+		"ds_zh57okIm": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				},
+				"query": "index=windows sourcetype=_json  source=\"Script:Windows-update-status\" \n| dedup host Description\n| rename HotFixID AS Patch \n| rename InstalledOn.DateTime AS \"Install Date\"  \n| table  \"Install Date\" host Description Patch InstalledBy \n| sort -_time"
+			},
+			"name": "Windows Updates"
+		},
+		"ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=bitlocker-api EventCode=773 OR EventCode=774 OR EventCode=770 OR EventCode=768\n| stats count",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "Bitlocker Events copy 1"
+		},
+		"ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents OR index=windows earliest=-8h\n| dedup host\n| join host [search index=winevents sourcetype=update-client EventCode=41 | stats count by host]\n| eval status=if(isnull(count), \"Not Reporting\", \"Active\")\n| where status=\"Not Reporting\"\n| stats dc(host)",
+				"queryParameters": {
+					"earliest": "-30d@d",
+					"latest": "now"
+				}
+			},
+			"name": "Windows Update Downloads Count"
+		},
+		"ds_A61v5MET": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "-7d@h",
+					"latest": "now"
+				},
+				"query": "index=winevents source=\"WinEventLog:Microsoft-Windows-Windows Defender/Operational\" EventCode=1151\n| eval AV_Defs_Date = strftime(strptime(Antivirus_security_intelligence_creation_time, \"%Y-%m-%dT%H:%M:%SZ\"), \"%Y-%m-%d\")\n| stats latest(AV_Defs_Date) AS \"AV Definitions Date\" BY host\n| sort \"AV Definitions Date\"\n| fields \"AV Definitions Date\""
+			},
+			"name": "Oldest AV Definitions Date"
+		},
+		"ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Microsoft-Windows-Windows Defender/Operational\" EventCode=1151\n| dedup host\n| where Antivirus_security_intelligence_age > 7\n| stats dc(host)",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "Windows Update Downloads Count copy 1"
+		},
+		"ds_cmld5R89_ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Microsoft-Windows-Windows Defender/Operational\" EventCode=1151\n| dedup host\n| eval Status=case(Last_full_scan_age <= 7, \"Compliant\", Last_full_scan_age <= 14, \"Warning\", Last_full_scan_age > 14, \"Non-Compliant\")\n| where Status=\"Non-Compliant\"\n| stats dc(host)",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "Windows Defender Scan Age"
+		},
+		"ds_yfpMLDkF_ds_cmld5R89_ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "| tstats count where index=windows OR index=winevents BY host\n| dedup host\n| stats dc(host)",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "Windows Systems Count"
+		},
+		"ds_HNGYTinP_ds_cmld5R89_ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Microsoft-Windows-Windows Defender/Operational\" EventCode=1151\n| dedup host\n| eval Status=case(Last_full_scan_age <= 7, \"Compliant\", Last_full_scan_age <= 14, \"Warning\", Last_full_scan_age > 14, \"Non-Compliant\")\n| where Status=\"Non-Compliant\"\n| stats dc(host)",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "Windows Defender Scan Age copy 1"
+		},
+		"ds_nXuADDZy_ds_zh57okIm": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				},
+				"query": "index=nix sourcetype=clamscan\n| dedup host\n| table host _raw"
+			},
+			"name": "linux clamscan"
+		},
+		"ds_AVTqtmtl_ds_yfpMLDkF_ds_cmld5R89_ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "| tstats count where index=nix BY host\n| dedup host\n| stats dc(host)",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "Linux Systems Count"
+		},
+		"ds_LPxURQRY_ds_A61v5MET": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "-7d@h",
+					"latest": "now"
+				},
+				"query": "index=nix source=\"script:clamav_defs.sh\"\n| eval AV_Defs_Date = strftime(strptime(last_modified, \"%Y-%m-%d %H:%M:%S.%9N %z\"), \"%Y-%m-%d\")\n| table AV_Defs_Date\n| sort AV_Defs_Date\n| head 1"
+			},
+			"name": "Oldest AV Definitions Date Linux"
+		},
+		"ds_YdrBIlyt_ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix source=\"script:clamav_defs.sh\"\n| eval AV_Defs_Date = strptime(last_modified, \"%Y-%m-%d %H:%M:%S.%9N %z\")\n| stats latest(AV_Defs_Date) AS AV_Defs_Date BY host\n| where AV_Defs_Date < (now() - 86400 * 7)\n| stats count",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "Linux Update Downloads Count copy 2"
+		},
+		"ds_3zDDhxHf_ds_zh57okIm": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "-60d@d",
+					"latest": "now"
+				},
+				"query": "index=nix sourcetype=history_log \"Start-Date\"  commandline!=\"apt autoremove\" \n| dedup host commandline  \n| table start_date host commandline requested_by\n| sort start_date"
+			},
+			"name": "Linux Updates"
+		},
+		"ds_NrJhYxZ6_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "| tstats count where index=nix BY host sourcetype\n| stats values(sourcetype) AS sourcetypes BY host\n| eval status=if(match(sourcetypes, \"history_log\"), \"Active\", \"Not Reporting\")\n| where status=\"Not Reporting\"\n| stats dc(host)",
+				"queryParameters": {
+					"earliest": "-30d@d",
+					"latest": "now"
+				}
+			},
+			"name": "Linux Update Downloads Count"
+		},
+		"ds_FSZyfxuv_ds_VQcSGcRL": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				},
+				"query": "index=winevents sourcetype=win_backups EventCode=19 OR EventCode=49\n| timechart count by host"
+			},
+			"name": "System Backup copy 1"
+		},
+		"ds_n9TF2MsO_ds_MUWxXHR8": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=win_backups EventCode=19 OR EventCode=49\n| stats dc(host)",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "AU-5_1_ - Storage Capacity Warning _Linux_ - Systems over 75__ Audit Storage Capacity search copy 1"
+		},
+		"ds_74hztyCm_ds_n9TF2MsO_ds_MUWxXHR8": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=win_backups EventCode=4\n| stats dc(host)",
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				}
+			},
+			"name": "Windows backup count"
+		},
+		"ds_eX4D10Xw_ds_n9TF2MsO_ds_MUWxXHR8": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=win_backups EventCode=4\n| stats dc(host)",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "Windows Server Backup Success"
+		},
+		"ds_2LWnYl6a_ds_VQcSGcRL": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				},
+				"query": "index=winevents sourcetype=win_backups EventCode=4\n| dedup _time host\n| timechart count by host"
+			},
+			"name": "System Backup Success"
+		},
+		"ds_F4hB4qWx_ds_DZkAZnNl_ds_khpMD8RZ_ds_S4MDcss5_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix sourcetype=\"clamav_log\" \"+++ Started\"\n| stats latest(_time) AS AV_Scan by host\n| where AV_Scan < (now() - 86400 * 7)\n| stats count",
+				"queryParameters": {
+					"earliest": "-30d@d",
+					"latest": "now"
+				}
+			},
+			"name": "Linux Full AV Scan"
+		},
+		"ds_W1BNs6UB": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$field1.earliest$",
+					"latest": "$field1.latest$"
+				},
+				"query": "index=windows source=script:get-ntpstatus\n| dedup host\n| table host NtpSource LastSyncTime PollInterval"
+			},
+			"name": "Windows System Time Check"
+		},
+		"ds_UACMNRXv_ds_A61v5MET": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "-7d@h",
+					"latest": "now"
+				},
+				"query": "index=windows sourcetype=_json  source=\"Script:Windows-update-status\" \n| eval Patch_Date = strftime(strptime('InstalledOn.DateTime', \"%A, %B %d, %Y %I:%M:%S %p\"), \"%Y-%m-%d\")\n| stats latest(Patch_Date) AS \"Patch Date\" BY host\n| sort \"Patch Date\"\n| fields \"Patch Date\""
+			},
+			"name": "Oldest Patch Date"
+		},
+		"ds_YaY4uF6A_ds_LPxURQRY_ds_A61v5MET": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "-60d@d",
+					"latest": "now"
+				},
+				"query": "index=nix sourcetype=history_log \"Start-Date\"  commandline!=\"apt autoremove\" \n| eval Patch_Date = strftime(strptime('start_date', \"%Y-%m-%d  %H:%M:%S\"), \"%Y-%m-%d\")\n| stats latest(Patch_Date) AS \"Patch Date\" BY host\n| sort \"Patch Date\"\n| fields \"Patch Date\""
+			},
+			"name": "Oldest Patch Date Linux"
+		},
+		"ds_ok4wWeN1_ds_TcR1bDRc_ds_2bt9jY8i_ds_x3HUWqhr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix sourcetype=audit_log exe=\"*cryptsetup*\"\n| dedup _time\n| stats count",
+				"queryParameters": {
+					"earliest": "$Global_time.earliest$",
+					"latest": "$Global_time.latest$"
+				}
+			},
+			"name": "Cryptsetup Events"
+		}
+	},
+	"defaults": {
+		"dataSources": {
+			"ds.search": {
+				"options": {
+					"queryParameters": {}
+				}
+			}
+		}
+	},
+	"inputs": {
+		"input_rpRRiI77": {
+			"type": "input.timerange",
+			"options": {
+				"token": "Global_time",
+				"defaultValue": "-7d@d,now"
+			},
+			"title": ""
+		}
+	},
+	"layout": {
+		"type": "absolute",
+		"options": {
+			"submitButton": false,
+			"height": 1690,
+			"width": 1440,
+			"backgroundImage": {
+				"sizeType": "cover",
+				"x": 0,
+				"y": 0,
+				"src": "splunk-enterprise-kvstore://680f8fd49a3721cd4c009249"
+			},
+			"showTitleAndDescription": false,
+			"backgroundColor": "#025865"
+		},
+		"structure": [
+			{
+				"item": "viz_wn90iAIj",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 10,
+					"w": 190,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_nRJHoa2s",
+				"type": "block",
+				"position": {
+					"x": 210,
+					"y": 10,
+					"w": 190,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_AmiUVZGi",
+				"type": "block",
+				"position": {
+					"x": 410,
+					"y": 10,
+					"w": 190,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_And7Wozw",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 180,
+					"w": 590,
+					"h": 500
+				}
+			},
+			{
+				"item": "viz_wSLGeZvs",
+				"type": "block",
+				"position": {
+					"x": 810,
+					"y": 10,
+					"w": 620,
+					"h": 500
+				}
+			},
+			{
+				"item": "viz_94Lac474",
+				"type": "block",
+				"position": {
+					"x": 610,
+					"y": 520,
+					"w": 190,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_VkePm3rR",
+				"type": "block",
+				"position": {
+					"x": 810,
+					"y": 520,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_CG33ckg3",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 690,
+					"w": 1420,
+					"h": 270
+				}
+			},
+			{
+				"item": "viz_xNDtidAP",
+				"type": "block",
+				"position": {
+					"x": 440,
+					"y": 970,
+					"w": 240,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_0tKeqtzZ",
+				"type": "block",
+				"position": {
+					"x": 1180,
+					"y": 970,
+					"w": 240,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_rnD9cyhh",
+				"type": "block",
+				"position": {
+					"x": 610,
+					"y": 10,
+					"w": 190,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_ElIMTjio",
+				"type": "block",
+				"position": {
+					"x": 610,
+					"y": 180,
+					"w": 190,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_CkRZmmDH",
+				"type": "block",
+				"position": {
+					"x": 610,
+					"y": 350,
+					"w": 190,
+					"h": 160
+				}
+			},
+			{
+				"item": "input_rpRRiI77",
+				"type": "input",
+				"position": {
+					"x": 1250,
+					"y": -10,
+					"w": 180,
+					"h": 72
+				}
+			},
+			{
+				"item": "viz_M1aeTRlm",
+				"type": "block",
+				"position": {
+					"x": 230,
+					"y": 1510,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_o31qGbaj",
+				"type": "block",
+				"position": {
+					"x": 20,
+					"y": 1140,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_LVwmDM7Q",
+				"type": "block",
+				"position": {
+					"x": 230,
+					"y": 1140,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_LVVWZdjN",
+				"type": "block",
+				"position": {
+					"x": 440,
+					"y": 1310,
+					"w": 240,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_vKDJ2gCV",
+				"type": "block",
+				"position": {
+					"x": 20,
+					"y": 1310,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_GP3zdqgh",
+				"type": "block",
+				"position": {
+					"x": 230,
+					"y": 1310,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_j0rsAfE6",
+				"type": "block",
+				"position": {
+					"x": 230,
+					"y": 970,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_Bdog28ML",
+				"type": "block",
+				"position": {
+					"x": 970,
+					"y": 970,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_lDhl3VIw",
+				"type": "block",
+				"position": {
+					"x": 1180,
+					"y": 1310,
+					"w": 240,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_CMLKZ8wS",
+				"type": "block",
+				"position": {
+					"x": 760,
+					"y": 1310,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_Vcmma612",
+				"type": "block",
+				"position": {
+					"x": 970,
+					"y": 1140,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_pkbkZM2U",
+				"type": "block",
+				"position": {
+					"x": 1230,
+					"y": 520,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_WdcaZJBb",
+				"type": "block",
+				"position": {
+					"x": 1020,
+					"y": 520,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_64c0kUPK",
+				"type": "block",
+				"position": {
+					"x": 970,
+					"y": 1310,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_IqN3OpL9",
+				"type": "block",
+				"position": {
+					"x": 30,
+					"y": 980,
+					"w": 170,
+					"h": 130
+				}
+			},
+			{
+				"item": "viz_XzyRbddF",
+				"type": "block",
+				"position": {
+					"x": 60,
+					"y": 1010,
+					"w": 110,
+					"h": 30
+				}
+			},
+			{
+				"item": "viz_EMHxi9ab",
+				"type": "block",
+				"position": {
+					"x": 770,
+					"y": 980,
+					"w": 170,
+					"h": 130
+				}
+			},
+			{
+				"item": "viz_8jjXSbDj",
+				"type": "block",
+				"position": {
+					"x": 820,
+					"y": 1010,
+					"w": 70,
+					"h": 30
+				}
+			},
+			{
+				"item": "viz_xALJ5VCj",
+				"type": "line",
+				"position": {
+					"from": {
+						"item": "viz_CG33ckg3",
+						"port": "s"
+					},
+					"to": {
+						"x": 720,
+						"y": 1496
+					}
+				}
+			},
+			{
+				"item": "viz_1fApmTT3",
+				"type": "block",
+				"position": {
+					"x": 440,
+					"y": 1140,
+					"w": 240,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_UTT8KJPT",
+				"type": "block",
+				"position": {
+					"x": 1180,
+					"y": 1140,
+					"w": 240,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_RDMrn1eG",
+				"type": "block",
+				"position": {
+					"x": 760,
+					"y": 1140,
+					"w": 200,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_pqNoFS8d",
+				"type": "block",
+				"position": {
+					"x": 20,
+					"y": 1510,
+					"w": 190,
+					"h": 100
+				}
+			},
+			{
+				"item": "viz_Z1PszNpo",
+				"type": "block",
+				"position": {
+					"x": 40,
+					"y": 1630,
+					"w": 160,
+					"h": 30
+				}
+			},
+			{
+				"item": "viz_6MdPl1Bw",
+				"type": "line",
+				"position": {
+					"from": {
+						"x": 17,
+						"y": 1498
+					},
+					"to": {
+						"x": 1417,
+						"y": 1496
+					}
+				}
+			}
+		],
+		"globalInputs": []
+	},
+	"description": "",
+	"title": "Overview"
+}
+    ]]></definition>
+    <meta type="hiddenElements"><![CDATA[
+{
+	"hideEdit": false,
+	"hideOpenInSearch": false,
+	"hideExport": false
+}
+    ]]></meta>
+    <meta type="conversionReport"><![CDATA[
+{
+	"conversionErrors": [],
+	"conversionWarnings": [],
+	"counts": {
+		"visualizations": {
+			"count": 14,
+			"convertedCount": 14,
+			"configCount": 104,
+			"convertedConfigCount": 104
+		},
+		"inputs": {
+			"count": 1,
+			"convertedCount": 1,
+			"configCount": 3,
+			"convertedConfigCount": 3
+		},
+		"searches": {
+			"count": 14,
+			"convertedCount": 14,
+			"configCount": 42,
+			"convertedConfigCount": 42
+		},
+		"dataSources": 15,
+		"panels": {
+			"count": 9,
+			"convertedCount": 9,
+			"configCount": 0,
+			"convertedConfigCount": 0
+		},
+		"rows": {
+			"count": 6,
+			"convertedCount": 6,
+			"configCount": 0,
+			"convertedConfigCount": 0
+		},
+		"dashboardLevelConfigs": {
+			"count": 1,
+			"convertedCount": 1,
+			"configCount": 2,
+			"convertedConfigCount": 2
+		}
+	},
+	"conversionTime": 1745846980791,
+	"originDashboardTitle": "Overview",
+	"originDashboardId": "CS_Overview",
+	"originDashboardApp": "CS_Overview"
+}
+    ]]></meta>
+</dashboard>

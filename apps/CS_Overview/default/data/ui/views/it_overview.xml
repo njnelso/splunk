@@ -1,0 +1,345 @@
+
+<dashboard version="2" theme="dark">
+    <label>IT Overview</label>
+    <description></description>
+    <definition><![CDATA[
+{
+	"visualizations": {
+		"viz_JolsuZZz": {
+			"type": "splunk.table",
+			"dataSources": {
+				"primary": "ds_mR5TifRI"
+			},
+			"context": {
+				"majorColorEditorConfig": [
+					{
+						"to": 20,
+						"value": "#D41F1F"
+					},
+					{
+						"from": 20,
+						"to": 40,
+						"value": "#D94E17"
+					},
+					{
+						"from": 40,
+						"to": 60,
+						"value": "#CBA700"
+					},
+					{
+						"from": 60,
+						"to": 80,
+						"value": "#669922"
+					},
+					{
+						"from": 80,
+						"value": "#118832"
+					}
+				]
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"containerOptions": {},
+			"showProgressBar": false,
+			"showLastUpdated": false,
+			"title": "System Uptime",
+			"description": "Windows",
+			"options": {
+				"columnFormat": {
+					"host": {
+						"width": 69
+					},
+					"Shutdown_Type": {
+						"width": 85
+					}
+				}
+			}
+		},
+		"viz_IunOpRnF": {
+			"type": "splunk.table",
+			"title": "System Uptime",
+			"description": "Linux"
+		},
+		"viz_OPXAXA8W": {
+			"type": "splunk.column",
+			"options": {
+				"xAxisTitleVisibility": "hide",
+				"backgroundColor": "transparent",
+				"seriesSpacing": 0,
+				"columnSpacing": 8
+			},
+			"dataSources": {
+				"primary": "ds_Hzi894zB"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "Event Log Stopped",
+			"description": "Windows"
+		},
+		"viz_4JjTtAq7": {
+			"type": "splunk.table",
+			"options": {}
+		},
+		"viz_m7AIEY7X": {
+			"type": "splunk.column",
+			"options": {
+				"xAxisTitleVisibility": "hide",
+				"backgroundColor": "transparent",
+				"seriesSpacing": 0,
+				"columnSpacing": 8
+			},
+			"dataSources": {
+				"primary": "ds_IgEpe01I_ds_Hzi894zB"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "Event Log Started",
+			"description": "Windows"
+		},
+		"viz_pLByd1vr": {
+			"type": "splunk.column",
+			"dataSources": {
+				"primary": "ds_btAcsEC5_ds_LIne8bKu"
+			},
+			"title": "User-Initiated Shutdown/Restart",
+			"description": "Windows",
+			"options": {
+				"backgroundColor": "transparent",
+				"columnSpacing": 8,
+				"xAxisTitleVisibility": "hide"
+			},
+			"containerOptions": {},
+			"showProgressBar": false,
+			"showLastUpdated": false,
+			"eventHandlers": [
+				{
+					"type": "drilldown.setToken",
+					"options": {
+						"tokens": [
+							{
+								"token": "host_token",
+								"key": "row.host.value"
+							}
+						]
+					}
+				}
+			]
+		},
+		"viz_OPYRNQpG": {
+			"type": "splunk.table",
+			"options": {
+				"columnFormat": {
+					"host": {
+						"width": 30
+					},
+					"Shutdown_Type": {
+						"width": 30
+					},
+					"Time": {
+						"width": 30
+					}
+				}
+			},
+			"dataSources": {
+				"primary": "ds_LIne8bKu"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		}
+	},
+	"dataSources": {
+		"ds_mR5TifRI": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=system SourceName=EventLog EventCode=6013\n| dedup host\n| rex field=Message \"The system uptime is (?<uptime_seconds>\\d+) seconds\"\n| eval days = floor(uptime_seconds / 86400)\n| eval hours = round((uptime_seconds % 86400) / 3600, 1)\n| eval uptime = days . \" days, \" . hours . \" hours\"\n| stats values(uptime) AS Uptime BY host",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "System Uptime"
+		},
+		"ds_Hzi894zB": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=system SourceName=EventLog \"EventCode=6006\"\n| timechart count by host",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "System Event Log Stopped"
+		},
+		"ds_IgEpe01I_ds_Hzi894zB": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=system SourceName=EventLog \"EventCode=6005\"\n| timechart count by host",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "System Event Log Started"
+		},
+		"ds_LIne8bKu": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=system SourceName=User32 host=$host_token$\n| eval Time = strftime(_time, \"%Y-%m-%d %H:%M:%S\")\n| table Time host Shutdown_Type Message",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "User32 Events"
+		},
+		"ds_btAcsEC5_ds_LIne8bKu": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=system SourceName=User32\n| timechart count by host",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "User32 Events Graph"
+		}
+	},
+	"defaults": {
+		"dataSources": {
+			"ds.search": {
+				"options": {
+					"queryParameters": {
+						"latest": "$global_time.latest$",
+						"earliest": "$global_time.earliest$"
+					}
+				}
+			}
+		},
+		"tokens": {
+			"default": {
+				"host_token": {
+					"value": "*"
+				}
+			}
+		}
+	},
+	"inputs": {
+		"input_global_trp": {
+			"type": "input.timerange",
+			"options": {
+				"token": "global_time",
+				"defaultValue": "-24h@h,now"
+			},
+			"title": "Global Time Range"
+		}
+	},
+	"layout": {
+		"type": "grid",
+		"options": {
+			"width": 1440,
+			"height": 960
+		},
+		"structure": [
+			{
+				"item": "viz_JolsuZZz",
+				"type": "block",
+				"position": {
+					"x": 0,
+					"y": 0,
+					"w": 411,
+					"h": 456
+				}
+			},
+			{
+				"item": "viz_pLByd1vr",
+				"type": "block",
+				"position": {
+					"x": 0,
+					"y": 456,
+					"w": 1440,
+					"h": 318
+				}
+			},
+			{
+				"item": "viz_OPYRNQpG",
+				"type": "block",
+				"position": {
+					"x": 0,
+					"y": 774,
+					"w": 1440,
+					"h": 577
+				}
+			},
+			{
+				"item": "viz_IunOpRnF",
+				"type": "block",
+				"position": {
+					"x": 0,
+					"y": 1351,
+					"w": 719,
+					"h": 200
+				}
+			},
+			{
+				"item": "viz_OPXAXA8W",
+				"type": "block",
+				"position": {
+					"x": 411,
+					"y": 229,
+					"w": 1029,
+					"h": 227
+				}
+			},
+			{
+				"item": "viz_m7AIEY7X",
+				"type": "block",
+				"position": {
+					"x": 411,
+					"y": 0,
+					"w": 1029,
+					"h": 229
+				}
+			},
+			{
+				"item": "viz_4JjTtAq7",
+				"type": "block",
+				"position": {
+					"x": 719,
+					"y": 1351,
+					"w": 721,
+					"h": 200
+				}
+			}
+		],
+		"globalInputs": [
+			"input_global_trp"
+		]
+	},
+	"description": "",
+	"title": "IT Overview"
+}
+    ]]></definition>
+    <meta type="hiddenElements"><![CDATA[
+{
+	"hideEdit": false,
+	"hideOpenInSearch": false,
+	"hideExport": false
+}
+    ]]></meta>
+</dashboard>

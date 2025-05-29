@@ -1,0 +1,1123 @@
+
+<dashboard version="2" theme="dark">
+    <label>VMware Overview</label>
+    <description></description>
+    <definition><![CDATA[
+{
+	"visualizations": {
+		"viz_2Vrb5gmA": {
+			"type": "splunk.line",
+			"options": {
+				"backgroundColor": "transparent",
+				"xAxisTitleVisibility": "hide",
+				"yAxisTitleVisibility": "hide"
+			},
+			"dataSources": {
+				"primary": "ds_8ycGBgpi",
+				"fieldsummary": "ds_nS7JzvU9"
+			},
+			"showProgressBar": true,
+			"containerOptions": {},
+			"showLastUpdated": false,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "Total Events"
+		},
+		"viz_PAtuieQz": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_6IthyrK8"
+			},
+			"title": "Emergency",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#dc4e41"
+			}
+		},
+		"viz_c3pQZp7E": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_8BRq2BSt_ds_6IthyrK8"
+			},
+			"title": "Alert",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#dc4e41"
+			}
+		},
+		"viz_LzwXcj9r": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_0xnfvyQh_ds_8BRq2BSt_ds_6IthyrK8"
+			},
+			"title": "Critical",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#dc4e41"
+			}
+		},
+		"viz_q3Idcrpf": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_4RViSdXz_ds_0xnfvyQh_ds_8BRq2BSt_ds_6IthyrK8"
+			},
+			"title": "Error",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#f1813f"
+			}
+		},
+		"viz_OCbksf3i": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_U71ONTfw_ds_4RViSdXz_ds_0xnfvyQh_ds_8BRq2BSt_ds_6IthyrK8"
+			},
+			"title": "Warning",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#ec9960"
+			}
+		},
+		"viz_TXed7aSx": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_Q1JKC1nj_ds_U71ONTfw_ds_4RViSdXz_ds_0xnfvyQh_ds_8BRq2BSt_ds_6IthyrK8"
+			},
+			"title": "Notice",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#294e70"
+			}
+		},
+		"viz_m1YRZsqJ": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_ShE4Anhf_ds_Q1JKC1nj_ds_U71ONTfw_ds_4RViSdXz_ds_0xnfvyQh_ds_8BRq2BSt_ds_6IthyrK8"
+			},
+			"title": "Informational",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#62b3b2"
+			}
+		},
+		"viz_XySIhMl5": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_mfTd8vC2_ds_ShE4Anhf_ds_Q1JKC1nj_ds_U71ONTfw_ds_4RViSdXz_ds_0xnfvyQh_ds_8BRq2BSt_ds_6IthyrK8"
+			},
+			"title": "Debug",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#708794"
+			}
+		},
+		"viz_EbPZk7Tt": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "Kernel",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_pTYact0I": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "User-Level",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_lZs0Oz6b": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "Mail",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_D5FYxxyL": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "System",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_a2dAaUtt": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "Security-Auth",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_sSnl68PB": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "Syslogd",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_HRsqsSyw": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "Line-Printer",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_pPKjb3P2": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "Network",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_8k3TEh2U": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "UUCP",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_tf14Ypyw": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "Clock",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_OYKoLwga": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_C4MoPKts_ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "Security-Auth-2",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_ymtvqPwy": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_G6jk6iaX_ds_C4MoPKts_ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "FTP",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_498CyXbs": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_tXocRe77_ds_G6jk6iaX_ds_C4MoPKts_ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "NTP",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_ijUX4I4I": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_7bxtVhji_ds_tXocRe77_ds_G6jk6iaX_ds_C4MoPKts_ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "Log-Audit",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_v3Ji7Xgv": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_5HNxED4J_ds_7bxtVhji_ds_tXocRe77_ds_G6jk6iaX_ds_C4MoPKts_ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "Log-Alert",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_7ecpFwuc": {
+			"type": "splunk.singlevalue",
+			"dataSources": {
+				"primary": "ds_mLfv1keQ_ds_5HNxED4J_ds_7bxtVhji_ds_tXocRe77_ds_G6jk6iaX_ds_C4MoPKts_ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8"
+			},
+			"title": "Clock-Daemon",
+			"description": "Syslog Messages",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"options": {
+				"backgroundColor": "#0877a6"
+			}
+		},
+		"viz_aXNl3N2M": {
+			"type": "splunk.table",
+			"options": {
+				"backgroundColor": "#2f3241",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				},
+				"fontSize": "small"
+			},
+			"dataSources": {
+				"primary": "ds_MtDjTpJ0"
+			}
+		}
+	},
+	"dataSources": {
+		"ds_8ycGBgpi": {
+			"type": "ds.search",
+			"options": {
+				"query": "| tstats count WHERE index=vmware BY _time host\n| search host!=\"SEC01*\" host!=\"DC01*\"\n| timechart sum(count) AS Events span=1h BY host",
+				"queryParameters": {
+					"earliest": "-24h@h",
+					"latest": "now"
+				}
+			},
+			"name": "Total Events"
+		},
+		"ds_nS7JzvU9": {
+			"type": "ds.chain",
+			"options": {
+				"query": "| fieldsummary maxvals=10",
+				"extend": "ds_8ycGBgpi"
+			},
+			"name": "Events 2 search"
+		},
+		"ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Severity=0\n| stats count"
+			},
+			"name": "Emergency Count"
+		},
+		"ds_8BRq2BSt_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Severity=1\n| stats count"
+			},
+			"name": "Alert Count"
+		},
+		"ds_0xnfvyQh_ds_8BRq2BSt_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Severity=2\n| stats count"
+			},
+			"name": "Critical Count"
+		},
+		"ds_4RViSdXz_ds_0xnfvyQh_ds_8BRq2BSt_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Severity=3\n| stats count"
+			},
+			"name": "Error Count"
+		},
+		"ds_U71ONTfw_ds_4RViSdXz_ds_0xnfvyQh_ds_8BRq2BSt_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Severity=4\n| stats count"
+			},
+			"name": "Warning Count"
+		},
+		"ds_Q1JKC1nj_ds_U71ONTfw_ds_4RViSdXz_ds_0xnfvyQh_ds_8BRq2BSt_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Severity=5\n| stats count"
+			},
+			"name": "Notice Count"
+		},
+		"ds_ShE4Anhf_ds_Q1JKC1nj_ds_U71ONTfw_ds_4RViSdXz_ds_0xnfvyQh_ds_8BRq2BSt_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Severity=6\n| stats count"
+			},
+			"name": "Informational Count"
+		},
+		"ds_mfTd8vC2_ds_ShE4Anhf_ds_Q1JKC1nj_ds_U71ONTfw_ds_4RViSdXz_ds_0xnfvyQh_ds_8BRq2BSt_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Severity=7\n| stats count"
+			},
+			"name": "Debug Count"
+		},
+		"ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=0\n| stats count"
+			},
+			"name": "Kernel Count"
+		},
+		"ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=1\n| stats count"
+			},
+			"name": "User-Level Count"
+		},
+		"ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=2\n| stats count"
+			},
+			"name": "Mail Count"
+		},
+		"ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=3\n| stats count"
+			},
+			"name": "System Count"
+		},
+		"ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=4\n| stats count"
+			},
+			"name": "Security-Authorization Count"
+		},
+		"ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=5\n| stats count"
+			},
+			"name": "Syslogd Count"
+		},
+		"ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=6\n| stats count"
+			},
+			"name": "Line-Printer Count"
+		},
+		"ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=7\n| stats count"
+			},
+			"name": "Network Count"
+		},
+		"ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=8\n| stats count"
+			},
+			"name": "UUCP Count"
+		},
+		"ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=9\n| stats count"
+			},
+			"name": "Clock Count"
+		},
+		"ds_C4MoPKts_ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=10\n| stats count"
+			},
+			"name": "Security-Auth-2 Count"
+		},
+		"ds_G6jk6iaX_ds_C4MoPKts_ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=11\n| stats count"
+			},
+			"name": "FTP Count"
+		},
+		"ds_tXocRe77_ds_G6jk6iaX_ds_C4MoPKts_ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=12\n| stats count"
+			},
+			"name": "NTP Count"
+		},
+		"ds_7bxtVhji_ds_tXocRe77_ds_G6jk6iaX_ds_C4MoPKts_ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=13\n| stats count"
+			},
+			"name": "Log-Audit Count"
+		},
+		"ds_5HNxED4J_ds_7bxtVhji_ds_tXocRe77_ds_G6jk6iaX_ds_C4MoPKts_ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=14\n| stats count"
+			},
+			"name": "Log-Alert Count"
+		},
+		"ds_mLfv1keQ_ds_5HNxED4J_ds_7bxtVhji_ds_tXocRe77_ds_G6jk6iaX_ds_C4MoPKts_ds_5YKDuH2i_ds_t7UmBbBg_ds_LCG7oGkp_ds_Q08efl8t_ds_CGMq5ivK_ds_wbHAiNX9_ds_RPycTgaM_ds_kHN3TkA5_ds_ciMJXnYZ_ds_DXgs9EXQ_ds_6IthyrK8": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01* Facility=15\n| stats count"
+			},
+			"name": "Clock-Daemon Count"
+		},
+		"ds_MtDjTpJ0": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=vmware host!=SEC01* host!=DC01*"
+			},
+			"name": "Event Search"
+		}
+	},
+	"defaults": {
+		"dataSources": {
+			"ds.search": {
+				"options": {
+					"queryParameters": {}
+				}
+			}
+		}
+	},
+	"inputs": {
+		"input_llEe2NUo": {
+			"type": "input.timerange",
+			"options": {
+				"token": "global_time",
+				"defaultValue": "-7d@d,now"
+			},
+			"title": "Global Time"
+		}
+	},
+	"layout": {
+		"type": "absolute",
+		"options": {
+			"submitButton": false,
+			"height": 1500,
+			"width": 1375,
+			"display": "fit-to-width",
+			"backgroundImage": {
+				"sizeType": "cover",
+				"x": 0,
+				"y": 0,
+				"src": "splunk-enterprise-kvstore://68260b5cee22c73ac7037092"
+			},
+			"showTitleAndDescription": false
+		},
+		"structure": [
+			{
+				"item": "viz_2Vrb5gmA",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 100,
+					"w": 1350,
+					"h": 250
+				}
+			},
+			{
+				"item": "input_llEe2NUo",
+				"type": "input",
+				"position": {
+					"x": 1160,
+					"y": 10,
+					"w": 198,
+					"h": 82
+				}
+			},
+			{
+				"item": "viz_PAtuieQz",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 360,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_c3pQZp7E",
+				"type": "block",
+				"position": {
+					"x": 180,
+					"y": 360,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_LzwXcj9r",
+				"type": "block",
+				"position": {
+					"x": 350,
+					"y": 360,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_q3Idcrpf",
+				"type": "block",
+				"position": {
+					"x": 520,
+					"y": 360,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_OCbksf3i",
+				"type": "block",
+				"position": {
+					"x": 690,
+					"y": 360,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_TXed7aSx",
+				"type": "block",
+				"position": {
+					"x": 860,
+					"y": 360,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_m1YRZsqJ",
+				"type": "block",
+				"position": {
+					"x": 1030,
+					"y": 360,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_XySIhMl5",
+				"type": "block",
+				"position": {
+					"x": 1200,
+					"y": 360,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_EbPZk7Tt",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 530,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_pTYact0I",
+				"type": "block",
+				"position": {
+					"x": 180,
+					"y": 530,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_lZs0Oz6b",
+				"type": "block",
+				"position": {
+					"x": 350,
+					"y": 530,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_D5FYxxyL",
+				"type": "block",
+				"position": {
+					"x": 520,
+					"y": 530,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_a2dAaUtt",
+				"type": "block",
+				"position": {
+					"x": 690,
+					"y": 530,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_sSnl68PB",
+				"type": "block",
+				"position": {
+					"x": 860,
+					"y": 530,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_HRsqsSyw",
+				"type": "block",
+				"position": {
+					"x": 1030,
+					"y": 530,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_pPKjb3P2",
+				"type": "block",
+				"position": {
+					"x": 1200,
+					"y": 530,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_8k3TEh2U",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 700,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_tf14Ypyw",
+				"type": "block",
+				"position": {
+					"x": 180,
+					"y": 700,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_OYKoLwga",
+				"type": "block",
+				"position": {
+					"x": 350,
+					"y": 700,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_ymtvqPwy",
+				"type": "block",
+				"position": {
+					"x": 520,
+					"y": 700,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_498CyXbs",
+				"type": "block",
+				"position": {
+					"x": 690,
+					"y": 700,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_ijUX4I4I",
+				"type": "block",
+				"position": {
+					"x": 860,
+					"y": 700,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_v3Ji7Xgv",
+				"type": "block",
+				"position": {
+					"x": 1030,
+					"y": 700,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_7ecpFwuc",
+				"type": "block",
+				"position": {
+					"x": 1200,
+					"y": 700,
+					"w": 165,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_aXNl3N2M",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 870,
+					"w": 1350,
+					"h": 610
+				}
+			}
+		],
+		"globalInputs": []
+	},
+	"description": "",
+	"title": "VMware Overview"
+}
+    ]]></definition>
+    <meta type="hiddenElements"><![CDATA[
+{
+	"hideEdit": false,
+	"hideOpenInSearch": false,
+	"hideExport": false
+}
+    ]]></meta>
+    <meta type="conversionReport"><![CDATA[
+{
+	"conversionErrors": [],
+	"conversionWarnings": [
+		{
+			"type": "partiallySuccessfulHtmlToMarkdown"
+		}
+	],
+	"counts": {
+		"visualizations": {
+			"count": 2,
+			"convertedCount": 1,
+			"configCount": 3,
+			"convertedConfigCount": 3
+		},
+		"inputs": {
+			"count": 1,
+			"convertedCount": 1,
+			"configCount": 4,
+			"convertedConfigCount": 4
+		},
+		"searches": {
+			"count": 1,
+			"convertedCount": 1,
+			"configCount": 3,
+			"convertedConfigCount": 3
+		},
+		"dataSources": 2,
+		"panels": {
+			"count": 1,
+			"convertedCount": 1,
+			"configCount": 0,
+			"convertedConfigCount": 0
+		},
+		"rows": {
+			"count": 1,
+			"convertedCount": 1,
+			"configCount": 0,
+			"convertedConfigCount": 0
+		},
+		"dashboardLevelConfigs": {
+			"count": 1,
+			"convertedCount": 1,
+			"configCount": 3,
+			"convertedConfigCount": 3
+		}
+	},
+	"conversionTime": 1747323457226,
+	"originDashboardTitle": "Overview",
+	"originDashboardId": "vmware_-_executive_summary",
+	"originDashboardApp": "CS_Overview"
+}
+    ]]></meta>
+</dashboard>

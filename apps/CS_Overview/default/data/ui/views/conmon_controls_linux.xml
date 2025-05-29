@@ -1,0 +1,306 @@
+
+<dashboard version="2" theme="dark">
+    <label>Linux - ConMon</label>
+    <description></description>
+    <definition><![CDATA[
+{
+	"visualizations": {
+		"viz_KmFL39is": {
+			"type": "splunk.table",
+			"dataSources": {
+				"primary": "ds_Us973SEk"
+			},
+			"showProgressBar": true,
+			"title": "All System Storage Details",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Linux",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"columnFormat": {
+					"used_pct": {
+						"data": "> table | seriesByName(\"used_pct\") | formatByType(used_pctColumnFormatEditorConfig)",
+						"rowBackgroundColors": "> table | seriesByName(\"used_pct\") | rangeValue(used_pctColumnColorConfig)",
+						"width": 64
+					},
+					"host": {
+						"width": 78
+					},
+					"type": {
+						"width": 60
+					},
+					"used_gb": {
+						"width": 62,
+						"data": "> table | seriesByName(\"used_gb\") | formatByType(used_gbColumnFormatEditorConfig)"
+					},
+					"size_gb": {
+						"width": 60,
+						"data": "> table | seriesByName(\"size_gb\") | formatByType(size_gbColumnFormatEditorConfig)"
+					}
+				},
+				"backgroundColor": "#12282b",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"context": {
+				"used_pctColumnNumberConfig": {
+					"number": {
+						"precision": 2,
+						"thousandSeparated": true,
+						"unitPosition": "after",
+						"unit": "%"
+					}
+				},
+				"used_pctColumnColorConfig": [
+					{
+						"to": 75,
+						"value": "#277C52"
+					},
+					{
+						"from": 75,
+						"to": 90,
+						"value": "#F58F39"
+					},
+					{
+						"from": 90,
+						"value": "#D93F3C"
+					}
+				],
+				"used_pctColumnFormatEditorConfig": {
+					"number": {
+						"unitPosition": "after",
+						"unit": "%",
+						"precision": 1,
+						"thousandSeparated": true
+					}
+				},
+				"used_gbColumnFormatEditorConfig": {
+					"number": {
+						"thousandSeparated": false,
+						"unitPosition": "after",
+						"precision": 1,
+						"unit": "GB"
+					}
+				},
+				"size_gbColumnFormatEditorConfig": {
+					"number": {
+						"thousandSeparated": false,
+						"unitPosition": "after",
+						"unit": "GB",
+						"precision": 1
+					}
+				}
+			},
+			"hideWhenNoData": true
+		},
+		"viz_meRponmI": {
+			"type": "splunk.table",
+			"options": {
+				"columnFormat": {
+					"Username": {
+						"width": 82
+					},
+					"Patch": {
+						"width": 60
+					},
+					"Description": {
+						"width": 72
+					},
+					"Install Date": {
+						"width": 139
+					},
+					"host": {
+						"width": 60
+					}
+				},
+				"backgroundColor": "#12282b",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_pDojqoAB"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "SI-2 - Flaw Remediation",
+			"description": "Linux Security Updates"
+		}
+	},
+	"dataSources": {
+		"ds_YrnPGVWT": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=security EventCode=4688 \"LogCollection.ps1\"\n| timechart count by Keywords",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Log Collection"
+		},
+		"ds_Us973SEk": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix source=\"script:df_storage_space.sh\"\n| dedup host filesystem type mountpoint\n| eval host=upper(mvindex(split(host, \".\"), 0))\n| table host filesystem type mountpoint used_gb size_gb used_pct\n| sort +host -used_pct",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Storage Capacity Warning Linux"
+		},
+		"ds_pJObXv1H": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows sourcetype=_json  source=\"Script:Windows-update-status\" \n| dedup host Description\n| rename HotFixID AS Patch \n| eval Install_Date = strftime(strptime('InstalledOn.DateTime', \"%A, %B %d, %Y %I:%M:%S %p\"), \"%Y-%m-%d %H:%M:%S\")\n| rename Install_Date AS \"Install Date\"  \n| table  \"Install Date\" host Description Patch InstalledBy \n| sort - \"Install Date\"",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Windows Updates"
+		},
+		"ds_N5yUOAp6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=script:get-ntpstatus\n| dedup host\n| table host NtpSource LastSyncTime PollInterval",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "System Time Sync"
+		},
+		"ds_9x4fuMkA": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=win_backups EventCode=4\n| timechart count by host",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Windows Server Backup"
+		},
+		"ds_jhgs57LV_ds_9x4fuMkA": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=win_backups EventCode=19 OR EventCode=49\n| timechart count by host",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Windows Server Backup Failure"
+		},
+		"ds_pDojqoAB": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix sourcetype=history_log \"Start-Date\"  commandline!=\"apt autoremove\" \n| dedup host commandline  \n| table start_date host commandline requested_by\n| sort start_date",
+				"queryParameters": {
+					"earliest": "-60d@d",
+					"latest": "now"
+				}
+			},
+			"name": "Linux Updates"
+		}
+	},
+	"defaults": {
+		"dataSources": {
+			"ds.search": {
+				"options": {
+					"queryParameters": {
+						"latest": "$global_time.latest$",
+						"earliest": "$global_time.earliest$"
+					}
+				}
+			}
+		}
+	},
+	"inputs": {
+		"input_global_trp": {
+			"type": "input.timerange",
+			"options": {
+				"token": "global_time",
+				"defaultValue": "-7d@d,now"
+			},
+			"title": ""
+		}
+	},
+	"layout": {
+		"type": "absolute",
+		"options": {
+			"width": 1440,
+			"height": 1440,
+			"backgroundImage": {
+				"x": 0,
+				"y": 0,
+				"src": "splunk-enterprise-kvstore://68225b7e3653a013370b201a",
+				"sizeType": "cover"
+			},
+			"display": "fit-to-width",
+			"showTitleAndDescription": false
+		},
+		"structure": [
+			{
+				"item": "viz_KmFL39is",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 10,
+					"w": 1420,
+					"h": 490
+				}
+			},
+			{
+				"item": "viz_meRponmI",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 510,
+					"w": 890,
+					"h": 460
+				}
+			},
+			{
+				"item": "input_global_trp",
+				"type": "input",
+				"position": {
+					"x": 1240,
+					"y": -10,
+					"w": 184,
+					"h": 82
+				}
+			}
+		],
+		"globalInputs": []
+	},
+	"description": "",
+	"title": "Linux - ConMon"
+}
+    ]]></definition>
+    <meta type="hiddenElements"><![CDATA[
+{
+	"hideEdit": false,
+	"hideOpenInSearch": false,
+	"hideExport": false
+}
+    ]]></meta>
+</dashboard>

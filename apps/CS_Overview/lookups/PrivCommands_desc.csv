@@ -1,0 +1,58 @@
+command,full_path,description
+adid,/usr/share/centrifydc/bin/adid,Display real and effective UID and GID for the current user
+adinfo,/usr/bin/adinfo,Display detailed computer information by querying Active Directory
+adquery,/usr/bin/adquery,Query Active Directory for information about users and groups
+adsetgroups,/usr/share/centrifydc/bin/adsetgroups,View or change the list of groups for the user
+atq,/usr/bin/atq,display the jobs queued to run at specified times
+atrm,/usr/bin/atrm,remove jobs spooled by at or batch
+at,/usr/bin/at,Creates jobs to be executed at a later time
+cdrw,/usr/bin/cdrw,Create  data  and audio CDs
+chage,/usr/bin/chage,Changes user password expiry information
+chfn,/usr/bin/chfn,Change finger information
+chkey,/usr/bin/chkey,change user's secure RPC key pair
+chsh,/usr/bin/chsh,Used to change your login shell
+crontab,/usr/bin/crontab,Used to create a scheduled task
+date,/bin/date,Set date and time
+dzdo,/usr/share/centrifydc/bin/dzdo,Execute privileged commands as a specific user
+dzedit,/usr/share/centrifydc/bin/dzedit,Edit a file as another user
+dzsshchk,/usr/share/centrifydc/bin/dzsshchk,Check user rights to services
+eject,/usr/bin/eject,eject media such as CD-ROM and floppy from drive
+fdformat,/usr/bin/fdformat,format floppy diskette or PCMCIA memory card
+gpasswd,/usr/bin/gpasswd,Administer /etc/group and /etc/gshadow
+groupadd,/usr/sbin/groupadd,Add group
+groupdel,/usr/sbin/groupdel,Delete a group
+groupmod,/usr/sbin/groupmod,Change permissions to a group
+locate,/usr/bin/locate,Finds files by name
+lockdev,/usr/sbin/lockdev,Lock or unlock device
+lpset,/usr/bin/lpset,set printing configuration in /etc/printers.conf
+mailq,/usr/bin/mailq,Print mail queue
+mount,/bin/mount,Mounts file system
+netreport,/sbin/netreport,Request notice of network interface changes
+newgrp,/usr/bin/newgrp,Changes current real group to named group
+pam_timestamp_check,/sbin/pam_timestamp_check,Check to see if the default timestamp is valid
+passwd,/usr/bin/passwd,Change or get status of password
+pfexec,/usr/bin/pfexec,Execute a command in a profile
+ping,/bin/ping,Check if system is alive
+postqueue,/usr/sbin/postqueue,Postfix queue control
+rcp,/usr/bin/rcp,Remote file copy - clear text password
+rdist,/usr/bin/rdist,remote file distribution program
+rlogin,/usr/bin/rlogin,Remote login - clear text password
+rmformat,/usr/bin/rmformat,removable rewritable media format utility
+rsh,/usr/bin/rsh,Remote shell - clear text password
+sacadm,/usr/sbin/sacadm,Used to monitor ports
+smpatch,/usr/sbin/smpatch," download, apply, and remove updates"
+su,/bin/su,Switch user
+sudo,/usr/bin/sudo,Execute a command as another user
+suexec,/usr/sbin/suexec,Switch user before executing external programs
+su,/usr/bin/su,become superuser or another user
+traceroute,/usr/sbin/traceroute,print the route packets take to network host
+umount,/bin/umount, Unmount file system
+useradd,/usr/sbin/useradd,Create a new user
+userdel,/usr/sbin/userdel,Delete a users account
+userhelper,/usr/sbin/userhelper,A helper interface to PAM. 
+usermod,/usr/sbin/usermod,Change a users permission
+usernetctl,/usr/sbin/usernetctl,Allow user to manipulate NIC if permitted
+volrmmount,/usr/bin/volrmmount,call rmmount to mount or unmount media
+wall,/usr/bin/wall,Send a message to everyones terminal
+write,/usr/bin/write,Sends a message to another user
+Xorg,/usr/bin/Xorg,X server

@@ -1,0 +1,141 @@
+<form version="1.1" theme="dark">
+  <label>Linux - Configuration Changes</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Total Ingested Events by Host [Linux]</title>
+      <chart>
+        <search>
+          <query>| tstats count AS event_count where index=nix by _time host span=1h
+| fillnull value=0 event_count
+| eval host=upper(mvindex(split(host, "."), 0))
+| timechart sum(event_count) AS Events span=1h by host</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.nullValueMode">zero</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Modprobe.d Configuration Changes [Drilldown]</title>
+      <table>
+        <title>Note: This will not state the user who modified the file</title>
+        <search>
+          <query>index=nix sourcetype="modprobe.d" 
+| table _time host source</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <set token="source_token">$row.source$</set>
+          <set token="host_token">$row.host$</set>
+        </drilldown>
+      </table>
+    </panel>
+    <panel>
+      <title>Modprobe.d File Output</title>
+      <table>
+        <title>Most Recent</title>
+        <search>
+          <query>index=nix sourcetype="modprobe.d" source="$source_token$" host="$host_token$"
+| sort -_time
+| streamstats count AS row_number
+| where row_number=1
+| table _time _raw</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Previous File Output</title>
+      <table>
+        <title>Note: This file may not exist if the monitor rule was recently enforced</title>
+        <search>
+          <query>index=nix sourcetype="modprobe.d" source="$source_token$" host="$host_token$"
+| sort -_time
+| streamstats count AS row_number
+| where row_number=2
+| table _time _raw</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Modprobe.d Continued</title>
+      <input type="dropdown" token="select_host">
+        <label>Host</label>
+        <fieldForLabel>host</fieldForLabel>
+        <fieldForValue>host</fieldForValue>
+        <choice value="*">All Hosts</choice>
+        <search>
+          <query>index=nix 
+| dedup host 
+| table host</query>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+        </search>
+        <default>*</default>
+        <initialValue>*</initialValue>
+      </input>
+      <table>
+        <search>
+          <query>index=nix sourcetype=auth_log host=* PWD="/etc/modprobe.d" OR "/etc/modprobe.d/*"
+| search host="$select_host$"
+| table _raw</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Configuration Changes</title>
+      <chart>
+        <search>
+          <query>index=nix sourcetype=audit_log type=CONFIG_CHANGE
+| join auid [ search index=nix sourcetype=audit_log type=USER_ACCT 
+| table auid acct ]
+| timechart count by acct</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+</form>

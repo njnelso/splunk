@@ -1,0 +1,228 @@
+<form version="1.1" theme="dark">
+  <label>Windows - Data Transfers</label>
+  <description>Read/Write to External Media</description>
+  <fieldset submitButton="false">
+    <input type="time" token="time_field">
+      <label>Time</label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+        <h1>
+          <center>NIST MP-7 (USB Logging)</center>
+        </h1>
+        <h2>
+          <center>USB Device Detections</center>
+        </h2>
+      </html>
+      <chart>
+        <search>
+          <query>index=winevents EventCode=6416 (Class_Name="WPD" OR Class_Name="CDROM" OR Class_Name="Camera" OR Class_Name="Image" OR Class_Name="TapeDrive" OR Class_Name="USBDevice" OR Class_Name="WCEUSBS")
+| dedup _raw
+| timechart count BY host</query>
+          <earliest>$time_field.earliest$</earliest>
+          <latest>$time_field.latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+        <h1>
+          <center>NIST MP-7 (USB Logging)</center>
+        </h1>
+        <h2>
+          <center> [Drilldown: Select the <span style="color: dodgerblue;">host</span> Field Below]</center>
+        </h2>
+      </html>
+      <single>
+        <title>New External Devices</title>
+        <search>
+          <query>index=winevents EventCode=6416 (Class_Name="WPD" OR Class_Name="CDROM" OR Class_Name="Camera" OR Class_Name="Image" OR Class_Name="TapeDrive" OR Class_Name="USBDevice" OR Class_Name="WCEUSBS")
+| dedup _raw
+| stats dc(Device_Name)</query>
+          <earliest>$time_field.earliest$</earliest>
+          <latest>$time_field.latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,1,3]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Unique Devices Recognized</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
+      <table>
+        <title>Class Names: WPD = Windows Portable Device</title>
+        <search>
+          <query>index=winevents EventCode=6416 (Class_Name="WPD" OR Class_Name="CDROM" OR Class_Name="Camera" OR Class_Name="Image" OR Class_Name="TapeDrive" OR Class_Name="USBDevice" OR Class_Name="WCEUSBS")
+| dedup _time
+| rename Device_Name AS "Device Name"
+| rename Class_Name AS "Class Name"
+| table _time host "Device Name" "Class Name"</query>
+          <earliest>$time_field.earliest$</earliest>
+          <latest>$time_field.latest$</latest>
+        </search>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <set token="host_token">$click.value2$</set>
+        </drilldown>
+      </table>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Logon Correlation</h1>
+      <h2>Drilldown Panel</h2>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents source="wineventlog:security" host=$host_token$ (EventCode=4624 Security_ID="PROGRAM*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10) OR EventCode=4647 OR (EventCode=4634 Security_ID="PROGRAM*" Logon_Type=2 OR Logon_Type=10)
+| dedup _time host user
+| eval Logon_Type_Description=case(Logon_Type==2, "Interactive", Logon_Type==7, "Unlock", Logon_Type==10, "Remote Interactive", isnull(Logon_Type), "Closed Session")
+| eval Authentication_Event=case(EventCode==4624, "Logon", EventCode==4647, "Logoff", EventCode==4634, "Logoff")
+| table _time host user Authentication_Event Logon_Type_Description</query>
+          <earliest>$time_field.earliest$</earliest>
+          <latest>$time_field.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+        <h1>
+          <center>NIST MP-7 (USB Logging)</center>
+        </h1>
+        <h2>
+          <center>NTFS Shares</center>
+        </h2>
+      </html>
+      <single>
+        <title>NTFS Volume Mounts</title>
+        <search>
+          <query>index=winevents sourcetype=winUSB EventCode=4
+| stats count</query>
+          <earliest>$time_field.earliest$</earliest>
+          <latest>$time_field.latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,1,3]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Mounts</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
+      <single>
+        <title>NTFS Volume Dismounts</title>
+        <search>
+          <query>index=winevents sourcetype=winUSB EventCode=303
+| stats count</query>
+          <earliest>$time_field.earliest$</earliest>
+          <latest>$time_field.latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,1,3]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Dismounts</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
+      <table>
+        <search>
+          <query>index=winevents sourcetype=winUSB EventCode=4 OR EventCode=303
+| table _time host Message</query>
+          <earliest>$time_field.earliest$</earliest>
+          <latest>$time_field.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <html>
+        <h1>
+          <center>NIST MP-7 (USB Logging)</center>
+        </h1>
+        <h2>
+          <center>Plug-and-Play Devices</center>
+        </h2>
+      </html>
+      <single>
+        <title>Kernel Plug-and-Play Devices</title>
+        <search>
+          <query>index=winevents sourcetype=winUSB EventCode=400
+| stats count</query>
+          <earliest>$time_field.earliest$</earliest>
+          <latest>$time_field.latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,1,3]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Devices Configured</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
+      <table>
+        <search>
+          <query>index=winevents sourcetype=winUSB EventCode=400
+| table _time host Message</query>
+          <earliest>$time_field.earliest$</earliest>
+          <latest>$time_field.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>

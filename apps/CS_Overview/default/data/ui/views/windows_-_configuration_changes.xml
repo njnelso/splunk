@@ -1,0 +1,226 @@
+<form version="1.1" theme="dark">
+  <label>Windows - Configuration Changes</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+      <div>To view documentation for this dashboard, click here: <a href="https://localhost:8000/static/app/CS_Overview/Win-Config-Changes.pdf" target="_blank">Link to Documentation</a>
+        </div>
+    </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>NIST AU-2.a.2 (Security Relevant File and Objects)</h1>
+      </div>
+      </html>
+      <single>
+        <title>Directory Service Objects Created</title>
+        <search>
+          <query>index=winevents source="WinEventLog:Security" EventCode=5137 Security_ID="PROGRAM*"
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x555","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Directory Service Objects Modified</title>
+        <search>
+          <query>index=winevents source="WinEventLog:Security" EventCode=5136 Security_ID="PROGRAM*" Keywords="Audit Success"
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x555","0xf8be34"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Directory Service Objects Moved</title>
+        <search>
+          <query>index=winevents source="WinEventLog:Security" EventCode=5139 Security_ID="PROGRAM*"
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x555","0xf8be34"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Directory Service Objects Deleted</title>
+        <search>
+          <query>index=winevents source="WinEventLog:Security" EventCode=5141
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x555","0xf8be34"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Directory Service Object Created</h1>
+      </div>
+      </html>
+      <chart>
+        <search>
+          <query>index=winevents source="WinEventLog:Security" EventCode=5137
+| timechart count by Class</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+      <html>
+      <div style="text-align: center;">
+      <h1>Directory Service Object Created - Details</h1>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents source="WinEventLog:Security" EventCode=5137
+| eval Action=case(EventCode==5137, "Created")
+| table _time host user Action Class DN</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Directory Service Object Changed</h1>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents source="WinEventLog:Security" EventCode=5136 Security_ID="PROGRAM*"
+| eval Operation_Type=mvindex(Type, 2) 
+| table _time host user Class Operation_Type LDAP_Display_Name Value DN</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Directory Service Object Moved</h1>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents source="WinEventLog:Security" EventCode=5139
+| eval Action=case(EventCode==5139, "Moved")
+| table _time host user Action Class Old_DN New_DN</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Directory Service Object Deleted</h1>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents source="WinEventLog:Security" EventCode=5141
+| eval Action=case(EventCode==5141, "Deleted")
+| table _time host user Action Class DN</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Software Installations</h1>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents sourcetype=application EventCode=11707 
+| table _time host User Message</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Software Uninstalled</h1>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents SourceName=MsiInstaller EventCode=11724
+| table _time host Message</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>

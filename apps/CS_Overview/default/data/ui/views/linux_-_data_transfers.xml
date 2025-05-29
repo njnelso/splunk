@@ -1,0 +1,141 @@
+<form version="1.1" theme="dark">
+  <label>Linux - Data Transfers</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Device Mounts</title>
+      <html>
+      <div style="text-align: center;">
+      <h2>Device Mounts [Drilldown: Select the <span style="color: dodgerblue;">_time</span> field below]</h2>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=nix sourcetype=audit_log type=EXECVE a0="mount" OR a0="/bin/mount" OR a0="/usr/bin/mount"
+| eval arg0=urldecode(ltrim(replace(a0,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg0=if(isnull(arg0), a0, arg0)
+| eval arg1=urldecode(ltrim(replace(a1,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg1=if(isnull(arg1), a1, arg1)
+| eval arg2=urldecode(ltrim(replace(a2,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg2=if(isnull(arg2), a2, arg2)
+| eval arg3=urldecode(ltrim(replace(a3,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg3=if(isnull(arg3), a3, arg3)
+| eval arg4=urldecode(ltrim(replace(a3,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg4=if(isnull(arg4), a4, arg4)
+| eval cmdline=coalesce(arg0, "") + " " + coalesce(arg1, "") + " " + coalesce(arg2, "") + " " + coalesce(arg3, "") + " " + coalesce(arg4, "")
+| eval cmdline=trim(replace(cmdline, "\s+", " "))
+| search cmdline="*dev*"
+| table _time host cmdline
+| sort - _time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <eval token="end_time">$click.value$</eval>
+          <eval token="start_time">$click.value$-43200</eval>
+          <eval token="end_action">$click.value$+43200</eval>
+        </drilldown>
+      </table>
+    </panel>
+    <panel>
+      <title>Logon Correlation</title>
+      <table>
+        <title>GNOME</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication"  exe="/usr/lib/gdm3/gdm-session-worker" NOT acct=gdm res=success 
+| rename acct AS User
+| table _time host User
+| sort -_time</query>
+          <earliest>$start_time$</earliest>
+          <latest>$end_time$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+      <table>
+        <title>SSH</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/sbin/sshd" res=success 
+| rename acct AS User
+| table _time host User
+| sort -_time</query>
+          <earliest>$start_time$</earliest>
+          <latest>$end_time$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>User Command Correlation</title>
+      <table>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_CMD
+| eval Command=urldecode(ltrim(replace(cmd,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval Command=if(isnull(Command), cmd, Command)
+| join pid [ search index=nix sourcetype=audit_log type=USER_ACCT | table pid acct ]
+| stats count latest(_time) AS _time values(host) AS host by acct Command cwd
+| table _time host acct Command cwd count
+| sort - _time</query>
+          <earliest>$start_time$</earliest>
+          <latest>$end_action$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>System Calls - File Modifications</title>
+      <chart>
+        <search>
+          <query>index=nix sourcetype=audit_log type=SYSCALL comm="cp" OR comm="rm" OR comm="cat" OR comm="echo" 
+| timechart count span=1h by comm</query>
+          <earliest>$start_time$</earliest>
+          <latest>$end_action$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.drilldown">all</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <eval token="syscall_start">$row._time$</eval>
+          <eval token="syscall_end">$row._time$+3600</eval>
+        </drilldown>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>System Calls - File Modifications</title>
+      <table>
+        <search>
+          <query>index=nix sourcetype=audit_log type=SYSCALL comm="cp" OR comm="rm" OR comm="cat" OR comm="echo" 
+| join type=left uid [ search index=nix sourcetype=audit_log type=USER_ACCT | table uid acct ]
+| stats count latest(_time) AS _time values(host) AS host values(comm) AS Command values(exe) AS Executable values(key) AS Key values(acct) AS User by pid  
+| table _time host Command Executable Key User count
+| sort - _time</query>
+          <earliest>$syscall_start$</earliest>
+          <latest>$syscall_end$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>

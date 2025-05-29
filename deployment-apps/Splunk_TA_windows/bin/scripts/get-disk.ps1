@@ -1,0 +1,1 @@
+Get-Disk | Select-Object Number, Size, IsBoot, FriendlyName, Model, SerialNumber, AdapterSerialNumber  | ConvertTo-Json

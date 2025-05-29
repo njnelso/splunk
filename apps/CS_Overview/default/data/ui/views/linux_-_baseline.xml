@@ -1,0 +1,113 @@
+<form version="1.1" theme="dark">
+  <label>Linux - Baseline</label>
+  <description>Baseline Configuration</description>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="text" token="host_token" searchWhenChanged="true">
+      <label>Host Name</label>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Third-Party Software List</title>
+      <input type="text" token="package_token">
+        <label>Software Name</label>
+        <default>*</default>
+        <prefix>*</prefix>
+        <suffix>*</suffix>
+        <initialValue>*</initialValue>
+      </input>
+      <table>
+        <title>Excludes Debian and Ubuntu Maintainers - Note: If maintainers use personal emails, this will display here despite working on Ubuntu/Debian-based software</title>
+        <search>
+          <query>index=nix source="Script:dpkg-query.sh" host=$host_token$ package="$package_token$" maintainer!="*debian*" maintainer!="*ubuntu*"
+| table _time host package version architecture priority essential maintainer origin 
+| sort package</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">15</option>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Complete Software List</title>
+      <table>
+        <search>
+          <query>index=nix source="Script:dpkg-query.sh" host=$host_token$
+| table _time host package version architecture priority essential maintainer origin 
+| sort package</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">15</option>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Hardware</title>
+      <table>
+        <search>
+          <query>index=nix sourcetype=hardware host=$host_token$
+| dedup host
+| eval Physical_Memory=(RealMemory / 1024 / 1024)
+| table host cpu_type cpu_cores cpu_freq cpu_freq_unit Physical_Memory _raw</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <format type="number" field="PhysicalMemoryGB">
+          <option name="unit">GB</option>
+        </format>
+        <format type="number" field="Physical_Memory">
+          <option name="precision">3</option>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Operating System Release</title>
+      <table>
+        <search>
+          <query>index=nix source=Script:os-release.sh host=$host_token$
+| table _time host os_name os_version pretty_name version_id version</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Linux Kernel Version</title>
+      <table>
+        <search>
+          <query>index=nix source=Script:version.sh host=$host_token$
+| table _time host os_name os_release os_version machine_hardware_name</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>

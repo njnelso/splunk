@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<dashboard theme="dark">
+	<label>Overview</label>
+	<!-- Second row of 2 panels -->
+	<row><chart>
+			<searchName>Top_Login_Logou_During_Business_Hours</searchName>
+			<title>Login Logout During Business Hours over the past 7 days</title>
+			<option name="charting.axisLabelsY.majorUnit">1</option>
+			<option name="charting.axisTitleX.text">Hostname</option>
+			<option name="charting.axisTitleY.text">Number of login and logouts 0700 to 1900</option>
+			<option name="charting.axisY.scale">linear</option>
+			<option name="charting.chart">bar</option>
+			<option name="charting.chart.nullValueMode">gaps</option>
+			<option name="charting.chart.stackMode">default</option>
+			<option name="charting.layout.splitSeries">false</option>
+			<option name="charting.legend.placement">right</option>
+			<option name="charting.primaryAxisTitle.text"/>
+			<option name="charting.secondaryAxis.scale">linear</option>
+			<option name="charting.secondaryAxisTitle.text"/>
+			<option name="count">50</option>
+			<option name="displayRowNumbers">true</option>
+		</chart>
+		<chart>
+			<searchName>Top_Nix_Login_Logout_After_Business_Hours</searchName>
+			<title>Login Logout After Business Hours</title>
+			<option name="charting.axisTitleX.text">Hostname</option>
+			<option name="charting.axisTitleY.text">Number of logins and logouts 1900 to 0700</option>
+			<option name="charting.axisY.scale">log</option>
+			<option name="charting.chart">bar</option>
+			<option name="charting.chart.nullValueMode">gaps</option>
+			<option name="charting.chart.stackMode">default</option>
+			<option name="charting.layout.splitSeries">false</option>
+			<option name="charting.legend.placement">right</option>
+			<option name="charting.primaryAxisTitle.text"/>
+			<option name="charting.secondaryAxis.scale">log</option>
+			<option name="charting.secondaryAxisTitle.text"></option>
+			<option name="count">50</option>
+			<option name="displayRowNumbers">true</option>
+		</chart>
+	</row><row><chart>
+			<searchString>index="nix" | rex "(?i) for illegal user (?P&lt;acct&gt;[^ ]+)" | eval access_hour=strftime(_time,"%H") | where (access_hour &gt;= 7 or access_hour &lt;= 19) | search type="USER_AUTH" AND (  fail* OR No_Account="No account"  ) |  chart count over host by acct | fields - NULL</searchString>
+			<title>Failed Login(s)</title>
+			<earliestTime>-7d@h</earliestTime>
+			<latestTime>now</latestTime>
+			<option name="charting.axisLabelsY.majorUnit">1</option>
+			<option name="charting.axisTitleX.text">Hostname</option>
+			<option name="charting.axisTitleY.text">Attempted Login Names</option>
+			<option name="charting.axisY.scale">linear</option>
+			<option name="charting.chart">bar</option>
+			<option name="charting.chart.nullValueMode">gaps</option>
+			<option name="charting.chart.stackMode">default</option>
+			<option name="charting.layout.splitSeries">false</option>
+			<option name="charting.legend.placement">bottom</option>
+			<option name="charting.primaryAxisTitle.text"/>
+			<option name="charting.secondaryAxis.scale">linear</option>
+			<option name="charting.secondaryAxisTitle.text"/>
+			<option name="count">50</option>
+			<option name="displayRowNumbers">true</option>
+		</chart>
+		<chart>
+			<searchString>index="nix" source="/var/log/auth.log" | head 10000 | rex "(?i) locked: (?P&lt;User_Locked&gt;.+)" | search User_Locked="*" User_Locked="*" host="*" | chart count over host by User_Locked | fields - NULL</searchString>
+			<title>Number of login attempts on a locked account over the past 7 days</title>
+			<earliestTime>-7d@h</earliestTime>
+			<latestTime>now</latestTime>
+			<option name="charting.axisLabelsY.majorUnit">1</option>
+			<option name="charting.axisTitleY.text">Number of times</option>
+			<option name="charting.chart">bar</option>
+			<option name="charting.secondaryAxisTitle.text"/>
+			<option name="count">10</option>
+			<option name="displayRowNumbers">true</option>
+		</chart>
+	</row><row><table>
+			<searchName>Top_Unix_Process_By_Account_Hostname</searchName>
+			<title>Top Unix Process By Account and Hostname</title>
+		</table>
+		<table>
+			<searchName>Top_Linux_Exe_By_Account_HostNam</searchName>
+			<title>Top LINUX Commands By Hostname and Account Name</title>
+			<option name="count">10</option>
+			<option name="displayRowNumbers">true</option>
+		</table>
+	</row></dashboard>

@@ -1,0 +1,251 @@
+
+<dashboard version="2" theme="dark">
+    <label>Proxmox</label>
+    <description></description>
+    <definition><![CDATA[
+{
+	"visualizations": {
+		"viz_snTXrfUL": {
+			"type": "splunk.table",
+			"options": {
+				"fontSize": "small",
+				"backgroundColor": "#12282b",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_JIREQ4mk"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "Successful Logons"
+		},
+		"viz_9Ism6CnC": {
+			"type": "splunk.table",
+			"options": {
+				"fontSize": "small",
+				"backgroundColor": "#12282b",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_uCCE3Qgw_ds_JIREQ4mk"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "Failed Logons"
+		},
+		"viz_76JQcXN1": {
+			"type": "splunk.table",
+			"options": {
+				"fontSize": "small",
+				"backgroundColor": "#12282b",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_hloJp0ON_ds_JIREQ4mk"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "Logoffs"
+		},
+		"viz_h38YKgi1": {
+			"type": "splunk.table",
+			"options": {
+				"backgroundColor": "#12282b",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"dataSources": {
+				"primary": "ds_99GLEIbC"
+			},
+			"title": "Running Processes",
+			"containerOptions": {},
+			"showProgressBar": false,
+			"showLastUpdated": false,
+			"description": "Host-based Processes"
+		}
+	},
+	"dataSources": {
+		"ds_JIREQ4mk": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=proxmox tag=authentication action=success\n| table _time host user process src",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Successful Logons"
+		},
+		"ds_uCCE3Qgw_ds_JIREQ4mk": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=proxmox tag=authentication action=failure user=*\n| table _time host user process reason src",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Failed Logons"
+		},
+		"ds_hloJp0ON_ds_JIREQ4mk": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=proxmox tag=logoff\n| table _time host user process name",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Logoffs"
+		},
+		"ds_99GLEIbC": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=proxmox tag=process \n| stats count latest(_time) AS _time values(tag) AS tag BY host process\n| eval tag=mvfilter(NOT match(tag, \"^(os|unix)$\"))\n| table _time host process tag count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Running Processes"
+		}
+	},
+	"defaults": {
+		"dataSources": {
+			"ds.search": {
+				"options": {
+					"queryParameters": {
+						"latest": "$global_time.latest$",
+						"earliest": "$global_time.earliest$"
+					}
+				}
+			}
+		}
+	},
+	"inputs": {
+		"input_global_trp": {
+			"type": "input.timerange",
+			"options": {
+				"token": "global_time",
+				"defaultValue": "-7d@d,now"
+			},
+			"title": ""
+		}
+	},
+	"layout": {
+		"type": "absolute",
+		"options": {
+			"width": 1430,
+			"height": 1000,
+			"display": "auto",
+			"showTitleAndDescription": false,
+			"backgroundImage": {
+				"sizeType": "cover",
+				"x": 0,
+				"y": 0,
+				"src": "splunk-enterprise-kvstore://68248ceac2d4253b8a04d592"
+			}
+		},
+		"structure": [
+			{
+				"item": "input_global_trp",
+				"type": "input",
+				"position": {
+					"x": 1220,
+					"y": -10,
+					"w": 198,
+					"h": 82
+				}
+			},
+			{
+				"item": "viz_snTXrfUL",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 70,
+					"w": 700,
+					"h": 440
+				}
+			},
+			{
+				"item": "viz_9Ism6CnC",
+				"type": "block",
+				"position": {
+					"x": 720,
+					"y": 70,
+					"w": 700,
+					"h": 440
+				}
+			},
+			{
+				"item": "viz_76JQcXN1",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 520,
+					"w": 700,
+					"h": 440
+				}
+			},
+			{
+				"item": "viz_h38YKgi1",
+				"type": "block",
+				"position": {
+					"x": 720,
+					"y": 520,
+					"w": 700,
+					"h": 440
+				}
+			}
+		],
+		"globalInputs": []
+	},
+	"description": "",
+	"title": "Proxmox"
+}
+    ]]></definition>
+    <meta type="hiddenElements"><![CDATA[
+{
+	"hideEdit": false,
+	"hideOpenInSearch": false,
+	"hideExport": false
+}
+    ]]></meta>
+</dashboard>

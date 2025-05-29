@@ -1,0 +1,21 @@
+<form version="1.1">
+  <label>Search by nix Command</label>
+  
+  <!-- define master search template, with replacement tokens delimited with $. This is an example, replace with your own search.-->
+  <searchTemplate>index=nix exe="*$command$*" | sort by date</searchTemplate>
+
+  <fieldset>
+      <!-- the default is a text box, with no seed value; if user does not input
+          a value, then the $from$ token in searchTemplate will be removed -->
+      <input type="text" token="command" />
+  </fieldset>
+  
+  <row>
+      <!-- output the results as a 50 row events view -->
+      <event>
+            <title>Commands Results sorted by date</title>
+            <option name="count">50</option>
+      </event>
+  </row>
+  
+</form>

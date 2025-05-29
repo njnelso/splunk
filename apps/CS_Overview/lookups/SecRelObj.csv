@@ -1,0 +1,12 @@
+Command
+*/home/security/*
+*/etc/hosts
+*/etc/issue
+*/etc/issue.net
+*/etc/sysconfig/network
+*/etc/selinux
+*/etc/sudoers
+*/etc/group
+*/etc/passwd
+*/etc/gshadow
+*/etc/shadow

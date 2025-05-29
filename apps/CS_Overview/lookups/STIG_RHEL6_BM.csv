@@ -1,0 +1,2044 @@
+Vuln ID,Severity,Group Title,Rule ID,STIG ID,Rule Title,Discussion,IA Controls,Check Content,Fix Text,False Positives,False Negatives,Documentable,Mitigations,Potential Impact,Third Party Tools,Mitigation Control,Responsibility,Severity Override Guidance,Check Content Reference,Classification,STIG,VMS Asset Posture,CCI
+V-38437,low,SRG-OS-999999,SV-50237r1_rule,RHEL-06-000526,Automated file system mounting tools must not be enabled unless needed.,"All filesystems that are required for the successful operation of the system should be explicitly listed in ""/etc/fstab"" by an administrator. New filesystems should not be arbitrarily introduced via the automounter.
+
+The ""autofs"" daemon mounts and unmounts filesystems, such as user home directories shared via NFS, on demand. In addition, autofs can be used to handle removable media, and the default configuration provides the cdrom device as ""/misc/cd"". However, this method of providing access to removable media is not common, so autofs can almost always be disabled if NFS is not in use. Even if NFS is required, it is almost always possible to configure filesystem mounts statically by editing ""/etc/fstab"" rather than relying on the automounter. ",,,"If the ""autofs"" service is not needed to dynamically mount NFS filesystems or removable media, disable the service for all runlevels: 
+
+# chkconfig --level 0123456 autofs off
+
+Stop the service if it is already running: 
+
+# service autofs stop",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:621,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38438,low,SRG-OS-000062,SV-50238r4_rule,RHEL-06-000525,Auditing must be enabled at boot by setting a kernel parameter.,"Each process on the system carries an ""auditable"" flag which indicates whether its activities can be audited. Although ""auditd"" takes care of enabling this for all processes which launch after it does, adding the kernel argument ensures it is set for every process during boot.",,,"To ensure all processes can be audited, even those which start prior to the audit daemon, add the argument ""audit=1"" to the kernel line in ""/boot/grub/grub.conf"" or “/boot/efi/EFI/redhat/grub.conf”, in the manner below:
+
+kernel /vmlinuz-version ro vga=ext root=/dev/VolGroup00/LogVol00 rhgb quiet audit=1
+
+UEFI systems may prepend ""/boot"" to the ""/vmlinuz-version"" argument.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:159,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000169
+The information system provides audit record generation capability for the auditable events defined in AU-2 a at organization-defined information system components.
+NIST SP 800-53 :: AU-12 a
+NIST SP 800-53A :: AU-12.1 (ii)
+NIST SP 800-53 Revision 4 :: AU-12 a
+
+"
+V-38443,medium,SRG-OS-999999,SV-50243r1_rule,RHEL-06-000036,The /etc/gshadow file must be owned by root.,"The ""/etc/gshadow"" file contains group password hashes. Protection of this file is critical for system security.",,,"To properly set the owner of ""/etc/gshadow"", run the command: 
+
+# chown root /etc/gshadow",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1012,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38448,medium,SRG-OS-999999,SV-50248r1_rule,RHEL-06-000037,The /etc/gshadow file must be group-owned by root.,"The ""/etc/gshadow"" file contains group password hashes. Protection of this file is critical for system security.",,,"To properly set the group owner of ""/etc/gshadow"", run the command: 
+
+# chgrp root /etc/gshadow",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:739,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38449,medium,SRG-OS-999999,SV-50249r1_rule,RHEL-06-000038,The /etc/gshadow file must have mode 0000.,The /etc/gshadow file contains group password hashes. Protection of this file is critical for system security.,,,"To properly set the permissions of ""/etc/gshadow"", run the command: 
+
+# chmod 0000 /etc/gshadow",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:727,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38450,medium,SRG-OS-999999,SV-50250r1_rule,RHEL-06-000039,The /etc/passwd file must be owned by root.,"The ""/etc/passwd"" file contains information about the users that are configured on the system. Protection of this file is critical for system security.",,,"To properly set the owner of ""/etc/passwd"", run the command: 
+
+# chown root /etc/passwd",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:554,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38451,medium,SRG-OS-999999,SV-50251r1_rule,RHEL-06-000040,The /etc/passwd file must be group-owned by root.,"The ""/etc/passwd"" file contains information about the users that are configured on the system. Protection of this file is critical for system security.",,,"To properly set the group owner of ""/etc/passwd"", run the command: 
+
+# chgrp root /etc/passwd",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:969,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38455,low,SRG-OS-999999,SV-50255r1_rule,RHEL-06-000001,The system must use a separate file system for /tmp.,"The ""/tmp"" partition is used as temporary storage by many programs. Placing ""/tmp"" in its own partition enables the setting of more restrictive mount options, which can help protect programs which use it.",,,"The ""/tmp"" directory is a world-writable directory used for temporary file storage. Ensure it has its own partition or logical volume at installation time, or migrate it using LVM.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1183,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38456,low,SRG-OS-999999,SV-50256r1_rule,RHEL-06-000002,The system must use a separate file system for /var.,"Ensuring that ""/var"" is mounted on its own partition enables the setting of more restrictive mount options. This helps protect system services such as daemons or other programs which use it. It is not uncommon for the ""/var"" directory to contain world-writable directories, installed by other software packages.",,,"The ""/var"" directory is used by daemons and other system services to store frequently-changing data. Ensure that ""/var"" has its own partition or logical volume at installation time, or migrate it using LVM.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:161,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38457,medium,SRG-OS-999999,SV-50257r1_rule,RHEL-06-000041,The /etc/passwd file must have mode 0644 or less permissive.,"If the ""/etc/passwd"" file is writable by a group-owner or the world the risk of its compromise is increased. The file contains the list of accounts on the system and associated information, and protection of this file is critical for system security.",,,"To properly set the permissions of ""/etc/passwd"", run the command: 
+
+# chmod 0644 /etc/passwd",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1181,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38458,medium,SRG-OS-999999,SV-50258r1_rule,RHEL-06-000042,The /etc/group file must be owned by root.,"The ""/etc/group"" file contains information regarding groups that are configured on the system. Protection of this file is important for system security.",,,"To properly set the owner of ""/etc/group"", run the command: 
+
+# chown root /etc/group",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1177,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38459,medium,SRG-OS-999999,SV-50259r1_rule,RHEL-06-000043,The /etc/group file must be group-owned by root.,"The ""/etc/group"" file contains information regarding groups that are configured on the system. Protection of this file is important for system security.",,,"To properly set the group owner of ""/etc/group"", run the command: 
+
+# chgrp root /etc/group",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:325,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38461,medium,SRG-OS-999999,SV-50261r1_rule,RHEL-06-000044,The /etc/group file must have mode 0644 or less permissive.,"The ""/etc/group"" file contains information regarding groups that are configured on the system. Protection of this file is important for system security.",,,"To properly set the permissions of ""/etc/group"", run the command: 
+
+# chmod 644 /etc/group",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1030,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38463,low,SRG-OS-999999,SV-50263r1_rule,RHEL-06-000003,The system must use a separate file system for /var/log.,"Placing ""/var/log"" in its own partition enables better separation between log files and other files in ""/var/"".",,,"System logs are stored in the ""/var/log"" directory. Ensure that it has its own partition or logical volume at installation time, or migrate it using LVM.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:497,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38467,low,SRG-OS-000044,SV-50267r1_rule,RHEL-06-000004,The system must use a separate file system for the system audit data path.,"Placing ""/var/log/audit"" in its own partition enables better separation between audit files and other files, and helps ensure that auditing cannot be halted due to the partition running out of space.",,,"Audit logs are stored in the ""/var/log/audit"" directory. Ensure that it has its own partition or logical volume at installation time, or migrate it later using LVM. Make absolutely certain that it is large enough to store all audit logs that will be created by the auditing daemon.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1042,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000137
+The organization allocates audit record storage capacity.
+NIST SP 800-53 :: AU-4
+NIST SP 800-53A :: AU-4.1 (i)
+
+"
+V-38469,medium,SRG-OS-000259,SV-50269r3_rule,RHEL-06-000047,All system command files must have mode 755 or less permissive.,"System binaries are executed by privileged users, as well as system services, and restrictive permissions are necessary to ensure execution of these programs cannot be co-opted.",,,"System executables are stored in the following directories by default: 
+
+/bin
+/usr/bin
+/usr/local/bin
+/sbin
+/usr/sbin
+/usr/local/sbin
+
+If any file in these directories is found to be group-writable or world-writable, correct its permission with the following command: 
+
+# chmod go-w [FILE]",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3055,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001499
+The organization limits privileges to change software resident within software libraries.
+NIST SP 800-53 :: CM-5 (6)
+NIST SP 800-53A :: CM-5 (6).1
+NIST SP 800-53 Revision 4 :: CM-5 (6)
+
+"
+V-38470,medium,SRG-OS-000045,SV-50270r2_rule,RHEL-06-000005,The audit system must alert designated staff members when the audit storage volume approaches capacity.,Notifying administrators of an impending disk space problem may allow them to take corrective action prior to any disruption.,,,"The ""auditd"" service can be configured to take an action when disk space starts to run low. Edit the file ""/etc/audit/auditd.conf"". Modify the following line, substituting [ACTION] appropriately: 
+
+space_left_action = [ACTION]
+
+Possible values for [ACTION] are described in the ""auditd.conf"" man page. These include: 
+
+""ignore""
+""syslog""
+""email""
+""exec""
+""suspend""
+""single""
+""halt""
+
+
+Set this to ""email"" (instead of the default, which is ""suspend"") as it is more likely to get prompt attention.  The ""syslog"" option is acceptable, provided the local log management infrastructure notifies an appropriate administrator in a timely manner.
+
+RHEL-06-000521 ensures that the email generated through the operation ""space_left_action"" will be sent to an administrator.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:865,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000138
+The organization configures auditing to reduce the likelihood of storage capacity being exceeded.
+NIST SP 800-53 :: AU-4
+NIST SP 800-53A :: AU-4.1 (ii)
+
+"
+V-38472,medium,SRG-OS-000259,SV-50272r1_rule,RHEL-06-000048,All system command files must be owned by root.,"System binaries are executed by privileged users as well as system services, and restrictive permissions are necessary to ensure that their execution of these programs cannot be co-opted.",,,"System executables are stored in the following directories by default: 
+
+/bin
+/usr/bin
+/usr/local/bin
+/sbin
+/usr/sbin
+/usr/local/sbin
+
+If any file [FILE] in these directories is found to be owned by a user other than root, correct its ownership with the following command: 
+
+# chown root [FILE]",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3090,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001499
+The organization limits privileges to change software resident within software libraries.
+NIST SP 800-53 :: CM-5 (6)
+NIST SP 800-53A :: CM-5 (6).1
+NIST SP 800-53 Revision 4 :: CM-5 (6)
+
+"
+V-38473,low,SRG-OS-999999,SV-50273r1_rule,RHEL-06-000007,The system must use a separate file system for user home directories.,"Ensuring that ""/home"" is mounted on its own partition enables the setting of more restrictive mount options, and also helps ensure that users cannot trivially fill partitions used for log or audit data storage.",,,"If user home directories will be stored locally, create a separate partition for ""/home"" at installation time (or migrate it later using LVM). If ""/home"" will be mounted from another system such as an NFS server, then creating a separate partition is not necessary at installation time, and the mountpoint can instead be configured later.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:939,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38475,medium,SRG-OS-000078,SV-50275r3_rule,RHEL-06-000050,The system must require passwords to contain a minimum of 15 characters.,"Requiring a minimum password length makes password cracking attacks more difficult by ensuring a larger search space. However, any security benefit from an onerous requirement must be carefully weighed against usability problems, support costs, or counterproductive behavior that may result.
+
+While it does not negate the password length requirement, it is preferable to migrate from a password-based authentication scheme to a stronger one based on PKI (public key infrastructure).",,,"To specify password length requirements for new accounts, edit the file ""/etc/login.defs"" and add or correct the following lines: 
+
+PASS_MIN_LEN 15
+
+The DoD requirement is ""15"". If a program consults ""/etc/login.defs"" and also another PAM module (such as ""pam_cracklib"") during a password change operation, then the most restrictive must be satisfied.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:445,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000205
+The information system enforces minimum password length.
+NIST SP 800-53 :: IA-5 (1) (a)
+NIST SP 800-53A :: IA-5 (1).1 (i)
+NIST SP 800-53 Revision 4 :: IA-5 (1) (a)
+
+"
+V-38476,high,SRG-OS-000090,SV-50276r3_rule,RHEL-06-000008,Vendor-provided cryptographic certificates must be installed to verify the integrity of system software.,The Red Hat GPG keys are necessary to cryptographically verify packages are from Red Hat. ,,,"To ensure the system can cryptographically verify base software packages come from Red Hat (and to connect to the Red Hat Network to receive them), the Red Hat GPG keys must be installed properly. To install the Red Hat GPG keys, run:
+
+# rhn_register
+
+If the system is not connected to the Internet or an RHN Satellite, then install the Red Hat GPG keys from trusted media such as the Red Hat installation CD-ROM or DVD. Assuming the disc is mounted in ""/media/cdrom"", use the following command as the root user to import them into the keyring:
+
+# rpm --import /media/cdrom/RPM-GPG-KEY",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3031,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000352
+The information system prevents the installation of organization defined critical software programs that are not signed with a certificate that is recognized and approved by the organization.
+NIST SP 800-53 :: CM-5 (3)
+NIST SP 800-53A :: CM-5 (3).1 (ii)
+
+"
+V-38477,medium,SRG-OS-000075,SV-50277r1_rule,RHEL-06-000051,Users must not be able to change passwords more than once every 24 hours.,Setting the minimum password age protects against users cycling back to a favorite password after satisfying the password reuse requirement.,,,"To specify password minimum age for new accounts, edit the file ""/etc/login.defs"" and add or correct the following line, replacing [DAYS] appropriately: 
+
+PASS_MIN_DAYS [DAYS]
+
+A value of 1 day is considered sufficient for many environments. The DoD requirement is 1.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:525,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000198
+The information system enforces minimum password lifetime restrictions.
+NIST SP 800-53 :: IA-5 (1) (d)
+NIST SP 800-53A :: IA-5 (1).1 (v)
+NIST SP 800-53 Revision 4 :: IA-5 (1) (d)
+
+"
+V-38479,medium,SRG-OS-000076,SV-50279r1_rule,RHEL-06-000053,User passwords must be changed at least every 60 days.,Setting the password maximum age ensures users are required to periodically change their passwords. This could possibly decrease the utility of a stolen password. Requiring shorter password lifetimes increases the risk of users writing down the password in a convenient location subject to physical compromise.,,,"To specify password maximum age for new accounts, edit the file ""/etc/login.defs"" and add or correct the following line, replacing [DAYS] appropriately: 
+
+PASS_MAX_DAYS [DAYS]
+
+The DoD requirement is 60.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:617,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000199
+The information system enforces maximum password lifetime restrictions.
+NIST SP 800-53 :: IA-5 (1) (d)
+NIST SP 800-53A :: IA-5 (1).1 (v)
+NIST SP 800-53 Revision 4 :: IA-5 (1) (d)
+
+"
+V-38480,low,SRG-OS-999999,SV-50280r1_rule,RHEL-06-000054,Users must be warned 7 days in advance of password expiration.,Setting the password warning age enables users to make the change at a practical time.,,,"To specify how many days prior to password expiration that a warning will be issued to users, edit the file ""/etc/login.defs"" and add or correct the following line, replacing [DAYS] appropriately: 
+
+PASS_WARN_AGE [DAYS]
+
+The DoD requirement is 7.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:651,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38482,low,SRG-OS-000071,SV-50282r2_rule,RHEL-06-000056,The system must require passwords to contain at least one numeric character.,Requiring digits makes password guessing attacks more difficult by ensuring a larger search space.,,,"The pam_cracklib module's ""dcredit"" parameter controls requirements for usage of digits in a password. When set to a negative number, any password will be required to contain that many digits. When set to a positive number, pam_cracklib will grant +1 additional length credit for each digit.
+ 
+Edit /etc/pam.d/system-auth and /etc/pam.d/password-auth adding ""dcredit=-1"" after pam_cracklib.so to require use of a digit in passwords.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:453,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000194
+The information system enforces password complexity by the minimum number of numeric characters used.
+NIST SP 800-53 :: IA-5 (1) (a)
+NIST SP 800-53A :: IA-5 (1).1 (v)
+NIST SP 800-53 Revision 4 :: IA-5 (1) (a)
+
+"
+V-38483,medium,SRG-OS-000103,SV-50283r1_rule,RHEL-06-000013,The system package management tool must cryptographically verify the authenticity of system software packages during installation.,Ensuring the validity of packages' cryptographic signatures prior to installation ensures the provenance of the software and protects against malicious tampering.,,,"The ""gpgcheck"" option should be used to ensure checking of an RPM package's signature always occurs prior to its installation. To configure yum to check package signatures before installing them, ensure the following line appears in ""/etc/yum.conf"" in the ""[main]"" section: 
+
+gpgcheck=1",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:937,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000663
+The organization (or information system) enforces explicit rules governing the installation of software by users.
+NIST SP 800-53 :: SA-7
+NIST SP 800-53A :: SA-7.1 (ii)
+
+"
+V-38487,low,SRG-OS-000103,SV-50288r1_rule,RHEL-06-000015,The system package management tool must cryptographically verify the authenticity of all software packages during installation.,Ensuring all packages' cryptographic signatures are valid prior to installation ensures the provenance of the software and protects against malicious tampering.,,,"To ensure signature checking is not disabled for any repos, remove any lines from files in ""/etc/yum.repos.d"" of the form: 
+
+gpgcheck=0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3042,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000663
+The organization (or information system) enforces explicit rules governing the installation of software by users.
+NIST SP 800-53 :: SA-7
+NIST SP 800-53A :: SA-7.1 (ii)
+
+"
+V-38489,medium,SRG-OS-000232,SV-50290r1_rule,RHEL-06-000016,A file integrity tool must be installed.,The AIDE package must be installed if it is to be available for integrity checking.,,,"Install the AIDE package with the command: 
+
+# yum install aide",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:971,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001069
+The organization employs automated mechanisms to detect the presence of unauthorized software on organizational information systems and notify designated organizational officials in accordance with the organization defined frequency.
+NIST SP 800-53 :: RA-5 (7)
+NIST SP 800-53A :: RA-5 (7).1 (ii)
+
+"
+V-38490,medium,SRG-OS-000273,SV-50291r6_rule,RHEL-06-000503,The operating system must enforce requirements for the connection of mobile devices to operating systems.,USB storage devices such as thumb drives can be used to introduce unauthorized software and other vulnerabilities. Support for these devices should be disabled and the devices themselves should be tightly controlled.,,,"To prevent USB storage devices from being used, configure the kernel module loading system to prevent automatic loading of the USB storage driver. To configure the system to prevent the ""usb-storage"" kernel module from being loaded, add the following line to a file in the directory ""/etc/modprobe.d"": 
+
+install usb-storage /bin/true
+
+This will prevent the ""modprobe"" program from loading the ""usb-storage"" module, but will not prevent an administrator (or another program) from using the ""insmod"" program to load the module manually.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:960,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000086
+The organization enforces requirements for the connection of mobile devices to organizational information systems.
+NIST SP 800-53 :: AC-19 d
+NIST SP 800-53A :: AC-19.1 (iv)
+
+"
+V-38491,high,SRG-OS-000248,SV-50292r1_rule,RHEL-06-000019,There must be no .rhosts or hosts.equiv files on the system.,"Trust files are convenient, but when used in conjunction with the R-services, they can allow unauthenticated access to a system.",,,"The files ""/etc/hosts.equiv"" and ""~/.rhosts"" (in each user's home directory) list remote hosts and users that are trusted by the local system when using the rshd daemon. To remove these files, run the following command to delete them from any location. 
+
+# rm /etc/hosts.equiv
+
+
+
+$ rm ~/.rhosts",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:301,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001436
+The organization disables organization defined networking protocols within the information system deemed to be nonsecure except for explicitly identified components in support of specific operational requirements.
+NIST SP 800-53 :: AC-17 (8)
+NIST SP 800-53A :: AC-17 (8).1 (ii)
+
+"
+V-38492,medium,SRG-OS-000109,SV-50293r1_rule,RHEL-06-000027,The system must prevent the root account from logging in from virtual consoles.,Preventing direct root login to virtual console devices helps ensure accountability for actions taken on the system using the root account. ,,,"To restrict root logins through the (deprecated) virtual console devices, ensure lines of this form do not appear in ""/etc/securetty"": 
+
+vc/1
+vc/2
+vc/3
+vc/4
+
+Note:  Virtual console entries are not limited to those listed above.  Any lines starting with ""vc/"" followed by numerals should be removed.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:644,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000770
+The organization requires individuals to be authenticated with an individual authenticator when a group authenticator is employed.
+NIST SP 800-53 :: IA-2 (5) (b)
+NIST SP 800-53A :: IA-2 (5).2 (ii)
+NIST SP 800-53 Revision 4 :: IA-2 (5)
+
+"
+V-38494,low,SRG-OS-000109,SV-50295r1_rule,RHEL-06-000028,The system must prevent the root account from logging in from serial consoles.,Preventing direct root login to serial port interfaces helps ensure accountability for actions taken on the systems using the root account.,,,"To restrict root logins on serial ports, ensure lines of this form do not appear in ""/etc/securetty"": 
+
+ttyS0
+ttyS1
+
+Note:  Serial port entries are not limited to those listed above.  Any lines starting with ""ttyS"" followed by numerals should be removed",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:510,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000770
+The organization requires individuals to be authenticated with an individual authenticator when a group authenticator is employed.
+NIST SP 800-53 :: IA-2 (5) (b)
+NIST SP 800-53A :: IA-2 (5).2 (ii)
+NIST SP 800-53 Revision 4 :: IA-2 (5)
+
+"
+V-38495,medium,SRG-OS-000057,SV-50296r1_rule,RHEL-06-000384,Audit log files must be owned by root.,"If non-privileged users can write to audit logs, audit trails can be modified or destroyed.",,,"Change the owner of the audit log files with the following command: 
+
+# chown root [audit_file]",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:773,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000162
+The information system protects audit information from unauthorized access.
+NIST SP 800-53 :: AU-9
+NIST SP 800-53A :: AU-9.1
+NIST SP 800-53 Revision 4 :: AU-9
+
+"
+V-38497,high,SRG-OS-999999,SV-50298r3_rule,RHEL-06-000030,The system must not have accounts configured with blank or null passwords.,"If an account has an empty password, anyone could log in and run commands with the privileges of that account. Accounts with empty passwords should never be used in operational environments.",,,"If an account is configured for password authentication but does not have an assigned password, it may be possible to log onto the account without authentication. Remove any instances of the ""nullok"" option in ""/etc/pam.d/system-auth"" and ""/etc/pam.d/password-auth"" to prevent logons with empty passwords.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:2996,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38498,medium,SRG-OS-000058,SV-50299r1_rule,RHEL-06-000383,Audit log files must have mode 0640 or less permissive.,"If users can write to audit logs, audit trails can be modified or destroyed.",,,"Change the mode of the audit log files with the following command: 
+
+# chmod 0640 [audit_file]",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1143,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000163
+The information system protects audit information from unauthorized modification.
+NIST SP 800-53 :: AU-9
+NIST SP 800-53A :: AU-9.1
+NIST SP 800-53 Revision 4 :: AU-9
+
+"
+V-38499,medium,SRG-OS-999999,SV-50300r1_rule,RHEL-06-000031,The /etc/passwd file must not contain password hashes.,"The hashes for all user account passwords should be stored in the file ""/etc/shadow"" and never in ""/etc/passwd"", which is readable by all users.",,,"If any password hashes are stored in ""/etc/passwd"" (in the second field, instead of an ""x""), the cause of this misconfiguration should be investigated. The account should have its password reset and the hash should be properly stored, or the account should be deleted entirely.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:308,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38500,medium,SRG-OS-999999,SV-50301r2_rule,RHEL-06-000032,The root account must be the only account having a UID of 0.,An account has root authority if it has a UID of 0. Multiple accounts with a UID of 0 afford more opportunity for potential intruders to guess a password for a privileged account. Proper configuration of sudo is recommended to afford multiple system administrators access to root privileges in an accountable manner.,,,"If any account other than root has a UID of 0, this misconfiguration should be investigated and the accounts other than root should be removed or have their UID changed.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:926,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38501,medium,SRG-OS-000249,SV-50302r4_rule,RHEL-06-000357,The system must disable accounts after excessive login failures within a 15-minute interval.,Locking out user accounts after a number of incorrect attempts within a specific period of time prevents direct password guessing attacks.,,,"Utilizing ""pam_faillock.so"", the ""fail_interval"" directive configures the system to lock out accounts after a number of incorrect logon attempts. Modify the content of both ""/etc/pam.d/system-auth"" and ""/etc/pam.d/password-auth"" as follows: 
+
+Add the following line immediately before the ""pam_unix.so"" statement in the ""AUTH"" section: 
+
+auth required pam_faillock.so preauth silent deny=3 unlock_time=604800 fail_interval=900
+
+Add the following line immediately after the ""pam_unix.so"" statement in the ""AUTH"" section: 
+
+auth [default=die] pam_faillock.so authfail deny=3 unlock_time=604800 fail_interval=900
+
+Add the following line immediately before the ""pam_unix.so"" statement in the ""ACCOUNT"" section: 
+
+account required pam_faillock.so
+
+Note that any updates made to ""/etc/pam.d/system-auth"" and ""/etc/pam.d/password-auth"" may be overwritten by the ""authconfig"" program.  The ""authconfig"" program should not be used.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3126,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001452
+The information system enforces the organization defined time period during which the limit of consecutive invalid access attempts by a user is counted.
+NIST SP 800-53 :: AC-7 a
+NIST SP 800-53A :: AC-7.1 (ii)
+
+"
+V-38502,medium,SRG-OS-999999,SV-50303r1_rule,RHEL-06-000033,The /etc/shadow file must be owned by root.,"The ""/etc/shadow"" file contains the list of local system accounts and stores password hashes. Protection of this file is critical for system security. Failure to give ownership of this file to root provides the designated owner with access to sensitive information which could weaken the system security posture.",,,"To properly set the owner of ""/etc/shadow"", run the command: 
+
+# chown root /etc/shadow",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3115,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38503,medium,SRG-OS-999999,SV-50304r1_rule,RHEL-06-000034,The /etc/shadow file must be group-owned by root.,"The ""/etc/shadow"" file stores password hashes. Protection of this file is critical for system security.",,,"To properly set the group owner of ""/etc/shadow"", run the command: 
+
+# chgrp root /etc/shadow",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3080,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38504,medium,SRG-OS-999999,SV-50305r1_rule,RHEL-06-000035,The /etc/shadow file must have mode 0000.,"The ""/etc/shadow"" file contains the list of local system accounts and stores password hashes. Protection of this file is critical for system security. Failure to give ownership of this file to root provides the designated owner with access to sensitive information which could weaken the system security posture.",,,"To properly set the permissions of ""/etc/shadow"", run the command: 
+
+# chmod 0000 /etc/shadow",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:781,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38511,medium,SRG-OS-999999,SV-50312r2_rule,RHEL-06-000082,"IP forwarding for IPv4 must not be enabled, unless the system is a router.",IP forwarding permits the kernel to forward packets from one network interface to another. The ability to forward packets between two networks is only appropriate for systems acting as routers.,,,"To set the runtime status of the ""net.ipv4.ip_forward"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.ip_forward=0
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.ip_forward = 0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:238,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38512,medium,SRG-OS-000146,SV-50313r2_rule,RHEL-06-000117,"The operating system must prevent public IPv4 access into an organizations internal networks, except as appropriately mediated by managed interfaces employing boundary protection devices.","The ""iptables"" service provides the system's host-based firewalling capability for IPv4 and ICMP.",,,"The ""iptables"" service can be enabled with the following commands: 
+
+# chkconfig iptables on
+# service iptables start",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:828,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001100
+The information system prevents public access into the organization's internal networks except as appropriately mediated by managed interfaces employing boundary protection devices.
+NIST SP 800-53 :: SC-7 (2)
+NIST SP 800-53A :: SC-7 (2).1 (ii)
+
+"
+V-38514,medium,SRG-OS-000096,SV-50315r5_rule,RHEL-06-000124,The Datagram Congestion Control Protocol (DCCP) must be disabled unless required.,Disabling DCCP protects the system against exploitation of any flaws in its implementation.,,,"The Datagram Congestion Control Protocol (DCCP) is a relatively new transport layer protocol, designed to support streaming media and telephony. To configure the system to prevent the ""dccp"" kernel module from being loaded, add the following line to a file in the directory ""/etc/modprobe.d"": 
+
+install dccp /bin/true",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:746,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38515,medium,SRG-OS-000096,SV-50316r5_rule,RHEL-06-000125,The Stream Control Transmission Protocol (SCTP) must be disabled unless required.,Disabling SCTP protects the system against exploitation of any flaws in its implementation.,,,"The Stream Control Transmission Protocol (SCTP) is a transport layer protocol, designed to support the idea of message-oriented communication, with several streams of messages within one connection. To configure the system to prevent the ""sctp"" kernel module from being loaded, add the following line to a file in the directory ""/etc/modprobe.d"": 
+
+install sctp /bin/true",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1105,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38516,low,SRG-OS-000096,SV-50317r3_rule,RHEL-06-000126,The Reliable Datagram Sockets (RDS) protocol must be disabled unless required.,Disabling RDS protects the system against exploitation of any flaws in its implementation.,,,"The Reliable Datagram Sockets (RDS) protocol is a transport layer protocol designed to provide reliable high-bandwidth, low-latency communications between nodes in a cluster. To configure the system to prevent the ""rds"" kernel module from being loaded, add the following line to a file in the directory ""/etc/modprobe.d"": 
+
+install rds /bin/true",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:244,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38517,medium,SRG-OS-000096,SV-50318r5_rule,RHEL-06-000127,The Transparent Inter-Process Communication (TIPC) protocol must be disabled unless required.,Disabling TIPC protects the system against exploitation of any flaws in its implementation.,,,"The Transparent Inter-Process Communication (TIPC) protocol is designed to provide communications between nodes in a cluster. To configure the system to prevent the ""tipc"" kernel module from being loaded, add the following line to a file in the directory ""/etc/modprobe.d"": 
+
+install tipc /bin/true",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1167,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38518,medium,SRG-OS-000206,SV-50319r2_rule,RHEL-06-000133,All rsyslog-generated log files must be owned by root.,"The log files generated by rsyslog contain valuable information regarding system configuration, user authentication, and other such information. Log files should be protected from unauthorized access.",,,"The owner of all log files written by ""rsyslog"" should be root. These log files are determined by the second part of each Rule line in ""/etc/rsyslog.conf"" typically all appear in ""/var/log"". For each log file [LOGFILE] referenced in ""/etc/rsyslog.conf"", run the following command to inspect the file's owner:
+
+$ ls -l [LOGFILE]
+
+If the owner is not ""root"", run the following command to correct this:
+
+# chown root [LOGFILE]",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:964,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001314
+The information system reveals error messages only to organization-defined personnel or roles.
+NIST SP 800-53 :: SI-11 c
+NIST SP 800-53A :: SI-11.1 (iv)
+NIST SP 800-53 Revision 4 :: SI-11 b
+
+"
+V-38522,low,SRG-OS-000062,SV-50323r3_rule,RHEL-06-000167,The audit system must be configured to audit all attempts to alter system time through settimeofday.,"Arbitrary changes to the system time can be used to obfuscate nefarious activities in log files, as well as to confuse network services that are highly dependent upon an accurate system time (such as sshd). All changes to the system time should be audited.",,,"On a 32-bit system, add the following to ""/etc/audit/audit.rules"": 
+
+# audit_time_rules
+-a always,exit -F arch=b32 -S settimeofday -k audit_time_rules
+
+On a 64-bit system, add the following to ""/etc/audit/audit.rules"": 
+
+# audit_time_rules
+-a always,exit -F arch=b64 -S settimeofday -k audit_time_rules
+
+The -k option allows for the specification of a key in string form that can be used for better reporting capability through ausearch and aureport. Multiple system calls can be defined on the same line to save space if desired, but is not required. See an example of multiple combined syscalls: 
+
+-a always,exit -F arch=b64 -S adjtimex -S settimeofday -S clock_settime -k audit_time_rules",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:310,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000169
+The information system provides audit record generation capability for the auditable events defined in AU-2 a at organization-defined information system components.
+NIST SP 800-53 :: AU-12 a
+NIST SP 800-53A :: AU-12.1 (ii)
+NIST SP 800-53 Revision 4 :: AU-12 a
+
+"
+V-38523,medium,SRG-OS-999999,SV-50324r2_rule,RHEL-06-000083,The system must not accept IPv4 source-routed packets on any interface.,Accepting source-routed packets in the IPv4 protocol has few legitimate uses. It should be disabled unless it is absolutely required.,,,"To set the runtime status of the ""net.ipv4.conf.all.accept_source_route"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.conf.all.accept_source_route=0
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.conf.all.accept_source_route = 0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1155,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38524,medium,SRG-OS-999999,SV-50325r2_rule,RHEL-06-000084,The system must not accept ICMPv4 redirect packets on any interface.,Accepting ICMP redirects has few legitimate uses. It should be disabled unless it is absolutely required.,,,"To set the runtime status of the ""net.ipv4.conf.all.accept_redirects"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.conf.all.accept_redirects=0
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.conf.all.accept_redirects = 0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:556,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38525,low,SRG-OS-000062,SV-50326r4_rule,RHEL-06-000169,The audit system must be configured to audit all attempts to alter system time through stime.,"Arbitrary changes to the system time can be used to obfuscate nefarious activities in log files, as well as to confuse network services that are highly dependent upon an accurate system time (such as sshd). All changes to the system time should be audited.",,,"On a 32-bit system, add the following to ""/etc/audit/audit.rules"": 
+
+# audit_time_rules
+-a always,exit -F arch=b32 -S stime -k audit_time_rules
+
+On a 64-bit system, the ""-S stime"" is not necessary. The -k option allows for the specification of a key in string form that can be used for better reporting capability through ausearch and aureport. Multiple system calls can be defined on the same line to save space if desired, but is not required. See an example of multiple combined syscalls: 
+
+-a always,exit -F arch=b64 -S adjtimex -S settimeofday -S clock_settime -k audit_time_rules",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:845,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000169
+The information system provides audit record generation capability for the auditable events defined in AU-2 a at organization-defined information system components.
+NIST SP 800-53 :: AU-12 a
+NIST SP 800-53A :: AU-12.1 (ii)
+NIST SP 800-53 Revision 4 :: AU-12 a
+
+"
+V-38526,medium,SRG-OS-999999,SV-50327r2_rule,RHEL-06-000086,The system must not accept ICMPv4 secure redirect packets on any interface.,"Accepting ""secure"" ICMP redirects (from those gateways listed as default gateways) has few legitimate uses. It should be disabled unless it is absolutely required.",,,"To set the runtime status of the ""net.ipv4.conf.all.secure_redirects"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.conf.all.secure_redirects=0
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.conf.all.secure_redirects = 0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:490,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38527,low,SRG-OS-000062,SV-50328r3_rule,RHEL-06-000171,The audit system must be configured to audit all attempts to alter system time through clock_settime.,"Arbitrary changes to the system time can be used to obfuscate nefarious activities in log files, as well as to confuse network services that are highly dependent upon an accurate system time (such as sshd). All changes to the system time should be audited.",,,"On a 32-bit system, add the following to ""/etc/audit/audit.rules"": 
+
+# audit_time_rules
+-a always,exit -F arch=b32 -S clock_settime -k audit_time_rules
+
+On a 64-bit system, add the following to ""/etc/audit/audit.rules"": 
+
+# audit_time_rules
+-a always,exit -F arch=b64 -S clock_settime -k audit_time_rules
+
+The -k option allows for the specification of a key in string form that can be used for better reporting capability through ausearch and aureport. Multiple system calls can be defined on the same line to save space if desired, but is not required. See an example of multiple combined syscalls: 
+
+-a always,exit -F arch=b64 -S adjtimex -S settimeofday -S clock_settime -k audit_time_rules",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:125,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000169
+The information system provides audit record generation capability for the auditable events defined in AU-2 a at organization-defined information system components.
+NIST SP 800-53 :: AU-12 a
+NIST SP 800-53A :: AU-12.1 (ii)
+NIST SP 800-53 Revision 4 :: AU-12 a
+
+"
+V-38528,low,SRG-OS-999999,SV-50329r2_rule,RHEL-06-000088,The system must log Martian packets.,"The presence of ""martian"" packets (which have impossible addresses) as well as spoofed packets, source-routed packets, and redirects could be a sign of nefarious network activity. Logging these packets enables this activity to be detected.",,,"To set the runtime status of the ""net.ipv4.conf.all.log_martians"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.conf.all.log_martians=1
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.conf.all.log_martians = 1",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:702,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38529,medium,SRG-OS-999999,SV-50330r2_rule,RHEL-06-000089,The system must not accept IPv4 source-routed packets by default.,Accepting source-routed packets in the IPv4 protocol has few legitimate uses. It should be disabled unless it is absolutely required.,,,"To set the runtime status of the ""net.ipv4.conf.default.accept_source_route"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.conf.default.accept_source_route=0
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.conf.default.accept_source_route = 0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:649,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38530,low,SRG-OS-000062,SV-50331r2_rule,RHEL-06-000173,The audit system must be configured to audit all attempts to alter system time through /etc/localtime.,"Arbitrary changes to the system time can be used to obfuscate nefarious activities in log files, as well as to confuse network services that are highly dependent upon an accurate system time (such as sshd). All changes to the system time should be audited.",,,"Add the following to ""/etc/audit/audit.rules"": 
+
+-w /etc/localtime -p wa -k audit_time_rules
+
+The -k option allows for the specification of a key in string form that can be used for better reporting capability through ausearch and aureport and should always be used.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1061,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000169
+The information system provides audit record generation capability for the auditable events defined in AU-2 a at organization-defined information system components.
+NIST SP 800-53 :: AU-12 a
+NIST SP 800-53A :: AU-12.1 (ii)
+NIST SP 800-53 Revision 4 :: AU-12 a
+
+"
+V-38531,low,SRG-OS-000004,SV-50332r2_rule,RHEL-06-000174,The operating system must automatically audit account creation.,"In addition to auditing new user and group accounts, these watches will alert the system administrator(s) to any modifications. Any unexpected users, groups, or modifications should be investigated for legitimacy.",,,"Add the following to ""/etc/audit/audit.rules"", in order to capture events that modify account changes: 
+
+# audit_account_changes
+-w /etc/group -p wa -k audit_account_changes
+-w /etc/passwd -p wa -k audit_account_changes
+-w /etc/gshadow -p wa -k audit_account_changes
+-w /etc/shadow -p wa -k audit_account_changes
+-w /etc/security/opasswd -p wa -k audit_account_changes",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:292,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000018
+The information system automatically audits account creation actions.
+NIST SP 800-53 :: AC-2 (4)
+NIST SP 800-53A :: AC-2 (4).1 (i&ii)
+NIST SP 800-53 Revision 4 :: AC-2 (4)
+
+"
+V-38532,medium,SRG-OS-999999,SV-50333r2_rule,RHEL-06-000090,The system must not accept ICMPv4 secure redirect packets by default.,"Accepting ""secure"" ICMP redirects (from those gateways listed as default gateways) has few legitimate uses. It should be disabled unless it is absolutely required.",,,"To set the runtime status of the ""net.ipv4.conf.default.secure_redirects"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.conf.default.secure_redirects=0
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.conf.default.secure_redirects = 0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:472,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38533,low,SRG-OS-999999,SV-50334r3_rule,RHEL-06-000091,The system must ignore ICMPv4 redirect messages by default.,This feature of the IPv4 protocol has few legitimate uses. It should be disabled unless it is absolutely required.,,,"To set the runtime status of the ""net.ipv4.conf.default.accept_redirects"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.conf.default.accept_redirects=0
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.conf.default.accept_redirects = 0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1153,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38534,low,SRG-OS-000239,SV-50335r2_rule,RHEL-06-000175,The operating system must automatically audit account modification.,"In addition to auditing new user and group accounts, these watches will alert the system administrator(s) to any modifications. Any unexpected users, groups, or modifications should be investigated for legitimacy.",,,"Add the following to ""/etc/audit/audit.rules"", in order to capture events that modify account changes: 
+
+# audit_account_changes
+-w /etc/group -p wa -k audit_account_changes
+-w /etc/passwd -p wa -k audit_account_changes
+-w /etc/gshadow -p wa -k audit_account_changes
+-w /etc/shadow -p wa -k audit_account_changes
+-w /etc/security/opasswd -p wa -k audit_account_changes",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:292,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001403
+The information system automatically audits account modification actions.
+NIST SP 800-53 :: AC-2 (4)
+NIST SP 800-53A :: AC-2 (4).1 (i&ii)
+NIST SP 800-53 Revision 4 :: AC-2 (4)
+
+"
+V-38535,low,SRG-OS-999999,SV-50336r2_rule,RHEL-06-000092,The system must not respond to ICMPv4 sent to a broadcast address.,Ignoring ICMP echo requests (pings) sent to broadcast or multicast addresses makes the system slightly more difficult to enumerate on the network.,,,"To set the runtime status of the ""net.ipv4.icmp_echo_ignore_broadcasts"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=1
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.icmp_echo_ignore_broadcasts = 1",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:272,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38536,low,SRG-OS-000240,SV-50337r2_rule,RHEL-06-000176,The operating system must automatically audit account disabling actions.,"In addition to auditing new user and group accounts, these watches will alert the system administrator(s) to any modifications. Any unexpected users, groups, or modifications should be investigated for legitimacy.",,,"Add the following to ""/etc/audit/audit.rules"", in order to capture events that modify account changes: 
+
+# audit_account_changes
+-w /etc/group -p wa -k audit_account_changes
+-w /etc/passwd -p wa -k audit_account_changes
+-w /etc/gshadow -p wa -k audit_account_changes
+-w /etc/shadow -p wa -k audit_account_changes
+-w /etc/security/opasswd -p wa -k audit_account_changes",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:292,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001404
+The information system automatically audits account disabling actions.
+NIST SP 800-53 :: AC-2 (4)
+NIST SP 800-53A :: AC-2 (4).1 (i&ii)
+NIST SP 800-53 Revision 4 :: AC-2 (4)
+
+"
+V-38537,low,SRG-OS-999999,SV-50338r2_rule,RHEL-06-000093,The system must ignore ICMPv4 bogus error responses.,"Ignoring bogus ICMP error responses reduces log size, although some activity would not be logged.",,,"To set the runtime status of the ""net.ipv4.icmp_ignore_bogus_error_responses"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.icmp_ignore_bogus_error_responses=1
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.icmp_ignore_bogus_error_responses = 1",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:857,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38538,low,SRG-OS-000241,SV-50339r2_rule,RHEL-06-000177,The operating system must automatically audit account termination.,"In addition to auditing new user and group accounts, these watches will alert the system administrator(s) to any modifications. Any unexpected users, groups, or modifications should be investigated for legitimacy.",,,"Add the following to ""/etc/audit/audit.rules"", in order to capture events that modify account changes: 
+
+# audit_account_changes
+-w /etc/group -p wa -k audit_account_changes
+-w /etc/passwd -p wa -k audit_account_changes
+-w /etc/gshadow -p wa -k audit_account_changes
+-w /etc/shadow -p wa -k audit_account_changes
+-w /etc/security/opasswd -p wa -k audit_account_changes",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:292,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001405
+The information system automatically audits account removal actions.
+NIST SP 800-53 :: AC-2 (4)
+NIST SP 800-53A :: AC-2 (4).1 (i&ii)
+NIST SP 800-53 Revision 4 :: AC-2 (4)
+
+"
+V-38539,medium,SRG-OS-000142,SV-50340r2_rule,RHEL-06-000095,The system must be configured to use TCP syncookies when experiencing a TCP SYN flood.,"A TCP SYN flood attack can cause a denial of service by filling a system's TCP connection table with connections in the SYN_RCVD state. Syncookies can be used to track a connection when a subsequent ACK is received, verifying the initiator is attempting a valid connection and is not a flood source. This feature is activated when a flood condition is detected, and enables the system to continue servicing valid connection requests.",,,"To set the runtime status of the ""net.ipv4.tcp_syncookies"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.tcp_syncookies=1
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.tcp_syncookies = 1",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:527,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001095
+The information system manages excess capacity, bandwidth, or other redundancy to limit the effects of information flooding types of denial of service attacks.
+NIST SP 800-53 :: SC-5 (2)
+NIST SP 800-53A :: SC-5 (2).1
+NIST SP 800-53 Revision 4 :: SC-5 (2)
+
+"
+V-38540,low,SRG-OS-999999,SV-50341r4_rule,RHEL-06-000182,The audit system must be configured to audit modifications to the systems network configuration.,The network environment should not be modified by anything other than administrator action. Any change to network parameters should be audited.,,,"Add the following to ""/etc/audit/audit.rules"", setting ARCH to either b32 or b64 as appropriate for your system: 
+
+# audit_network_modifications
+-a always,exit -F arch=ARCH -S sethostname -S setdomainname -k audit_network_modifications
+-w /etc/issue -p wa -k audit_network_modifications
+-w /etc/issue.net -p wa -k audit_network_modifications
+-w /etc/hosts -p wa -k audit_network_modifications
+-w /etc/sysconfig/network -p wa -k audit_network_modifications",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:50341,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38541,low,SRG-OS-999999,SV-50342r2_rule,RHEL-06-000183,The audit system must be configured to audit modifications to the systems Mandatory Access Control (MAC) configuration (SELinux).,The system's mandatory access policy (SELinux) should not be arbitrarily changed by anything other than administrator action. All changes to MAC policy should be audited.,,,"Add the following to ""/etc/audit/audit.rules"": 
+
+-w /etc/selinux/ -p wa -k MAC-policy",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:619,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38542,medium,SRG-OS-999999,SV-50343r2_rule,RHEL-06-000096,The system must use a reverse-path filter for IPv4 network traffic when possible on all interfaces.,"Enabling reverse path filtering drops packets with source addresses that should not have been able to be received on the interface they were received on. It should not be used on systems which are routers for complicated networks, but is helpful for end hosts and routers serving small networks.",,,"To set the runtime status of the ""net.ipv4.conf.all.rp_filter"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.conf.all.rp_filter=1
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.conf.all.rp_filter = 1",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:879,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38543,low,SRG-OS-000064,SV-50344r3_rule,RHEL-06-000184,The audit system must be configured to audit all discretionary access control permission modifications using chmod.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S chmod -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S chmod -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S chmod -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S chmod -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:854,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38544,medium,SRG-OS-999999,SV-50345r2_rule,RHEL-06-000097,The system must use a reverse-path filter for IPv4 network traffic when possible by default.,"Enabling reverse path filtering drops packets with source addresses that should not have been able to be received on the interface they were received on. It should not be used on systems which are routers for complicated networks, but is helpful for end hosts and routers serving small networks.",,,"To set the runtime status of the ""net.ipv4.conf.default.rp_filter"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.conf.default.rp_filter=1
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.conf.default.rp_filter = 1",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:540,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38545,low,SRG-OS-000064,SV-50346r3_rule,RHEL-06-000185,The audit system must be configured to audit all discretionary access control permission modifications using chown.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S chown -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S chown -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S chown -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S chown -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:276,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38547,low,SRG-OS-000064,SV-50348r3_rule,RHEL-06-000186,The audit system must be configured to audit all discretionary access control permission modifications using fchmod.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S fchmod -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S fchmod -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S fchmod -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S fchmod -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:494,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38548,medium,SRG-OS-999999,SV-50349r3_rule,RHEL-06-000099,The system must ignore ICMPv6 redirects by default.,An illicit ICMP redirect message could result in a man-in-the-middle attack.,,,"To set the runtime status of the ""net.ipv6.conf.default.accept_redirects"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv6.conf.default.accept_redirects=0
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv6.conf.default.accept_redirects = 0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1019,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38550,low,SRG-OS-000064,SV-50351r3_rule,RHEL-06-000187,The audit system must be configured to audit all discretionary access control permission modifications using fchmodat.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S fchmodat -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S fchmodat -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S fchmodat -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S fchmodat -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:904,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38552,low,SRG-OS-000064,SV-50353r3_rule,RHEL-06-000188,The audit system must be configured to audit all discretionary access control permission modifications using fchown.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S fchown -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S fchown -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S fchown -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S fchown -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:450,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38554,low,SRG-OS-000064,SV-50355r3_rule,RHEL-06-000189,The audit system must be configured to audit all discretionary access control permission modifications using fchownat.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S fchownat -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S fchownat -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S fchownat -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S fchownat -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:748,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38555,medium,SRG-OS-000152,SV-50356r2_rule,RHEL-06-000113,The system must employ a local IPv4 firewall.,"The ""iptables"" service provides the system's host-based firewalling capability for IPv4 and ICMP.",,,"The ""iptables"" service can be enabled with the following commands: 
+
+# chkconfig iptables on
+# service iptables start",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:828,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001118
+The information system implements host-based boundary protection mechanisms for servers, workstations, and mobile devices.
+NIST SP 800-53 :: SC-7 (12)
+NIST SP 800-53A :: SC-7 (12).1
+
+"
+V-38556,low,SRG-OS-000064,SV-50357r3_rule,RHEL-06-000190,The audit system must be configured to audit all discretionary access control permission modifications using fremovexattr.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S fremovexattr -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S fremovexattr -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S fremovexattr -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S fremovexattr -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:714,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38557,low,SRG-OS-000064,SV-50358r3_rule,RHEL-06-000191,The audit system must be configured to audit all discretionary access control permission modifications using fsetxattr.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S fsetxattr -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S fsetxattr -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S fsetxattr -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S fsetxattr -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:751,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38558,low,SRG-OS-000064,SV-50359r3_rule,RHEL-06-000192,The audit system must be configured to audit all discretionary access control permission modifications using lchown.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S lchown -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S lchown -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S lchown -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S lchown -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:205,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38559,low,SRG-OS-000064,SV-50360r3_rule,RHEL-06-000193,The audit system must be configured to audit all discretionary access control permission modifications using lremovexattr.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S lremovexattr -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S lremovexattr -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S lremovexattr -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S lremovexattr -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:322,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38561,low,SRG-OS-000064,SV-50362r3_rule,RHEL-06-000194,The audit system must be configured to audit all discretionary access control permission modifications using lsetxattr.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S lsetxattr -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S lsetxattr -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S lsetxattr -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S lsetxattr -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:434,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38563,low,SRG-OS-000064,SV-50364r3_rule,RHEL-06-000195,The audit system must be configured to audit all discretionary access control permission modifications using removexattr.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S removexattr -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S removexattr -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S removexattr -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S removexattr -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1170,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38565,low,SRG-OS-000064,SV-50366r3_rule,RHEL-06-000196,The audit system must be configured to audit all discretionary access control permission modifications using setxattr.,The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.,,,"At a minimum, the audit system should collect file permission changes for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-a always,exit -F arch=b32 -S setxattr -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b32 -S setxattr -F auid=0 -k perm_mod
+
+If the system is 64-bit, then also add the following: 
+
+-a always,exit -F arch=b64 -S setxattr -F auid>=500 -F auid!=4294967295 \
+-k perm_mod
+-a always,exit -F arch=b64 -S setxattr -F auid=0 -k perm_mod",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:305,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38566,low,SRG-OS-000064,SV-50367r2_rule,RHEL-06-000197,The audit system must be configured to audit failed attempts to access files and programs.,Unsuccessful attempts to access files could be an indicator of malicious activity on a system. Auditing these events could serve as evidence of potential system compromise.,,,"At a minimum, the audit system should collect unauthorized file accesses for all users and root. Add the following to ""/etc/audit/audit.rules"", setting ARCH to either b32 or b64 as appropriate for your system: 
+
+-a always,exit -F arch=ARCH -S creat -S open -S openat -S truncate \
+-S ftruncate -F exit=-EACCES -F auid>=500 -F auid!=4294967295 -k access
+-a always,exit -F arch=ARCH -S creat -S open -S openat -S truncate \
+-S ftruncate -F exit=-EPERM -F auid>=500 -F auid!=4294967295 -k access
+-a always,exit -F arch=ARCH -S creat -S open -S openat -S truncate \
+-S ftruncate -F exit=-EACCES -F auid=0 -k access
+-a always,exit -F arch=ARCH -S creat -S open -S openat -S truncate \
+-S ftruncate -F exit=-EPERM -F auid=0 -k access",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:50367,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38568,low,SRG-OS-000064,SV-50369r3_rule,RHEL-06-000199,The audit system must be configured to audit successful file system mounts.,"The unauthorized exportation of data to external media could result in an information leak where classified information, Privacy Act information, and intellectual property could be lost. An audit trail should be created each time a filesystem is mounted to help identify and guard against information loss.",,,"At a minimum, the audit system should collect media exportation events for all users and root. Add the following to ""/etc/audit/audit.rules"", setting ARCH to either b32 or b64 as appropriate for your system: 
+
+-a always,exit -F arch=ARCH -S mount -F auid>=500 -F auid!=4294967295 -k export
+-a always,exit -F arch=ARCH -S mount -F auid=0 -k export",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:268,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38569,low,SRG-OS-000069,SV-50370r2_rule,RHEL-06-000057,The system must require passwords to contain at least one uppercase alphabetic character.,Requiring a minimum number of uppercase characters makes password guessing attacks more difficult by ensuring a larger search space.,,,"The pam_cracklib module's ""ucredit="" parameter controls requirements for usage of uppercase letters in a password. When set to a negative number, any password will be required to contain that many uppercase characters. When set to a positive number, pam_cracklib will grant +1 additional length credit for each uppercase character. 
+
+Edit /etc/pam.d/system-auth and /etc/pam.d/password-auth adding ""ucredit=-1"" after pam_cracklib.so to require use of an uppercase character in passwords.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1141,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000192
+The information system enforces password complexity by the minimum number of upper case characters used.
+NIST SP 800-53 :: IA-5 (1) (a)
+NIST SP 800-53A :: IA-5 (1).1 (v)
+NIST SP 800-53 Revision 4 :: IA-5 (1) (a)
+
+"
+V-38570,low,SRG-OS-000266,SV-50371r2_rule,RHEL-06-000058,The system must require passwords to contain at least one special character.,Requiring a minimum number of special characters makes password guessing attacks more difficult by ensuring a larger search space.,,,"The pam_cracklib module's ""ocredit="" parameter controls requirements for usage of special (or ""other"") characters in a password. When set to a negative number, any password will be required to contain that many special characters. When set to a positive number, pam_cracklib will grant +1 additional length credit for each special character. 
+
+Edit /etc/pam.d/system-auth and /etc/pam.d/password-auth adding ""ocredit=-1"" after pam_cracklib.so to require use of a special character in passwords.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:474,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001619
+The information system enforces password complexity by the minimum number of special characters used.
+NIST SP 800-53 :: IA-5 (1) (a)
+NIST SP 800-53A :: IA-5 (1).1 (v)
+NIST SP 800-53 Revision 4 :: IA-5 (1) (a)
+
+"
+V-38571,low,SRG-OS-000070,SV-50372r3_rule,RHEL-06-000059,The system must require passwords to contain at least one lower-case alphabetic character.,Requiring a minimum number of lower-case characters makes password guessing attacks more difficult by ensuring a larger search space.,,,"The pam_cracklib module's ""lcredit="" parameter controls requirements for usage of lower-case letters in a password. When set to a negative number, any password will be required to contain that many lower-case characters. 
+
+Edit /etc/pam.d/system-auth and /etc/pam.d/password-auth adding ""lcredit=-1"" after pam_cracklib.so to require use of a lower-case character in passwords.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1032,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000193
+The information system enforces password complexity by the minimum number of lower case characters used.
+NIST SP 800-53 :: IA-5 (1) (a)
+NIST SP 800-53A :: IA-5 (1).1 (v)
+NIST SP 800-53 Revision 4 :: IA-5 (1) (a)
+
+"
+V-38572,low,SRG-OS-000072,SV-50373r3_rule,RHEL-06-000060,The system must require at least eight characters be changed between the old and new passwords during a password change.,"Requiring a minimum number of different characters during password changes ensures that newly changed passwords should not resemble previously compromised ones. Note that passwords which are changed on compromised systems will still be compromised, however.",,,"The pam_cracklib module's ""difok"" parameter controls requirements for usage of different characters during a password change.
+
+Edit /etc/pam.d/system-auth and /etc/pam.d/password-auth adding ""difok=[NUM]"" after pam_cracklib.so to require differing characters when changing passwords, substituting [NUM] appropriately. The DoD requirement is 8.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:523,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000195
+The information system, for password-based authentication, when new passwords are created, enforces that at least an organization-defined number of characters are changed.
+NIST SP 800-53 :: IA-5 (1) (b)
+NIST SP 800-53A :: IA-5 (1).1 (v)
+NIST SP 800-53 Revision 4 :: IA-5 (1) (b)
+
+"
+V-38573,medium,SRG-OS-000021,SV-50374r4_rule,RHEL-06-000061,The system must disable accounts after three consecutive unsuccessful logon attempts.,Locking out user accounts after a number of incorrect attempts prevents direct password guessing attacks.,,,"To configure the system to lock out accounts after a number of incorrect logon attempts using ""pam_faillock.so"", modify the content of both ""/etc/pam.d/system-auth"" and ""/etc/pam.d/password-auth"" as follows: 
+
+Add the following line immediately before the ""pam_unix.so"" statement in the ""AUTH"" section: 
+
+auth required pam_faillock.so preauth silent deny=3 unlock_time=604800 fail_interval=900
+
+Add the following line immediately after the ""pam_unix.so"" statement in the ""AUTH"" section: 
+
+auth [default=die] pam_faillock.so authfail deny=3 unlock_time=604800 fail_interval=900
+
+Add the following line immediately before the ""pam_unix.so"" statement in the ""ACCOUNT"" section: 
+
+account required pam_faillock.so
+
+Note that any updates made to ""/etc/pam.d/system-auth"" and ""/etc/pam.d/password-auth"" may be overwritten by the ""authconfig"" program.  The ""authconfig"" program should not be used.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:719,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000044
+The information system enforces the organization-defined limit of consecutive invalid logon attempts by a user during the organization-defined time period.
+NIST SP 800-53 :: AC-7 a
+NIST SP 800-53A :: AC-7.1 (ii)
+NIST SP 800-53 Revision 4 :: AC-7 a
+
+"
+V-38574,medium,SRG-OS-000120,SV-50375r4_rule,RHEL-06-000062,The system must use a FIPS 140-2 approved cryptographic hashing algorithm for generating account password hashes (system-auth).,Using a stronger hashing algorithm makes password cracking attacks more difficult.,,,"In ""/etc/pam.d/system-auth”, ""/etc/pam.d/system-auth-ac"", “/etc/pam.d/password-auth”, and “/etc/pam.d/password-auth-ac”, among potentially other files, the ""password"" section of the files controls which PAM modules execute during a password change. Set the ""pam_unix.so"" module in the ""password"" section to include the argument ""sha512"", as shown below: 
+
+password sufficient pam_unix.so sha512 [other arguments...]
+
+This will help ensure when local users change their passwords, hashes for the new passwords will be generated using the SHA-512 algorithm. This is the default.
+
+Note: Any updates made to ""/etc/pam.d/system-auth"" will be overwritten by the ""authconfig"" program. The ""authconfig"" program should not be used.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:488,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000803
+The information system implements mechanisms for authentication to a cryptographic module that meet the requirements of applicable federal laws, Executive Orders, directives, policies, regulations, standards, and guidance for such authentication.
+NIST SP 800-53 :: IA-7
+NIST SP 800-53A :: IA-7.1
+NIST SP 800-53 Revision 4 :: IA-7
+
+"
+V-38575,low,SRG-OS-000064,SV-50376r4_rule,RHEL-06-000200,The audit system must be configured to audit user deletions of files and programs.,"Auditing file deletions will create an audit trail for files that are removed from the system. The audit trail could aid in system troubleshooting, as well as detecting malicious processes that attempt to delete log files to conceal their presence.",,,"At a minimum, the audit system should collect file deletion events for all users and root. Add the following (or equivalent) to ""/etc/audit/audit.rules"", setting ARCH to either b32 or b64 as appropriate for your system: 
+
+-a always,exit -F arch=ARCH -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k delete
+-a always,exit -F arch=ARCH -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid=0 -k delete",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1147,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38576,medium,SRG-OS-000120,SV-50377r1_rule,RHEL-06-000063,The system must use a FIPS 140-2 approved cryptographic hashing algorithm for generating account password hashes (login.defs).,Using a stronger hashing algorithm makes password cracking attacks more difficult.,,,"In ""/etc/login.defs"", add or correct the following line to ensure the system will use SHA-512 as the hashing algorithm: 
+
+ENCRYPT_METHOD SHA512",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1088,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000803
+The information system implements mechanisms for authentication to a cryptographic module that meet the requirements of applicable federal laws, Executive Orders, directives, policies, regulations, standards, and guidance for such authentication.
+NIST SP 800-53 :: IA-7
+NIST SP 800-53A :: IA-7.1
+NIST SP 800-53 Revision 4 :: IA-7
+
+"
+V-38577,medium,SRG-OS-000120,SV-50378r1_rule,RHEL-06-000064,The system must use a FIPS 140-2 approved cryptographic hashing algorithm for generating account password hashes (libuser.conf).,Using a stronger hashing algorithm makes password cracking attacks more difficult.,,,"In ""/etc/libuser.conf"", add or correct the following line in its ""[defaults]"" section to ensure the system will use the SHA-512 algorithm for password hashing: 
+
+crypt_style = sha512",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1003,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000803
+The information system implements mechanisms for authentication to a cryptographic module that meet the requirements of applicable federal laws, Executive Orders, directives, policies, regulations, standards, and guidance for such authentication.
+NIST SP 800-53 :: IA-7
+NIST SP 800-53A :: IA-7.1
+NIST SP 800-53 Revision 4 :: IA-7
+
+"
+V-38578,low,SRG-OS-000064,SV-50379r2_rule,RHEL-06-000201,The audit system must be configured to audit changes to the /etc/sudoers file.,"The actions taken by system administrators should be audited to keep a record of what was executed on the system, as well as, for accountability purposes.",,,"At a minimum, the audit system should collect administrator actions for all users and root. Add the following to ""/etc/audit/audit.rules"": 
+
+-w /etc/sudoers -p wa -k actions",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:863,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38579,medium,SRG-OS-999999,SV-50380r2_rule,RHEL-06-000065,The system boot loader configuration file(s) must be owned by root.,Only root should be able to modify important boot parameters.,,,"The file ""/boot/grub/grub.conf"" should be owned by the ""root"" user to prevent destruction or modification of the file. To properly set the owner of ""/boot/grub/grub.conf"", run the command: 
+
+# chown root /boot/grub/grub.conf",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:907,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38580,medium,SRG-OS-000064,SV-50381r2_rule,RHEL-06-000202,The audit system must be configured to audit the loading and unloading of dynamic kernel modules.,The addition/removal of kernel modules can be used to alter the behavior of the kernel and potentially introduce malicious code into kernel space. It is important to have an audit trail of modules that have been introduced into the kernel.,,,"Add the following to ""/etc/audit/audit.rules"" in order to capture kernel module loading and unloading events, setting ARCH to either b32 or b64 as appropriate for your system: 
+
+-w /sbin/insmod -p x -k modules
+-w /sbin/rmmod -p x -k modules
+-w /sbin/modprobe -p x -k modules
+-a always,exit -F arch=[ARCH] -S init_module -S delete_module -k modules",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:461,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000172
+The information system generates audit records for the events defined in AU-2 d with the content defined in AU-3.
+NIST SP 800-53 :: AU-12 c
+NIST SP 800-53A :: AU-12.1 (iv)
+NIST SP 800-53 Revision 4 :: AU-12 c
+
+"
+V-38581,medium,SRG-OS-999999,SV-50382r2_rule,RHEL-06-000066,The system boot loader configuration file(s) must be group-owned by root.,"The ""root"" group is a highly-privileged group. Furthermore, the group-owner of this file should not have any access privileges anyway.",,,"The file ""/boot/grub/grub.conf"" should be group-owned by the ""root"" group to prevent destruction or modification of the file. To properly set the group owner of ""/boot/grub/grub.conf"", run the command: 
+
+# chgrp root /boot/grub/grub.conf",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:869,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38582,medium,SRG-OS-000096,SV-50383r2_rule,RHEL-06-000203,The xinetd service must be disabled if no network services utilizing it are enabled.,"The xinetd service provides a dedicated listener service for some programs, which is no longer necessary for commonly-used network services. Disabling it ensures that these uncommon services are not running, and also prevents attacks against xinetd itself.",,,"The ""xinetd"" service can be disabled with the following commands: 
+
+# chkconfig xinetd off
+# service xinetd stop",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:142,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38583,medium,SRG-OS-999999,SV-50384r4_rule,RHEL-06-000067,The system boot loader configuration file(s) must have mode 0600 or less permissive.,Proper permissions ensure that only the root user can modify important boot parameters.,,,"File permissions for ""/boot/grub/grub.conf"" and “/boot/efi/EFI/redhat/grub.conf” should be set to 600, which is the default.
+
+To properly set the permissions of ""/boot/grub/grub.conf"", run the command:
+
+$ chmod 600 /boot/grub/grub.conf
+
+To properly set the permissions of “/boot/efi/EFI/redhat/grub.conf”, run the command:
+
+$ chmod 600 /boot/efi/EFI/redhat/grub.conf
+
+Boot partitions based on VFAT, NTFS, or other non-standard configurations may require alternative measures.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:508,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38584,low,SRG-OS-000096,SV-50385r1_rule,RHEL-06-000204,The xinetd service must be uninstalled if no network services utilizing it are enabled.,"Removing the ""xinetd"" package decreases the risk of the xinetd service's accidental (or intentional) activation.",,,"The ""xinetd"" package can be uninstalled with the following command: 
+
+# yum erase xinetd",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:143,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38585,medium,SRG-OS-000080,SV-50386r4_rule,RHEL-06-000068,The system boot loader must require authentication.,"Password protection on the boot loader configuration ensures users with physical access cannot trivially alter important bootloader settings. These include which kernel to use, and whether to enter single-user mode.",,,"The grub boot loader should have password protection enabled to protect boot-time settings. To do so, select a password and then generate a hash from it by running the following command:
+
+# grub-crypt --sha-512
+
+When prompted to enter a password, insert the following line into ""/boot/grub/grub.conf"" or “/boot/efi/EFI/redhat/grub.conf” immediately after the header comments. (Use the output from ""grub-crypt"" as the value of [password-hash]):
+
+password --encrypted [password-hash]",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1078,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000213
+The information system enforces approved authorizations for logical access to information and system resources in accordance with applicable access control policies.
+NIST SP 800-53 :: AC-3
+NIST SP 800-53A :: AC-3.1
+NIST SP 800-53 Revision 4 :: AC-3
+
+"
+V-38586,medium,SRG-OS-000080,SV-50387r1_rule,RHEL-06-000069,The system must require authentication upon booting into single-user and maintenance modes.,This prevents attackers with physical access from trivially bypassing security on the machine and gaining root access. Such accesses are further prevented by configuring the bootloader password.,,,"Single-user mode is intended as a system recovery method, providing a single user root access to the system by providing a boot option at startup. By default, no authentication is performed if single-user mode is selected. 
+
+To require entry of the root password even if the system is started in single-user mode, add or correct the following line in the file ""/etc/sysconfig/init"": 
+
+SINGLE=/sbin/sulogin",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3000,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000213
+The information system enforces approved authorizations for logical access to information and system resources in accordance with applicable access control policies.
+NIST SP 800-53 :: AC-3
+NIST SP 800-53A :: AC-3.1
+NIST SP 800-53 Revision 4 :: AC-3
+
+"
+V-38587,high,SRG-OS-000095,SV-50388r1_rule,RHEL-06-000206,The telnet-server package must not be installed.,"Removing the ""telnet-server"" package decreases the risk of the unencrypted telnet service's accidental (or intentional) activation.
+
+Mitigation:  If the telnet-server package is configured to only allow encrypted sessions, such as with Kerberos or the use of encrypted network tunnels, the risk of exposing sensitive information is mitigated.",,,"The ""telnet-server"" package can be uninstalled with the following command: 
+
+# yum erase telnet-server",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:604,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000381
+The organization configures the information system to provide only essential capabilities.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (ii)
+NIST SP 800-53 Revision 4 :: CM-7 a
+
+"
+V-38588,medium,SRG-OS-000080,SV-50389r1_rule,RHEL-06-000070,The system must not permit interactive boot.,"Using interactive boot, the console user could disable auditing, firewalls, or other services, weakening system security.",,,"To disable the ability for users to perform interactive startups, edit the file ""/etc/sysconfig/init"". Add or correct the line: 
+
+PROMPT=no
+
+The ""PROMPT"" option allows the console user to perform an interactive system startup, in which it is possible to select the set of services which are started on boot.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3105,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000213
+The information system enforces approved authorizations for logical access to information and system resources in accordance with applicable access control policies.
+NIST SP 800-53 :: AC-3
+NIST SP 800-53A :: AC-3.1
+NIST SP 800-53 Revision 4 :: AC-3
+
+"
+V-38589,high,SRG-OS-000129,SV-50390r2_rule,RHEL-06-000211,The telnet daemon must not be running.,"The telnet protocol uses unencrypted network communication, which means that data from the login session, including passwords and all other information transmitted during the session, can be stolen by eavesdroppers on the network. The telnet protocol is also subject to man-in-the-middle attacks.
+
+Mitigation:  If an enabled telnet daemon is configured to only allow encrypted sessions, such as with Kerberos or the use of encrypted network tunnels, the risk of exposing sensitive information is mitigated.",,,"The ""telnet"" service can be disabled with the following command: 
+
+# chkconfig telnet off",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:470,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000888
+The organization employs cryptographic mechanisms to protect the integrity and confidentiality of non-local maintenance and diagnostic communications.
+NIST SP 800-53 :: MA-4 (6)
+NIST SP 800-53A :: MA-4 (6).1
+
+"
+V-38590,low,SRG-OS-000030,SV-50391r1_rule,RHEL-06-000071,The system must allow locking of the console screen in text mode.,"Installing ""screen"" ensures a console locking capability is available for users who may need to suspend console logins.",,,"To enable console screen locking when in text mode, install the ""screen"" package: 
+
+# yum install screen
+
+Instruct users to begin new terminal sessions with the following command: 
+
+$ screen
+
+The console can now be locked with the following key combination: 
+
+ctrl+a x",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:153,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000058
+The information system provides the capability for users to directly initiate session lock mechanisms.
+NIST SP 800-53 :: AC-11 a
+NIST SP 800-53A :: AC-11
+NIST SP 800-53 Revision 4 :: AC-11 a
+
+"
+V-38591,high,SRG-OS-000095,SV-50392r1_rule,RHEL-06-000213,The rsh-server package must not be installed.,"The ""rsh-server"" package provides several obsolete and insecure network services. Removing it decreases the risk of those services' accidental (or intentional) activation.",,,"The ""rsh-server"" package can be uninstalled with the following command: 
+
+# yum erase rsh-server",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:221,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000381
+The organization configures the information system to provide only essential capabilities.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (ii)
+NIST SP 800-53 Revision 4 :: CM-7 a
+
+"
+V-38592,medium,SRG-OS-000022,SV-50393r4_rule,RHEL-06-000356,The system must require administrator action to unlock an account locked by excessive failed login attempts.,Locking out user accounts after a number of incorrect attempts prevents direct password guessing attacks. Ensuring that an administrator is involved in unlocking locked accounts draws appropriate attention to such situations.,,,"To configure the system to lock out accounts after a number of incorrect logon attempts and require an administrator to unlock the account using ""pam_faillock.so"", modify the content of both ""/etc/pam.d/system-auth"" and ""/etc/pam.d/password-auth"" as follows: 
+
+Add the following line immediately before the ""pam_unix.so"" statement in the ""AUTH"" section: 
+
+auth required pam_faillock.so preauth silent deny=3 unlock_time=604800 fail_interval=900
+
+Add the following line immediately after the ""pam_unix.so"" statement in the ""AUTH"" section: 
+
+auth [default=die] pam_faillock.so authfail deny=3 unlock_time=604800 fail_interval=900
+
+Add the following line immediately before the ""pam_unix.so"" statement in the ""ACCOUNT"" section: 
+
+account required pam_faillock.so
+
+Note that any updates made to ""/etc/pam.d/system-auth"" and ""/etc/pam.d/password-auth"" may be overwritten by the ""authconfig"" program.  The ""authconfig"" program should not be used.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:2992,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000047
+The information system delays next login prompt according to organization defined delay algorithm, when the maximum number of unsuccessful attempts is exceeded, automatically locks the account/node for an organization defined time period or locks the account/node until released by an Administrator IAW organizational policy.
+NIST SP 800-53 :: AC-7 b
+NIST SP 800-53A :: AC-7.1 (iv)
+
+"
+V-38594,high,SRG-OS-000033,SV-50395r2_rule,RHEL-06-000214,The rshd service must not be running.,"The rsh service uses unencrypted network communications, which means that data from the login session, including passwords and all other information transmitted during the session, can be stolen by eavesdroppers on the network.",,,"The ""rsh"" service, which is available with the ""rsh-server"" package and runs as a service through xinetd, should be disabled. The ""rsh"" service can be disabled with the following command: 
+
+# chkconfig rsh off",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:220,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000068
+The information system implements cryptographic mechanisms to protect the confidentiality of remote access sessions.
+NIST SP 800-53 :: AC-17 (2)
+NIST SP 800-53A :: AC-17 (2).1
+NIST SP 800-53 Revision 4 :: AC-17 (2)
+
+"
+V-38598,high,SRG-OS-000033,SV-50399r2_rule,RHEL-06-000216,The rexecd service must not be running.,"The rexec service uses unencrypted network communications, which means that data from the login session, including passwords and all other information transmitted during the session, can be stolen by eavesdroppers on the network.",,,"The ""rexec"" service, which is available with the ""rsh-server"" package and runs as a service through xinetd, should be disabled. The ""rexec"" service can be disabled with the following command: 
+
+# chkconfig rexec off",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:826,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000068
+The information system implements cryptographic mechanisms to protect the confidentiality of remote access sessions.
+NIST SP 800-53 :: AC-17 (2)
+NIST SP 800-53A :: AC-17 (2).1
+NIST SP 800-53 Revision 4 :: AC-17 (2)
+
+"
+V-38600,medium,SRG-OS-999999,SV-50401r2_rule,RHEL-06-000080,The system must not send ICMPv4 redirects by default.,Sending ICMP redirects permits the system to instruct other systems to update their routing information. The ability to send ICMP redirects is only appropriate for systems acting as routers.,,,"To set the runtime status of the ""net.ipv4.conf.default.send_redirects"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.conf.default.send_redirects=0
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.conf.default.send_redirects = 0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:606,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38601,medium,SRG-OS-999999,SV-50402r2_rule,RHEL-06-000081,The system must not send ICMPv4 redirects from any interface.,Sending ICMP redirects permits the system to instruct other systems to update their routing information. The ability to send ICMP redirects is only appropriate for systems acting as routers.,,,"To set the runtime status of the ""net.ipv4.conf.all.send_redirects"" kernel parameter, run the following command: 
+
+# sysctl -w net.ipv4.conf.all.send_redirects=0
+
+If this is not the system's default value, add the following line to ""/etc/sysctl.conf"": 
+
+net.ipv4.conf.all.send_redirects = 0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1109,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38602,high,SRG-OS-000248,SV-50403r2_rule,RHEL-06-000218,The rlogind service must not be running.,"The rlogin service uses unencrypted network communications, which means that data from the login session, including passwords and all other information transmitted during the session, can be stolen by eavesdroppers on the network.",,,"The ""rlogin"" service, which is available with the ""rsh-server"" package and runs as a service through xinetd, should be disabled. The ""rlogin"" service can be disabled with the following command: 
+
+# chkconfig rlogin off",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1179,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001436
+The organization disables organization defined networking protocols within the information system deemed to be nonsecure except for explicitly identified components in support of specific operational requirements.
+NIST SP 800-53 :: AC-17 (8)
+NIST SP 800-53A :: AC-17 (8).1 (ii)
+
+"
+V-38603,medium,SRG-OS-000095,SV-50404r1_rule,RHEL-06-000220,The ypserv package must not be installed.,"Removing the ""ypserv"" package decreases the risk of the accidental (or intentional) activation of NIS or NIS+ services.",,,"The ""ypserv"" package can be uninstalled with the following command: 
+
+# yum erase ypserv",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:468,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000381
+The organization configures the information system to provide only essential capabilities.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (ii)
+NIST SP 800-53 Revision 4 :: CM-7 a
+
+"
+V-38604,medium,SRG-OS-000096,SV-50405r2_rule,RHEL-06-000221,The ypbind service must not be running.,"Disabling the ""ypbind"" service ensures the system is not acting as a client in a NIS or NIS+ domain.",,,"The ""ypbind"" service, which allows the system to act as a client in a NIS or NIS+ domain, should be disabled. The ""ypbind"" service can be disabled with the following commands: 
+
+# chkconfig ypbind off
+# service ypbind stop",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:631,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38605,medium,SRG-OS-999999,SV-50406r2_rule,RHEL-06-000224,The cron service must be running.,"Due to its usage for maintenance and security-supporting tasks, enabling the cron daemon is essential.",,,"The ""crond"" service is used to execute commands at preconfigured times. It is required by almost all systems to perform necessary maintenance tasks, such as notifying root of system activity. The ""crond"" service can be enabled with the following commands: 
+
+# chkconfig crond on
+# service crond start",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:818,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38606,medium,SRG-OS-000095,SV-50407r3_rule,RHEL-06-000222,The tftp-server package must not be installed unless required.,"Removing the ""tftp-server"" package decreases the risk of the accidental (or intentional) activation of tftp services.",,,"The ""tftp-server"" package can be removed with the following command: 
+
+# yum erase tftp-server",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:661,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000381
+The organization configures the information system to provide only essential capabilities.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (ii)
+NIST SP 800-53 Revision 4 :: CM-7 a
+
+"
+V-38607,high,SRG-OS-000112,SV-50408r1_rule,RHEL-06-000227,The SSH daemon must be configured to use only the SSHv2 protocol.,SSH protocol version 1 suffers from design flaws that result in security vulnerabilities and should not be used.,,,"Only SSH protocol version 2 connections should be permitted. The default setting in ""/etc/ssh/sshd_config"" is correct, and can be verified by ensuring that the following line appears: 
+
+Protocol 2",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:210,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000774
+The information system uses organization defined replay-resistant authentication mechanisms for network access to privileged accounts.
+NIST SP 800-53 :: IA-2 (8)
+NIST SP 800-53A :: IA-2 (8).1 (ii)
+
+"
+V-38608,low,SRG-OS-000163,SV-50409r1_rule,RHEL-06-000230,The SSH daemon must set a timeout interval on idle sessions.,Causing idle users to be automatically logged out guards against compromises one system leading trivially to compromises on another.,,,"SSH allows administrators to set an idle timeout interval. After this interval has passed, the idle user will be automatically logged out. 
+
+To set an idle timeout interval, edit the following line in ""/etc/ssh/sshd_config"" as follows: 
+
+ClientAliveInterval [interval]
+
+The timeout [interval] is given in seconds. To have a timeout of 15 minutes, set [interval] to 900. 
+
+If a shorter timeout has already been set for the login shell, that value will preempt any SSH setting made here. Keep in mind that some processes may stop SSH from correctly detecting that the user is idle.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3037,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001133
+The information system terminates the network connection associated with a communications session at the end of the session or after an organization-defined time period of inactivity.
+NIST SP 800-53 :: SC-10
+NIST SP 800-53A :: SC-10.1 (ii)
+NIST SP 800-53 Revision 4 :: SC-10
+
+"
+V-38610,low,SRG-OS-000126,SV-50411r1_rule,RHEL-06-000231,The SSH daemon must set a timeout count on idle sessions.,"This ensures a user login will be terminated as soon as the ""ClientAliveCountMax"" is reached.",,,"To ensure the SSH idle timeout occurs precisely when the ""ClientAliveCountMax"" is set, edit ""/etc/ssh/sshd_config"" as follows: 
+
+ClientAliveCountMax 0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3014,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000879
+The organization terminates sessions and network connections when nonlocal maintenance is completed.
+NIST SP 800-53 :: MA-4 e
+NIST SP 800-53A :: MA-4.1 (vi)
+NIST SP 800-53 Revision 4 :: MA-4 e
+
+"
+V-38611,medium,SRG-OS-000106,SV-50412r1_rule,RHEL-06-000234,The SSH daemon must ignore .rhosts files.,SSH trust relationships mean a compromise on one host can allow an attacker to move trivially to other hosts.,,,"SSH can emulate the behavior of the obsolete rsh command in allowing users to enable insecure access to their accounts via "".rhosts"" files. 
+
+To ensure this behavior is disabled, add or correct the following line in ""/etc/ssh/sshd_config"": 
+
+IgnoreRhosts yes",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3052,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000766
+The information system implements multifactor authentication for network access to non-privileged accounts.
+NIST SP 800-53 :: IA-2 (2)
+NIST SP 800-53A :: IA-2 (2).1
+NIST SP 800-53 Revision 4 :: IA-2 (2)
+
+"
+V-38612,medium,SRG-OS-000106,SV-50413r1_rule,RHEL-06-000236,The SSH daemon must not allow host-based authentication.,SSH trust relationships mean a compromise on one host can allow an attacker to move trivially to other hosts.,,,"SSH's cryptographic host-based authentication is more secure than "".rhosts"" authentication, since hosts are cryptographically authenticated. However, it is not recommended that hosts unilaterally trust one another, even within an organization. 
+
+To disable host-based authentication, add or correct the following line in ""/etc/ssh/sshd_config"": 
+
+HostbasedAuthentication no",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3020,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000766
+The information system implements multifactor authentication for network access to non-privileged accounts.
+NIST SP 800-53 :: IA-2 (2)
+NIST SP 800-53A :: IA-2 (2).1
+NIST SP 800-53 Revision 4 :: IA-2 (2)
+
+"
+V-38613,medium,SRG-OS-000109,SV-50414r1_rule,RHEL-06-000237,The system must not permit root logins using remote access programs such as ssh.,Permitting direct root login reduces auditable information about who ran privileged commands on the system and also allows direct attack attempts on root's password.,,,"The root user should never be allowed to log in to a system directly over a network. To disable root login via SSH, add or correct the following line in ""/etc/ssh/sshd_config"": 
+
+PermitRootLogin no",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3074,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000770
+The organization requires individuals to be authenticated with an individual authenticator when a group authenticator is employed.
+NIST SP 800-53 :: IA-2 (5) (b)
+NIST SP 800-53A :: IA-2 (5).2 (ii)
+NIST SP 800-53 Revision 4 :: IA-2 (5)
+
+"
+V-38614,high,SRG-OS-000106,SV-50415r1_rule,RHEL-06-000239,The SSH daemon must not allow authentication using an empty password.,"Configuring this setting for the SSH daemon provides additional assurance that remote login via SSH will require a password, even in the event of misconfiguration elsewhere.",,,"To explicitly disallow remote login from accounts with empty passwords, add or correct the following line in ""/etc/ssh/sshd_config"": 
+
+PermitEmptyPasswords no
+
+Any accounts with empty passwords should be disabled immediately, and PAM configuration should prevent users from being able to assign themselves empty passwords.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3109,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000766
+The information system implements multifactor authentication for network access to non-privileged accounts.
+NIST SP 800-53 :: IA-2 (2)
+NIST SP 800-53A :: IA-2 (2).1
+NIST SP 800-53 Revision 4 :: IA-2 (2)
+
+"
+V-38615,medium,SRG-OS-000023,SV-50416r1_rule,RHEL-06-000240,The SSH daemon must be configured with the Department of Defense (DoD) login banner.,"The warning message reinforces policy awareness during the logon process and facilitates possible legal action against attackers. Alternatively, systems whose ownership should not be obvious should ensure usage of a banner that does not provide easy attribution.",,,"To enable the warning banner and ensure it is consistent across the system, add or correct the following line in ""/etc/ssh/sshd_config"": 
+
+Banner /etc/issue
+
+Another section contains information on how to create an appropriate system-wide warning banner.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3082,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000048
+The information system displays an organization-defined system use notification message or banner before granting access to the system that provides privacy and security notices consistent with applicable federal laws, Executive Orders, directives, policies, regulations, standards, and guidance.
+NIST SP 800-53 :: AC-8 a
+NIST SP 800-53A :: AC-8.1 (ii)
+NIST SP 800-53 Revision 4 :: AC-8 a
+
+"
+V-38616,low,SRG-OS-000242,SV-50417r1_rule,RHEL-06-000241,The SSH daemon must not permit user environment settings.,SSH environment options potentially allow users to bypass access restriction in some configurations.,,,"To ensure users are not able to present environment options to the SSH daemon, add or correct the following line in ""/etc/ssh/sshd_config"": 
+
+PermitUserEnvironment no",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3103,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001414
+The information system enforces approved authorizations for controlling the flow of information between interconnected systems based on organization-defined information flow control policies.
+NIST SP 800-53 :: AC-4
+NIST SP 800-53A :: AC-4.1 (iii)
+NIST SP 800-53 Revision 4 :: AC-4
+
+"
+V-38618,low,SRG-OS-999999,SV-50419r2_rule,RHEL-06-000246,The avahi service must be disabled.,"Because the Avahi daemon service keeps an open network port, it is subject to network attacks. Its functionality is convenient but is only appropriate if the local network can be trusted.",,,"The ""avahi-daemon"" service can be disabled with the following commands: 
+
+# chkconfig avahi-daemon off
+# service avahi-daemon stop",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:754,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38620,medium,SRG-OS-000056,SV-50421r1_rule,RHEL-06-000247,"The system clock must be synchronized continuously, or at least daily.","Enabling the ""ntpd"" service ensures that the ""ntpd"" service will be running and that the system will synchronize its time to any servers specified. This is important whether the system is configured to be a client (and synchronize only its own clock) or it is also acting as an NTP server to other systems. Synchronizing time is essential for authentication services such as Kerberos, but it is also important for maintaining accurate logs and auditing possible security breaches.",,,"The ""ntpd"" service can be enabled with the following command: 
+
+# chkconfig ntpd on
+# service ntpd start",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:174,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000160
+The information system synchronizes internal information system clocks on an organization defined frequency with an organization defined authoritative time source.
+NIST SP 800-53 :: AU-8 (1)
+NIST SP 800-53A :: AU-8 (1).1 (iii)
+
+"
+V-38621,medium,SRG-OS-000056,SV-50422r1_rule,RHEL-06-000248,The system clock must be synchronized to an authoritative DoD time source.,Synchronizing with an NTP server makes it possible to collate system logs from multiple sources or correlate computer events with real time events. Using a trusted NTP server provided by your organization is recommended.,,,"To specify a remote NTP server for time synchronization, edit the file ""/etc/ntp.conf"". Add or correct the following lines, substituting the IP or hostname of a remote NTP server for ntpserver. 
+
+server [ntpserver]
+
+This instructs the NTP software to contact that remote server to obtain time data.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:665,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000160
+The information system synchronizes internal information system clocks on an organization defined frequency with an organization defined authoritative time source.
+NIST SP 800-53 :: AU-8 (1)
+NIST SP 800-53A :: AU-8 (1).1 (iii)
+
+"
+V-38622,medium,SRG-OS-000096,SV-50423r2_rule,RHEL-06-000249,Mail relaying must be restricted.,"This ensures ""postfix"" accepts mail messages (such as cron job reports) from the local system only, and not from the network, which protects it from network attack.",,,"Edit the file ""/etc/postfix/main.cf"" to ensure that only the following ""inet_interfaces"" line appears: 
+
+inet_interfaces = localhost",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:121,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38627,low,SRG-OS-999999,SV-50428r2_rule,RHEL-06-000256,The openldap-servers package must not be installed unless required.,Unnecessary packages should not be installed to decrease the attack surface of the system.,,,"The ""openldap-servers"" package should be removed if not in use.
+
+# yum erase openldap-servers
+
+The openldap-servers RPM is not installed by default on RHEL6 machines. It is needed only by the OpenLDAP server, not by the clients which use LDAP for authentication. If the system is not intended for use as an LDAP Server it should be removed.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:852,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38629,medium,SRG-OS-000029,SV-50430r3_rule,RHEL-06-000257,The graphical desktop environment must set the idle timeout to no more than 15 minutes.,"Setting the idle delay controls when the screensaver will start, and can be combined with screen locking to prevent access from passersby.",,,"Run the following command to set the idle time-out value for inactivity in the GNOME desktop to 15 minutes: 
+
+# gconftool-2 \
+--direct \
+--config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory \
+--type int \
+--set /apps/gnome-screensaver/idle_delay 15",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:598,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000057
+The information system initiates a session lock after the organization-defined time period of inactivity.
+NIST SP 800-53 :: AC-11 a
+NIST SP 800-53A :: AC-11.1 (ii)
+NIST SP 800-53 Revision 4 :: AC-11 a
+
+"
+V-38630,medium,SRG-OS-000029,SV-50431r3_rule,RHEL-06-000258,The graphical desktop environment must automatically lock after 15 minutes of inactivity and the system must require user reauthentication to unlock the environment.,"Enabling idle activation of the screen saver ensures the screensaver will be activated after the idle delay. Applications requiring continuous, real-time screen display (such as network management products) require the login session does not have administrator rights and the display station is located in a controlled-access area.",,,"Run the following command to activate the screensaver in the GNOME desktop after a period of inactivity: 
+
+# gconftool-2 --direct \
+--config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory \
+--type bool \
+--set /apps/gnome-screensaver/idle_activation_enabled true",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:157,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000057
+The information system initiates a session lock after the organization-defined time period of inactivity.
+NIST SP 800-53 :: AC-11 a
+NIST SP 800-53A :: AC-11.1 (ii)
+NIST SP 800-53 Revision 4 :: AC-11 a
+
+"
+V-38633,medium,SRG-OS-999999,SV-50434r1_rule,RHEL-06-000160,The system must set a maximum audit log file size.,The total storage for audit log files must be large enough to retain log information over the period required. This is a function of the maximum log file size and the number of logs retained.,,,"Determine the amount of audit data (in megabytes) which should be retained in each log file. Edit the file ""/etc/audit/auditd.conf"". Add or modify the following line, substituting the correct value for [STOREMB]: 
+
+max_log_file = [STOREMB]
+
+Set the value to ""6"" (MB) or higher for general-purpose systems. Larger values, of course, support retention of even more audit data.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:924,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38636,medium,SRG-OS-999999,SV-50437r1_rule,RHEL-06-000159,The system must retain enough rotated audit logs to cover the required log retention period.,The total storage for audit log files must be large enough to retain log information over the period required. This is a function of the maximum log file size and the number of logs retained.,,,"Determine how many log files ""auditd"" should retain when it rotates logs. Edit the file ""/etc/audit/auditd.conf"". Add or modify the following line, substituting [NUMLOGS] with the correct value: 
+
+num_logs = [NUMLOGS]
+
+Set the value to 5 for general-purpose systems. Note that values less than 2 result in no log rotation.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1059,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38638,medium,SRG-OS-000029,SV-50439r3_rule,RHEL-06-000259,The graphical desktop environment must have automatic lock enabled.,"Enabling the activation of the screen lock after an idle period ensures password entry will be required in order to access the system, preventing access by passersby.",,,"Run the following command to activate locking of the screensaver in the GNOME desktop when it is activated: 
+
+# gconftool-2 --direct \
+--config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory \
+--type bool \
+--set /apps/gnome-screensaver/lock_enabled true",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:669,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000057
+The information system initiates a session lock after the organization-defined time period of inactivity.
+NIST SP 800-53 :: AC-11 a
+NIST SP 800-53A :: AC-11.1 (ii)
+NIST SP 800-53 Revision 4 :: AC-11 a
+
+"
+V-38639,low,SRG-OS-000031,SV-50440r3_rule,RHEL-06-000260,The system must display a publicly-viewable pattern during a graphical desktop environment session lock.,Setting the screensaver mode to blank-only conceals the contents of the display from passersby.,,,"Run the following command to set the screensaver mode in the GNOME desktop to a blank screen: 
+
+# gconftool-2 \
+--direct \
+--config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory \
+--type string \
+--set /apps/gnome-screensaver/mode blank-only",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:477,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000060
+The information system conceals, via the session lock, information previously visible on the display with a publicly viewable image.
+NIST SP 800-53 :: AC-11 (1)
+NIST SP 800-53A :: AC-11 (1).1
+NIST SP 800-53 Revision 4 :: AC-11 (1)
+
+"
+V-38640,low,SRG-OS-000096,SV-50441r2_rule,RHEL-06-000261,The Automatic Bug Reporting Tool (abrtd) service must not be running.,"Mishandling crash data could expose sensitive information about vulnerabilities in software executing on the local machine, as well as sensitive information from within a process's address space or registers.",,,"The Automatic Bug Reporting Tool (""abrtd"") daemon collects and reports crash data when an application crash is detected. Using a variety of plugins, abrtd can email crash reports to system administrators, log crash reports to files, or forward crash reports to a centralized issue tracking system such as RHTSupport. The ""abrtd"" service can be disabled with the following commands: 
+
+# chkconfig abrtd off
+# service abrtd stop",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:283,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38641,low,SRG-OS-000096,SV-50442r3_rule,RHEL-06-000262,The atd service must be disabled.,"The ""atd"" service could be used by an unsophisticated insider to carry out activities outside of a normal login session, which could complicate accountability. Furthermore, the need to schedule tasks with ""at"" or ""batch"" is not common.",,,"The ""at"" and ""batch"" commands can be used to schedule tasks that are meant to be executed only once. This allows delayed execution in a manner similar to cron, except that it is not recurring. The daemon ""atd"" keeps track of tasks scheduled via ""at"" and ""batch"", and executes them at the specified time. The ""atd"" service can be disabled with the following commands: 
+
+# chkconfig atd off
+# service atd stop",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:327,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38642,low,SRG-OS-999999,SV-50443r1_rule,RHEL-06-000346,The system default umask for daemons must be 027 or 022.,The umask influences the permissions assigned to files created by a process at run time. An unnecessarily permissive umask could result in files being created with insecure permissions.,,,"The file ""/etc/init.d/functions"" includes initialization parameters for most or all daemons started at boot time. The default umask of 022 prevents creation of group- or world-writable files. To set the default umask for daemons, edit the following line, inserting 022 or 027 for [UMASK] appropriately: 
+
+umask [UMASK]
+
+Setting the umask to too restrictive a setting can cause serious errors at runtime. Many daemons on the system already individually restrict themselves to a umask of 077 in their own init scripts.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1165,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38644,low,SRG-OS-000096,SV-50445r2_rule,RHEL-06-000265,The ntpdate service must not be running.,"The ""ntpdate"" service may only be suitable for systems which are rebooted frequently enough that clock drift does not cause problems between reboots. In any event, the functionality of the ntpdate service is now available in the ntpd program and should be considered deprecated.",,,"The ntpdate service sets the local hardware clock by polling NTP servers when the system boots. It synchronizes to the NTP servers listed in ""/etc/ntp/step-tickers"" or ""/etc/ntp.conf"" and then sets the local hardware clock to the newly synchronized system time. The ""ntpdate"" service can be disabled with the following commands: 
+
+# chkconfig ntpdate off
+# service ntpdate stop",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:132,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38645,low,SRG-OS-999999,SV-50446r1_rule,RHEL-06-000345,The system default umask in /etc/login.defs must be 077.,The umask value influences the permissions assigned to files when they are created. A misconfigured umask value could result in files with excessive permissions that can be read and/or written to by unauthorized users.,,,"To ensure the default umask controlled by ""/etc/login.defs"" is set properly, add or correct the ""umask"" setting in ""/etc/login.defs"" to read as follows: 
+
+UMASK 077",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:396,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38646,low,SRG-OS-000096,SV-50447r2_rule,RHEL-06-000266,The oddjobd service must not be running.,"The ""oddjobd"" service may provide necessary functionality in some environments but it can be disabled if it is not needed. Execution of tasks by privileged programs, on behalf of unprivileged ones, has traditionally been a source of privilege escalation security issues.",,,"The ""oddjobd"" service exists to provide an interface and access control mechanism through which specified privileged tasks can run tasks for unprivileged client applications. Communication with ""oddjobd"" is through the system message bus. The ""oddjobd"" service can be disabled with the following commands: 
+
+# chkconfig oddjobd off
+# service oddjobd stop",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:380,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38647,low,SRG-OS-999999,SV-50448r1_rule,RHEL-06-000344,The system default umask in /etc/profile must be 077.,The umask value influences the permissions assigned to files when they are created. A misconfigured umask value could result in files with excessive permissions that can be read and/or written to by unauthorized users.,,,"To ensure the default umask controlled by ""/etc/profile"" is set properly, add or correct the ""umask"" setting in ""/etc/profile"" to read as follows: 
+
+umask 077",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:558,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38648,low,SRG-OS-000096,SV-50449r2_rule,RHEL-06-000267,The qpidd service must not be running.,"The qpidd service is automatically installed when the ""base"" package selection is selected during installation. The qpidd service listens for network connections which increases the attack surface of the system. If the system is not intended to receive AMQP traffic then the ""qpidd"" service is not needed and should be disabled or removed.",,,"The ""qpidd"" service provides high speed, secure, guaranteed delivery services. It is an implementation of the Advanced Message Queuing Protocol. By default the qpidd service will bind to port 5672 and listen for connection attempts. The ""qpidd"" service can be disabled with the following commands: 
+
+# chkconfig qpidd off
+# service qpidd stop",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:183,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38649,low,SRG-OS-999999,SV-50450r1_rule,RHEL-06-000343,The system default umask for the csh shell must be 077.,The umask value influences the permissions assigned to files when they are created. A misconfigured umask value could result in files with excessive permissions that can be read and/or written to by unauthorized users.,,,"To ensure the default umask for users of the C shell is set properly, add or correct the ""umask"" setting in ""/etc/csh.cshrc"" to read as follows: 
+
+umask 077",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:663,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38650,low,SRG-OS-000096,SV-50451r2_rule,RHEL-06-000268,The rdisc service must not be running.,General-purpose systems typically have their network and routing information configured statically by a system administrator. Workstations or some special-purpose systems often use DHCP (instead of IRDP) to retrieve dynamic network configuration information.,,,"The ""rdisc"" service implements the client side of the ICMP Internet Router Discovery Protocol (IRDP), which allows discovery of routers on the local subnet. If a router is discovered then the local routing table is updated with a corresponding default route. By default this daemon is disabled. The ""rdisc"" service can be disabled with the following commands: 
+
+# chkconfig rdisc off
+# service rdisc stop",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1080,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38651,low,SRG-OS-999999,SV-50452r1_rule,RHEL-06-000342,The system default umask for the bash shell must be 077.,The umask value influences the permissions assigned to files when they are created. A misconfigured umask value could result in files with excessive permissions that can be read and/or written to by unauthorized users.,,,"To ensure the default umask for users of the Bash shell is set properly, add or correct the ""umask"" setting in ""/etc/bashrc"" to read as follows: 
+
+umask 077",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:240,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38656,low,SRG-OS-999999,SV-50457r1_rule,RHEL-06-000272,The system must use SMB client signing for connecting to samba servers using smbclient.,Packet signing can prevent man-in-the-middle attacks which modify SMB packets in transit.,,,"To require samba clients running ""smbclient"" to use packet signing, add the following to the ""[global]"" section of the Samba configuration file in ""/etc/samba/smb.conf"": 
+
+client signing = mandatory
+
+Requiring samba clients such as ""smbclient"" to use packet signing ensures they can only communicate with servers that support packet signing.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:763,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38658,medium,SRG-OS-000077,SV-50459r6_rule,RHEL-06-000274,The system must prohibit the reuse of passwords within five iterations.,Preventing reuse of previous passwords helps ensure that a compromised password is not reused by a user.,,,"Do not allow users to reuse recent passwords. This can be accomplished by using the ""remember"" option for the ""pam_pwhistory"" PAM module. In the file ""/etc/pam.d/system-auth"" and /etc/pam.d/password-auth, append ""remember=5"" to the lines that refer to the ""pam_pwhistory.so"" module, as shown:
+
+password required pam_pwhistory.so [existing_options] remember=5
+
+or
+
+password requisite pam_pwhistory.so [existing_options] remember=5
+
+The DoD requirement is five passwords.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:4002,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000200
+The information system prohibits password reuse for the organization defined number of generations.
+NIST SP 800-53 :: IA-5 (1) (e)
+NIST SP 800-53A :: IA-5 (1).1 (v)
+NIST SP 800-53 Revision 4 :: IA-5 (1) (e)
+
+"
+V-38668,high,SRG-OS-999999,SV-50469r4_rule,RHEL-06-000286,The x86 Ctrl-Alt-Delete key sequence must be disabled.,"A locally logged-in user who presses Ctrl-Alt-Delete, when at the console, can reboot the system. If accidentally pressed, as could happen in the case of mixed OS environment, this can create the risk of short-term loss of availability of systems due to unintentional reboot. In the GNOME graphical environment, risk of unintentional reboot from the Ctrl-Alt-Delete sequence is reduced because the user will be prompted before any action is taken.",,,"By default, the system includes the following line in ""/etc/init/control-alt-delete.conf"" to reboot the system when the Ctrl-Alt-Delete key sequence is pressed:
+
+exec /sbin/shutdown -r now ""Ctrl-Alt-Delete pressed""
+
+
+To configure the system to log a message instead of rebooting the system, add the following line to ""/etc/init/control-alt-delete.override"" to read as follows:
+
+exec /usr/bin/logger -p authpriv.notice ""Ctrl-Alt-Delete pressed""",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38669,low,SRG-OS-999999,SV-50470r1_rule,RHEL-06-000287,The postfix service must be enabled for mail delivery.,Local mail delivery is essential to some system maintenance and notification tasks.,,,"The Postfix mail transfer agent is used for local mail delivery within the system. The default configuration only listens for connections to the default SMTP port (port 25) on the loopback interface (127.0.0.1). It is recommended to leave this service enabled for local mail delivery. The ""postfix"" service can be enabled with the following command: 
+
+# chkconfig postfix on
+# service postfix start",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:165,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38671,medium,SRG-OS-999999,SV-50472r1_rule,RHEL-06-000288,The sendmail package must be removed.,The sendmail software was not developed with security in mind and its design prevents it from being effectively contained by SELinux. Postfix should be used instead.,,,"Sendmail is not the default mail transfer agent and is not installed by default. The ""sendmail"" package can be removed with the following command: 
+
+# yum erase sendmail",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:274,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38672,low,SRG-OS-000096,SV-50473r2_rule,RHEL-06-000289,The netconsole service must be disabled unless required.,"The ""netconsole"" service is not necessary unless there is a need to debug kernel panics, which is not common.",,,"The ""netconsole"" service is responsible for loading the netconsole kernel module, which logs kernel printk messages over UDP to a syslog server. This allows debugging of problems where disk logging fails and serial consoles are impractical. The ""netconsole"" service can be disabled with the following commands: 
+
+# chkconfig netconsole off
+# service netconsole stop",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:941,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000382
+The organization configures the information system to prohibit or restrict the use of organization defined functions, ports, protocols, and/or services.
+NIST SP 800-53 :: CM-7
+NIST SP 800-53A :: CM-7.1 (iii)
+NIST SP 800-53 Revision 4 :: CM-7 b
+
+"
+V-38674,medium,SRG-OS-000248,SV-50475r1_rule,RHEL-06-000290,X Windows must not be enabled unless required.,Unnecessary services should be disabled to decrease the attack surface of the system.,,,"Setting the system's runlevel to 3 will prevent automatic startup of the X server. To do so, ensure the following line in ""/etc/inittab"" features a ""3"" as shown: 
+
+id:3:initdefault:",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:688,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001436
+The organization disables organization defined networking protocols within the information system deemed to be nonsecure except for explicitly identified components in support of specific operational requirements.
+NIST SP 800-53 :: AC-17 (8)
+NIST SP 800-53A :: AC-17 (8).1 (ii)
+
+"
+V-38675,low,SRG-OS-999999,SV-50476r2_rule,RHEL-06-000308,Process core dumps must be disabled unless needed.,A core dump includes a memory image taken at the time the operating system terminates an application. The memory image could contain sensitive data and is generally useful only for developers trying to debug problems.,,,"To disable core dumps for all users, add the following line to ""/etc/security/limits.conf"": 
+
+* hard core 0",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3072,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38676,low,SRG-OS-999999,SV-50477r2_rule,RHEL-06-000291,"The xorg-x11-server-common (X Windows) package must not be installed, unless required.",Unnecessary packages should not be installed to decrease the attack surface of the system.,,,"Removing all packages which constitute the X Window System ensures users or malicious software cannot start X. To do so, run the following command: 
+
+# yum groupremove ""X Window System""",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1175,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38677,high,SRG-OS-000104,SV-50478r1_rule,RHEL-06-000309,The NFS server must not have the insecure file locking option enabled.,Allowing insecure file locking could allow for sensitive data to be viewed or edited by an unauthorized user.,,,"By default the NFS server requires secure file-lock requests, which require credentials from the client in order to lock a file. Most NFS clients send credentials with file lock requests, however, there are a few clients that do not send credentials when requesting a file-lock, allowing the client to only be able to lock world-readable files. To get around this, the ""insecure_locks"" option can be used so these clients can access the desired export. This poses a security risk by potentially allowing the client access to data for which it does not have authorization. Remove any instances of the ""insecure_locks"" option from the file ""/etc/exports"".",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:4001,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000764
+The information system uniquely identifies and authenticates organizational users (or processes acting on behalf of organizational users).
+NIST SP 800-53 :: IA-2
+NIST SP 800-53A :: IA-2.1
+NIST SP 800-53 Revision 4 :: IA-2
+
+"
+V-38679,medium,SRG-OS-999999,SV-50480r3_rule,RHEL-06-000292,The DHCP client must be disabled if not needed.,"DHCP relies on trusting the local network. If the local network is not trusted, then it should not be used. However, the automatic configuration provided by DHCP is commonly used and the alternative, manual configuration, presents an unacceptable burden in many circumstances.",,,"For each interface [IFACE] on the system (e.g. eth0), edit ""/etc/sysconfig/network-scripts/ifcfg-[IFACE]"" and make the following changes. 
+
+Correct the BOOTPROTO line to read:
+
+BOOTPROTO=none
+
+
+Add or correct the following lines, substituting the appropriate values based on your site's addressing scheme:
+
+NETMASK=[local LAN netmask]
+IPADDR=[assigned IP address]
+GATEWAY=[local LAN default gateway]",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:208,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38680,medium,SRG-OS-000046,SV-50481r1_rule,RHEL-06-000313,The audit system must identify staff members to receive notifications of audit log storage volume capacity issues.,"Email sent to the root account is typically aliased to the administrators of the system, who can take appropriate action.",,,"The ""auditd"" service can be configured to send email to a designated account in certain situations. Add or correct the following line in ""/etc/audit/auditd.conf"" to ensure that administrators are notified via email for those situations: 
+
+action_mail_acct = root",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:548,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000139
+The information system alerts designated organization-defined personnel or roles in the event of an audit processing failure.
+NIST SP 800-53 :: AU-5 a
+NIST SP 800-53A :: AU-5.1 (ii)
+NIST SP 800-53 Revision 4 :: AU-5 a
+
+"
+V-38684,low,SRG-OS-000027,SV-50485r2_rule,RHEL-06-000319,"The system must limit users to 10 simultaneous system logins, or a site-defined number, in accordance with operational requirements.",Limiting simultaneous user logins can insulate the system from denial of service problems caused by excessive logins. Automated login processes operating improperly or maliciously may result in an exceptional number of simultaneous login sessions.,,,"Limiting the number of allowed users and sessions per user can limit risks related to denial of service attacks. This addresses concurrent sessions for a single account and does not address concurrent sessions by a single user via multiple accounts. To set the number of concurrent sessions per user add the following line in ""/etc/security/limits.conf"": 
+
+* hard maxlogins 10
+
+A documented site-defined number may be substituted for 10 in the above.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:112,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000054
+The information system limits the number of concurrent sessions for each organization-defined account and/or account type to an organization-defined number of sessions.
+NIST SP 800-53 :: AC-10
+NIST SP 800-53A :: AC-10.1 (ii)
+NIST SP 800-53 Revision 4 :: AC-10
+
+"
+V-38687,low,SRG-OS-000160,SV-50488r3_rule,RHEL-06-000321,The system must provide VPN connectivity for communications over untrusted networks.,Providing the ability for remote users or systems to initiate a secure VPN connection protects information when it is transmitted over a wide area network.,,,"The “libreswan” package provides an implementation of IPsec and IKE, which permits the creation of secure tunnels over untrusted networks. The ""libreswan"" package can be installed with the following command: 
+
+# yum install libreswan",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1005,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001130
+The information system protects the confidentiality of transmitted information.
+NIST SP 800-53 :: SC-9
+NIST SP 800-53A :: SC-9.1
+
+"
+V-38688,medium,SRG-OS-000024,SV-50489r3_rule,RHEL-06-000324,"A login banner must be displayed immediately prior to, or as part of, graphical desktop environment login prompts.",An appropriate warning message reinforces policy awareness during the logon process and facilitates possible legal action against attackers.,,,"To enable displaying a login warning banner in the GNOME Display Manager's login screen, run the following command: 
+
+# gconftool-2 --direct \
+--config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory \
+--type bool \
+--set /apps/gdm/simple-greeter/banner_message_enable true
+
+To display a banner, this setting must be enabled and then banner text must also be set.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3883,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000050
+The information system retains the notification message or banner on the screen until users acknowledge the usage conditions and take explicit actions to log on to or further access.
+NIST SP 800-53 :: AC-8 b
+NIST SP 800-53A :: AC-8.1 (iii)
+NIST SP 800-53 Revision 4 :: AC-8 b
+
+"
+V-38691,medium,SRG-OS-000034,SV-50492r2_rule,RHEL-06-000331,The Bluetooth service must be disabled.,"Disabling the ""bluetooth"" service prevents the system from attempting connections to Bluetooth devices, which entails some security risk. Nevertheless, variation in this risk decision may be expected due to the utility of Bluetooth connectivity and its limited range.",,,"The ""bluetooth"" service can be disabled with the following command: 
+
+# chkconfig bluetooth off
+
+
+
+# service bluetooth stop",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:418,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000085
+The organization monitors for unauthorized connections of mobile devices to organizational information systems.
+NIST SP 800-53 :: AC-19 c
+NIST SP 800-53A :: AC-19.1 (iii)
+
+"
+V-38692,low,GEN006660,SV-50493r1_rule,RHEL-06-000334,Accounts must be locked upon 35 days of inactivity.,Disabling inactive accounts ensures that accounts which may not have been responsibly removed are not available to attackers who may have compromised their credentials.,,,"To specify the number of days after a password expires (which signifies inactivity) until an account is permanently disabled, add or correct the following lines in ""/etc/default/useradd"", substituting ""[NUM_DAYS]"" appropriately: 
+
+INACTIVE=[NUM_DAYS]
+
+A value of 35 is recommended. If a password is currently on the verge of expiration, then 35 days remain until the account is automatically disabled. However, if the password will not expire for another 60 days, then 95 days could elapse until the account would be automatically disabled. See the ""useradd"" man page for more information. Determining the inactivity timeout must be done with careful consideration of the length of a ""normal"" period of inactivity for users in the particular environment. Setting the timeout too low incurs support costs and also has the potential to impact availability of the system to legitimate users.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3054,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000017
+The information system automatically disables inactive accounts after an organization-defined time period.
+NIST SP 800-53 :: AC-2 (3)
+NIST SP 800-53A :: AC-2 (3).1 (ii)
+NIST SP 800-53 Revision 4 :: AC-2 (3)
+
+"
+V-38693,low,SRG-OS-999999,SV-50494r4_rule,RHEL-06-000299,The system must require passwords to contain no more than three consecutive repeating characters.,Passwords with excessive repeating characters may be more vulnerable to password-guessing attacks.,,,"The pam_cracklib module's ""maxrepeat"" parameter controls requirements for consecutive repeating characters. When set to a positive number, it will reject passwords which contain more than that number of consecutive characters.
+
+Edit /etc/pam.d/system-auth and /etc/pam.d/password-auth adding ""maxrepeat=3"" after pam_cracklib.so to prevent a run of (3 + 1) or more identical characters.
+
+password required pam_cracklib.so maxrepeat=3",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:50494,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-38694,low,SRG-OS-000118,SV-50495r1_rule,RHEL-06-000335,The operating system must manage information system identifiers for users and devices by disabling the user identifier after an organization defined time period of inactivity.,Disabling inactive accounts ensures that accounts which may not have been responsibly removed are not available to attackers who may have compromised their credentials.,,,"To specify the number of days after a password expires (which signifies inactivity) until an account is permanently disabled, add or correct the following lines in ""/etc/default/useradd"", substituting ""[NUM_DAYS]"" appropriately: 
+
+INACTIVE=[NUM_DAYS]
+
+A value of 35 is recommended. If a password is currently on the verge of expiration, then 35 days remain until the account is automatically disabled. However, if the password will not expire for another 60 days, then 95 days could elapse until the account would be automatically disabled. See the ""useradd"" man page for more information. Determining the inactivity timeout must be done with careful consideration of the length of a ""normal"" period of inactivity for users in the particular environment. Setting the timeout too low incurs support costs and also has the potential to impact availability of the system to legitimate users.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3054,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000795
+The organization manages information system identifiers by disabling the identifier after an organization defined time period of inactivity.
+NIST SP 800-53 :: IA-4 e
+NIST SP 800-53A :: IA-4.1 (iii)
+NIST SP 800-53 Revision 4 :: IA-4 e
+
+"
+V-38701,high,SRG-OS-999999,SV-50502r2_rule,RHEL-06-000338,The TFTP daemon must operate in secure mode which provides access only to a single directory on the host file system.,"Using the ""-s"" option causes the TFTP service to only serve files from the given directory. Serving files from an intentionally specified directory reduces the risk of sharing files which should remain private.",,,"If running the ""tftp"" service is necessary, it should be configured to change its root directory at startup. To do so, ensure ""/etc/xinetd.d/tftp"" includes ""-s"" as a command line argument, as shown in the following example (which is also the default): 
+
+server_args = -s /var/lib/tftpboot",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:1049,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-51337,medium,SRG-OS-999999,SV-65547r2_rule,RHEL-06-000017,The system must use a Linux Security Module at boot time.,"Disabling a major host protection feature, such as SELinux, at boot time prevents it from confining system services at boot time. Further, it increases the chances that it will remain off during system operation.",,,"SELinux can be disabled at boot time by an argument in ""/boot/grub/grub.conf"". Remove any instances of ""selinux=0"" from the kernel arguments in that file to prevent SELinux from being disabled at boot.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3446,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-51363,medium,SRG-OS-999999,SV-65573r1_rule,RHEL-06-000020,The system must use a Linux Security Module configured to enforce limits on system services.,"Setting the SELinux state to enforcing ensures SELinux is able to confine potentially compromised processes to the security policy, which is designed to prevent them from causing damage to the system or further elevating their privileges. ",,,"The SELinux state should be set to ""enforcing"" at system boot time. In the file ""/etc/selinux/config"", add or correct the following line to configure the system to boot into enforcing mode:
+
+SELINUX=enforcing",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:3032,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-51369,low,SRG-OS-999999,SV-65579r1_rule,RHEL-06-000023,The system must use a Linux Security Module configured to limit the privileges of system services.,"Setting the SELinux policy to ""targeted"" or a more specialized policy ensures the system will confine processes that are likely to be targeted for exploitation, such as network or system services. ",,,"The SELinux ""targeted"" policy is appropriate for general-purpose desktops and servers, as well as systems in many other roles. To configure the system to use this policy, add or correct the following line in ""/etc/selinux/config"":
+
+SELINUXTYPE=targeted
+
+Other policies, such as ""mls"", provide additional security labeling and greater confinement but are not compatible with many general-purpose use cases.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:629,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-51875,medium,SRG-OS-999999,SV-66089r1_rule,RHEL-06-000372,"The operating system, upon successful logon/access, must display to the user the number of unsuccessful logon/access attempts since the last successful logon/access.",Users need to be aware of activity that occurs regarding their account. Providing users with information regarding the number of unsuccessful attempts that were made to login to their account allows the user to determine if any unauthorized activity has occurred and gives them an opportunity to notify administrators. ,,,"To configure the system to notify users of last logon/access using ""pam_lastlog"", add the following line immediately after ""session required pam_limits.so"":
+
+session required pam_lastlog.so showfailed",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:867,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-54381,medium,SRG-OS-999999,SV-68627r3_rule,RHEL-06-000163,The audit system must switch the system to single-user mode when available audit storage volume becomes dangerously low.,"Administrators should be made aware of an inability to record audit records. If a separate partition or logical volume of adequate size is used, running low on space for audit records should never occur. ",,,"The ""auditd"" service can be configured to take an action when disk space is running low but prior to running out of space completely. Edit the file ""/etc/audit/auditd.conf"". Add or modify the following line, substituting [ACTION] appropriately:
+
+admin_space_left_action = [ACTION]
+
+Set this value to ""single"" to cause the system to switch to single-user mode for corrective action. Acceptable values also include ""suspend"" and ""halt"". For certain systems, the need for availability outweighs the need to log all actions, and a different setting should be determined. Details regarding all possible values for [ACTION] are described in the ""auditd.conf"" man page.",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:667,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000366
+The organization implements the security configuration settings.
+NIST SP 800-53 :: CM-6 b
+NIST SP 800-53A :: CM-6.1 (iv)
+NIST SP 800-53 Revision 4 :: CM-6 b
+
+"
+V-81441,low,SRG-OS-000062,SV-96155r1_rule,RHEL-06-000166,The audit system must be configured to audit all attempts to alter system time through adjtimex.,"Arbitrary changes to the system time can be used to obfuscate nefarious activities in log files, as well as to confuse network services that are highly dependent upon an accurate system time (such as sshd). All changes to the system time should be audited.",,,"On a 32-bit system, add the following to ""/etc/audit/audit.rules"": 
+
+# audit_time_rules
+-a always,exit -F arch=b32 -S adjtimex -k audit_time_rules
+
+On a 64-bit system, add the following to ""/etc/audit/audit.rules"": 
+
+# audit_time_rules
+-a always,exit -F arch=b64 -S adjtimex -S settimeofday -S clock_settime -k audit_time_rules",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:542,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-000169
+The information system provides audit record generation capability for the auditable events defined in AU-2 a at organization-defined information system components.
+NIST SP 800-53 :: AU-12 a
+NIST SP 800-53A :: AU-12.1 (ii)
+NIST SP 800-53 Revision 4 :: AU-12 a
+
+"
+V-81445,low,SRG-OS-000368-GPOS-00154,SV-96159r1_rule,RHEL-06-000530,The Red Hat Enterprise Linux operating system must mount /dev/shm with the nodev option.,"The ""nodev"" mount option causes the system to not interpret character or block special devices. Executing character or block special devices from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative access.",,,"Configure the ""/etc/fstab"" to use the ""nodev"" option for all lines containing ""/dev/shm"".",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:4003,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001764
+The information system prevents program execution in accordance with organization-defined policies regarding software program usage and restrictions, and/or rules authorizing the terms and conditions of software program usage.
+NIST SP 800-53 Revision 4 :: CM-7 (2)
+
+"
+V-81447,low,SRG-OS-000368-GPOS-00154,SV-96161r1_rule,RHEL-06-000531,The Red Hat Enterprise Linux operating system must mount /dev/shm with the nosuid option.,"The ""nosuid"" mount option causes the system to not execute ""setuid"" and ""setgid"" files with owner privileges. This option must be used for mounting any file system not containing approved ""setuid"" and ""setguid"" files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative access.",,,"Configure the ""/etc/fstab"" to use the ""nosuid"" option for all lines containing ""/dev/shm"".",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:4004,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001764
+The information system prevents program execution in accordance with organization-defined policies regarding software program usage and restrictions, and/or rules authorizing the terms and conditions of software program usage.
+NIST SP 800-53 Revision 4 :: CM-7 (2)
+
+"
+V-81449,low,SRG-OS-000368-GPOS-00154,SV-96163r1_rule,RHEL-06-000532,The Red Hat Enterprise Linux operating system must mount /dev/shm with the noexec option.,"The ""noexec"" mount option causes the system to not execute binary files. This option must be used for mounting any file system not containing approved binary files as they may be incompatible. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative access.",,,"Configure the ""/etc/fstab"" to use the ""noexec"" option for all lines containing ""/dev/shm"".",,,FALSE,,,,,,,oval:mil.disa.fso.redhat.rhel6:def:4005,Unclass,"Red Hat Enterprise Linux 6 Security Technical Implementation Guide :: Version 1, Release: 22 Benchmark Date: 25 Jan 2019",2367,"CCI-001764
+The information system prevents program execution in accordance with organization-defined policies regarding software program usage and restrictions, and/or rules authorizing the terms and conditions of software program usage.
+NIST SP 800-53 Revision 4 :: CM-7 (2)
+
+"

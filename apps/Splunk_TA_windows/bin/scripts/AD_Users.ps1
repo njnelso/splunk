@@ -1,0 +1,2 @@
+
+Get-ADUser -Filter {Enabled -eq $TRUE} -Property SamAccountName, msDS-LastSuccessfulInteractiveLogonTime | select SamAccountName, @{Name='LastSuccessfulLogon';Expression={[DateTime]::FromFileTime($_.'msDS-LastSuccessfulInteractiveLogonTime')}} | ConvertTo-Json

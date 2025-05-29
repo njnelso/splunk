@@ -1,0 +1,296 @@
+<form version="1.1" theme="dark">
+  <label>Legacy Overview</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@d</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Active Directory Accounts</title>
+      <single>
+        <search>
+          <query>index=windows source="script:get-aduser_details.bat" Enabled=true
+| stats dc(SamAccountName)</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x555","0x0877a6"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Enabled</option>
+        <option name="useColors">1</option>
+        <drilldown>
+          <link target="_blank">/app/CS_Overview/windows_-_account_management</link>
+        </drilldown>
+      </single>
+      <single>
+        <search>
+          <query>index=windows source="script:get-aduser_details.bat" LockedOut=true
+| stats dc(SamAccountName)</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x555","0xf58f39"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Locked Out</option>
+        <option name="useColors">1</option>
+        <drilldown>
+          <link target="_blank">/app/CS_Overview/windows_-_account_management</link>
+        </drilldown>
+      </single>
+      <single>
+        <search>
+          <query>index=windows source="script:get-aduser_details.bat" Enabled=false
+| stats dc(SamAccountName)</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x555","0x555"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Disabled</option>
+        <option name="useColors">1</option>
+        <drilldown>
+          <link target="_blank">/app/CS_Overview/windows_-_account_management</link>
+        </drilldown>
+      </single>
+    </panel>
+    <panel>
+      <title>Active Directory Systems Reporting to Splunk</title>
+      <chart>
+        <search>
+          <query>index=windows source="script:get-adcomputer.bat" Name=* IPv4address!=null
+| dedup Name
+| rename Name as host
+| join type=left host [search index=_internal earliest=-4h | stats count by host | eval host=upper(mvindex(split(host, "."), 0))]
+| eval status=if(isnull(count), "Not Reporting", "Reporting")
+| stats dc(host) AS Hosts BY status</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.legend.labels">["Reporting", "Not Reporting"]</option>
+        <option name="charting.seriesColors">[0xD93F3C, 0x277C52]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Active Directory Users</title>
+      <table>
+        <search>
+          <query>index=windows source="script:get-aduser.bat"
+| dedup SamAccountName
+| rename SamAccountName AS Username
+| rename LastSuccessfulLogon.DateTime AS "Last Successful Logon"
+| table Username "Last Successful Logon"
+| sort Username</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Active Directory Systems</title>
+      <table>
+        <search>
+          <query>index=windows source="script:get-adcomputer.bat" Name=* IPv4address!=null
+| dedup Name
+| rename Name as host
+| join type=left host [search index=_internal earliest=-4h | stats count by host | eval host=upper(mvindex(split(host, "."), 0))]
+| eval status=if(isnull(count), "Not Reporting", "Active")
+| table host status
+| sort -status +host</query>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <format type="color" field="status">
+          <colorPalette type="map">{"Active":#277C52,"Not Reporting":#D93F3C}</colorPalette>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Authentications</title>
+      <single>
+        <title>Windows &amp; Linux - Interactive Logon Successes</title>
+        <search>
+          <query>index=winevents source="wineventlog:security" EventCode=4624 Security_ID="PROGRAM*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 
+| dedup _time Account_Name
+| append [search index=nix sourcetype=audit_log op="PAM:authentication"  exe="/usr/lib/gdm3/gdm-session-worker" NOT acct=gdm res=success]
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf7bc38"]</option>
+        <option name="rangeValues">[90]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Logons</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Windows &amp; Linux - Interactive Logon Failures</title>
+        <search>
+          <query>index=winevents source="wineventlog:security" EventCode=4625 Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 
+| dedup _time Account_Name
+| append [search index=nix (sourcetype=audit_log op="PAM:authentication"  exe="/usr/lib/gdm3/gdm-session-worker" NOT acct=gdm res=failed)]
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xd93f3c"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Attempts</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Removable Media Events by User</title>
+      <chart>
+        <search>
+          <query>index=winevents sourcetype="security" Security_ID="PROGRAM*" TaskCategory="Removable Storage" EventCode=4663 OR EventCode=4656 
+| timechart count span=1h by user</query>
+          <earliest>-7d@d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>AU-5(1) - Storage Capacity Warning (Windows)</title>
+      <single>
+        <title>System Drives over 75"% Storage Capacity</title>
+        <search>
+          <query>index=windows source="script:getpsdrive" Name="C"
+| dedup host Name
+| where UsedPct &gt; 75.00
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xd93f3c"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Systems</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <title>All System Storage Details</title>
+        <search>
+          <query>index=windows source="script:getpsdrive"
+| dedup host Name
+| table host Name UsedGB TotalGB UsedPct</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <format type="number" field="UsedPct">
+          <option name="unit">%</option>
+        </format>
+        <format type="color" field="UsedPct">
+          <colorPalette type="list">[#277C52,#F58F39,#D93F3C]</colorPalette>
+          <scale type="threshold">75,90</scale>
+        </format>
+      </table>
+    </panel>
+    <panel>
+      <title>AU-5(1) - Storage Capacity Warning (Linux)</title>
+      <single>
+        <title>Systems over 75"% Audit Storage Capacity</title>
+        <search>
+          <query>index=nix source="script:df_storage_space.sh" mountpoint="/var/log*"
+| dedup host filesystem type mountpoint
+| where used_pct &gt; 75.00
+| stats dc(host)
+| sort +host -used_pct</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xd93f3c"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Systems</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <title>All System Storage Details</title>
+        <search>
+          <query>index=nix source="script:df_storage_space.sh"
+| dedup host filesystem type mountpoint
+| table host filesystem type mountpoint used_gb size_gb used_pct
+| sort +host -used_pct</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <format type="number" field="used_pct">
+          <option name="unit">%</option>
+        </format>
+        <format type="color" field="used_pct">
+          <colorPalette type="list">[#277C52,#F58F39,#D93F3C]</colorPalette>
+          <scale type="threshold">75,90</scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Devices Sending Syslog to Splunk</title>
+      <event>
+        <search>
+          <query>| tstats count where index=cisco OR index=vmware OR index=palo-alto BY index source host
+| dedup index source host
+| table index source host</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="list.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </event>
+    </panel>
+  </row>
+</form>

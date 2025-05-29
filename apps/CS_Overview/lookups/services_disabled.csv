@@ -1,0 +1,37 @@
+Service,Description,Severity
+named,All network services involve some risk of compromise due to implementation flaws and should be disabled if possible. ,LOW
+nfs,Unnecessary services should be disabled to decrease the attack surface of the system,LOW
+rpcsvcgssd,Unnecessary services should be disabled to decrease the attack surface of the system,LOW
+xinetd,"The xinetd service provides a dedicated listener service for some programs, which is no longer necessary for commonly-used network services. Disabling it ensures that these uncommon services are not running, and also prevents attacks against xinetd itself. ",medium
+bluetooth,"Disabling the bluetooth service prevents the system from attempting connections to Bluetooth devices, which entails some security risk. Nevertheless, variation in this risk decision may be expected due to the utility of Bluetooth connectivity and its limited range.  ",medium
+dovecot,"Running an IMAP or POP3 server provides a network-based avenue of attack, and should be disabled if not needed. ",LOW
+httpd,"Running web server software provides a network-based avenue of attack, and should be disabled if not needed",LOW
+smb,"Running a Samba server provides a network-based avenue of attack, and should be disabled if not needed. ",LOW
+snmpd,"Running SNMP software provides a network-based avenue of attack, and should be disabled if not needed. ",LOW
+squid,"Running proxy server software provides a network-based avenue of attack, and should be removed if not needed. ",LOW
+autofs,Disabling the automounter permits the administrator to statically control filesystem mounting through /etc/fstab. ,LOW
+qpidd,"The qpidd service is automatically installed when the ""base"" package selection is selected during installation. The qpidd service listens for network connections, which increases the attack surface of the system. If the system is not intended to receive AMQP traffic, then the qpidd service is not needed and should be disabled or removed.  ",LOW
+atd,"The atd service could be used by an unsophisticated insider to carry out activities outside of a normal login session, which could complicate accountability. Furthermore, the need to schedule tasks with at or batch is not common",LOW
+abrtd,"Mishandling crash data could expose sensitive information about vulnerabilities in software executing on the local machine, as well as sensitive information from within a process's address space or registers.",LOW
+avahi-daemon,"Because the Avahi daemon service keeps an open network port, it is subject to network attacks. Its functionality is convenient but is only appropriate if the local network can be trusted. ",LOW
+certmonger,"The services provided by certmonger may be essential for systems fulfilling some roles a PKI infrastructure, but its functionality is not necessary for many other use cases.  ",LOW
+cgconfig,"Unless control groups are used to manage system resources, running the cgconfig service is not necessary.  ",LOW
+cgred,"Unless control groups are used to manage system resources, running the cgred service service is not necessary.  ",LOW
+cpupower,"The cpupower service is only necessary if adjusting the CPU clock speed provides benefit. Traditionally this has included laptops (to enhance battery life), but may also apply to server or desktop environments where conserving power is highly desirable or necessary.  ",LOW
+saslauthd,"The saslauthd service provides essential functionality for performing authentication in some directory environments, such as those which use Kerberos and LDAP. For others, however, in which only local files may be consulted, it is not necessary and should be disabled.  ",LOW
+messagebus,"If no services which require D-Bus are needed, then it can be disabled. As a broker for IPC between processes of different privilege levels, it could be a target for attack. However, disabling D-Bus is likely to be impractical for any system which needs to provide a graphical login session.  ",LOW
+debug-shell,This prevents attackers with physical access from trivially bypassing security on the machine through valid troubleshooting configurations and gaining root access when the system is rebooted. ,medium
+dhcpd,"Unmanaged or unintentionally activated DHCP servers may provide faulty information to clients, interfering with the operation of a legitimate site DHCP server if there is one",medium
+kdump,"Unless the system is used for kernel development or testing, there is little need to run the kdump service.  ",LOW
+netconsole,"The netconsole service is not necessary unless there is a need to debug kernel panics, which is not common.  ",LOW
+oddjobd,"The oddjobd service may provide necessary functionality in some environments, and can be disabled if it is not needed. Execution of tasks by privileged programs, on behalf of unprivileged ones, has traditionally been a source of privilege escalation security issues.  ",LOW
+portreserve,"The portreserve service provides helpful functionality by preventing conflicting usage of ports in the reserved port range, but it can be disabled if not needed.  ",LOW
+quota_nld,"If disk quotas are enforced on the local system, then the quota_nld service likely provides useful functionality and should remain enabled. However, if disk quotas are not used or user notification of disk quota violation is not desired then there is no need to run this service.  ",LOW
+rhnsd,"Although systems management and patching is extremely important to system security, management by a system outside the enterprise enclave is not desirable for some environments. However, if the system is being managed by RHN or RHN Satellite Server the rhnsd daemon can remain on.  ",LOW
+rhsmcertd,"The rhsmcertd service can provide administrators with some additional control over which of their systems are entitled to particular subscriptions. However, for systems that are managed locally or which are not expected to require remote changes to their subscription status, it is unnecessary and can be disabled.  ",LOW
+rexec,"The rexec service uses unencrypted network communications, which means that data from the login session, including passwords and all other information transmitted during the session, can be stolen by eavesdroppers on the network.  ",high
+.socket,"The rlogin and rsh service uses unencrypted network communications, which means that data from the login session, including passwords and all other information transmitted during the session, can be stolen by eavesdroppers on the network.  ",high
+mdmonitor,"If software RAID monitoring is not required, there is no need to run this service.  ",LOW
+sysstat,"By default the sysstat service merely runs a program at boot to reset the statistics, which can be retrieved using programs such as sar and sadc. These may provide useful insight into system operation, but unless used this service can be disabled.  ",LOW
+cups,"Turn off unneeded services to reduce attack surface.  ",LOW
+ypbind,Disabling the ypbind service ensures the system is not acting as a client in a NIS or NIS+ domain. ,medium

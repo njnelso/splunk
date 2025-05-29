@@ -1,0 +1,266 @@
+<form version="1.1" theme="dark">
+  <label>Linux - Authentication</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>GNOME Logons</title>
+      <single>
+        <title>Success</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication"  exe="/usr/lib/gdm3/gdm-session-worker" NOT acct=gdm res=success
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x555","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Success</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication"  exe="/usr/lib/gdm3/gdm-session-worker" NOT acct=gdm res=success
+| rename acct AS User
+| table _time host User
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>GNOME Logons</title>
+      <single>
+        <title>Failure</title>
+        <search>
+          <query>index=nix (sourcetype=audit_log op="PAM:authentication"  exe="/usr/lib/gdm3/gdm-session-worker" NOT acct=gdm res=failed) 
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xd93f3c"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Failed Attempts</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <search>
+          <query>index=nix (sourcetype=audit_log op="PAM:authentication"  exe="/usr/lib/gdm3/gdm-session-worker" NOT acct=gdm res=failed) 
+| rename acct AS User
+| table _time host User
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>SSH Logons</title>
+      <chart>
+        <title>Count by User - Success</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/sbin/sshd" res=success
+| rename acct AS User
+| stats count BY User</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+      <table>
+        <title>Success</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/sbin/sshd" res=success
+| rename acct AS User
+| table _time host User
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>SSH Logons</title>
+      <chart>
+        <title>Count by User - Failure</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/sbin/sshd" res=failed
+| rename acct AS User
+| stats count BY User</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+      <table>
+        <title>Failure</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/sbin/sshd" res=failed
+| rename acct AS User
+| table _time host User
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Substitute User Logon (SU)</title>
+      <single>
+        <title>Success</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/bin/su" res=success
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x555","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Success</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <title>Success</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/bin/su" res=success
+| rename acct AS "Target Account"
+| join uid [ search index=nix sourcetype=audit_log type=USER_ACCT | rename acct AS User | table uid User ]
+| table _time host User "Target Account"
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Substitute User Logon (SU)</title>
+      <single>
+        <title>Failure</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/bin/su" res=failed
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xd93f3c"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Failed Attempts</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <title>Failure</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/bin/su" res=failed
+| rename acct AS "Target Account" 
+| table _time host "Target Account"
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Sudo Authentications</title>
+      <single>
+        <title>Success</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_AUTH exe="/usr/bin/sudo" res=success
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x555","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Success</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <title>Success - [Increments of 60 seconds]</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_AUTH exe="/usr/bin/sudo" res=success
+| bin _time span=1m
+| rename acct AS User
+| stats count BY _time host User
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Sudo Authentications</title>
+      <single>
+        <title>Failure</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_AUTH exe="/usr/bin/sudo" res=failed 
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xd93f3c"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Failed Attempts</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <title>Failure</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_AUTH exe="/usr/bin/sudo" res=failed
+| rename acct AS User
+| table _time host User</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+</form>

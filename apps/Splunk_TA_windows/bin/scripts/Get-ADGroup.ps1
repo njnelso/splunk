@@ -1,0 +1,1 @@
+Get-ADGroup -Filter * -Prop Name, Created, Modified, GroupCategory, GroupScope, Description | Select-Object Name, Created, Modified, GroupCategory, GroupScope, Description | ConvertTo-Json

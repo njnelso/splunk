@@ -1,0 +1,1 @@
+(Get-HotFix | select-object Description, HotFixID, InstalledBy, InstalledOn | Sort-Object -Property InstalledOn)[-1] | ConvertTo-Json

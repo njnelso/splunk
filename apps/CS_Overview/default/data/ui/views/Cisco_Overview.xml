@@ -1,0 +1,258 @@
+<form version="1.1" theme="dark">
+  <label>Cisco Overview</label>
+  <description></description>
+  <!-- Second row of 2 panels -->
+  <!-- Third row of panels -->
+  <!-- Forth row of panels -->
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" searchWhenChanged="true">
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+      <div style="font-weight: bold;">This dashboard will require some edits to filter out unrelated traffic once installed on the network.</div>
+      <div>For information on this dashboard and how to edit it, click here: <a href="https://localhost:8000/static/app/CS_Overview/Cisco-Overview.pdf" target="_blank">Link to Documentation</a>
+        </div>
+    </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Cisco Devices</title>
+      <single>
+        <search>
+          <query>index=cisco sourcetype="cisco:ios" source="tcp:1470" 
+| stats dc(host)</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0xdc4e41","0x0877a6"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Devices</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Cisco Devices - Host IP Addresses</title>
+      <table>
+        <search>
+          <query>index=cisco sourcetype="cisco:ios" source="tcp:1470" 
+| dedup host
+| table host</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Cisco - Events Over Time</title>
+      <chart>
+        <search>
+          <query>index=cisco source="tcp:1470" sourcetype="cisco:ios"
+| timechart span=1h count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.drilldown">all</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Sucessful Logon Panel</title>
+      <single>
+        <title>Sucessful Logons</title>
+        <search>
+          <query>index=cisco source="tcp:1470" sourcetype="cisco:ios" mnemonic=LOGIN_SUCCESS
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x555","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="underLabel">Success</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=sourcetype=cisco:ios eventtype=cisco_ios mnemonic=LOGIN_SUCESS| table host, user, src,src_ip</link>
+        </drilldown>
+      </single>
+      <table>
+        <title>Sucessful Logons Details</title>
+        <search>
+          <query>index=cisco source="tcp:1470" sourcetype="cisco:ios" mnemonic=LOGIN_SUCCESS
+| table _time, host, user, src, src_ip</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">true</option>
+        <option name="wrap">true</option>
+        <format field="Trend" type="sparkline">
+          <option name="fillColor">#CCDDFF</option>
+          <option name="lineColor">#5379af</option>
+          <option name="height">25px</option>
+          <option name="lineWidth">1</option>
+        </format>
+      </table>
+    </panel>
+    <panel>
+      <title>Failed Logon Panel</title>
+      <single>
+        <title>Failed Logons</title>
+        <search>
+          <query>index=cisco source="tcp:1470" sourcetype="cisco:ios" mnemonic=LOGIN_FAILED
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="rangeValues">[0,1,2]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Failure</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <title>Failed Logons Details</title>
+        <search>
+          <query>index=cisco source="tcp:1470" sourcetype="cisco:ios" mnemonic=LOGIN_FAILED
+| table _time host user src src_ip reason</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="rowNumbers">true</option>
+        <option name="wrap">true</option>
+        <format field="Trend" type="sparkline">
+          <option name="lineColor">#5379af</option>
+          <option name="fillColor">#CCDDFF</option>
+          <option name="lineWidth">1</option>
+          <option name="height">25px</option>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <single>
+        <title>Configuration Changes</title>
+        <search>
+          <query>index=cisco source="tcp:1470" sourcetype="cisco:ios" mnemonic=LOG_CONFIG_CHANGE | stats count</query>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x53a051","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-7d</option>
+        <option name="underLabel">Config changes</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
+      <table>
+        <title>Configuration Changes - Details</title>
+        <search>
+          <query>index=cisco source="tcp:1470" sourcetype="cisco:ios" mnemonic=LOG_CONFIG_CHANGE
+| table _time host mnemonic message_text</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <single>
+        <title>Privilege Escalation</title>
+        <search>
+          <query>index=cisco sourcetype=cisco:ios mnemonic="CONFIG_I" | stats count</query>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x53a051","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-7d</option>
+        <option name="underLabel">Config changes</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=sourcetype=cisco:ios eventtype="cisco_ios-config_started" | table _time,host,config_source,user,line,src_ip</link>
+        </drilldown>
+      </single>
+      <table>
+        <title>Privilege Escalation - Details</title>
+        <search>
+          <query>index=cisco source="tcp:1470" sourcetype="cisco:ios" mnemonic="CONFIG_I"
+| table _time host username mnemonic message_text</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>All Events - Details</title>
+      <event>
+        <search>
+          <query>index=cisco source="tcp:1470" sourcetype="cisco:ios"</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="list.drilldown">none</option>
+      </event>
+    </panel>
+  </row>
+</form>

@@ -1,0 +1,504 @@
+
+<dashboard version="2" theme="dark">
+    <label>Linux - Hardware/Software</label>
+    <description>System Inventory</description>
+    <definition><![CDATA[
+{
+	"visualizations": {
+		"viz_BGryp7zC": {
+			"type": "splunk.table",
+			"options": {
+				"count": 15,
+				"drilldown": "none",
+				"showInternalFields": false,
+				"fontSize": "small",
+				"backgroundColor": "#2c2f35",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_uPHVIKM4"
+			},
+			"title": "Third-Party Software List - Excludes Debian and Ubuntu Maintainers",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "If maintainers use personal emails, this will display here despite working on Ubuntu/Debian-based software"
+		},
+		"viz_VOIJ6LzL": {
+			"type": "splunk.table",
+			"options": {
+				"count": 15,
+				"drilldown": "none",
+				"showInternalFields": false,
+				"backgroundColor": "#2c2f35",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				},
+				"fontSize": "small",
+				"columnFormat": {
+					"os_name": {
+						"width": 88
+					},
+					"essential": {
+						"width": 60
+					},
+					"priority": {
+						"width": 60
+					},
+					"architecture": {
+						"width": 60
+					},
+					"Time": {
+						"width": 75
+					}
+				}
+			},
+			"dataSources": {
+				"primary": "ds_lFLjFRfS"
+			},
+			"title": "Complete Software List",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_Pwh7VNrh": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"columnFormat": {
+					"PhysicalMemoryGB": {
+						"data": "> table | seriesByName(\"PhysicalMemoryGB\") | formatByType(PhysicalMemoryGBColumnNumberConfig)"
+					},
+					"Physical_Memory": {
+						"data": "> table | seriesByName(\"Physical_Memory\") | formatByType(Physical_MemoryColumnFormatEditorConfig)"
+					},
+					"host": {
+						"width": 62
+					},
+					"cpu_cores": {
+						"width": 60
+					},
+					"cpu_freq": {
+						"width": 60
+					},
+					"cpu_freq_unit": {
+						"width": 60
+					},
+					"cpu_type": {
+						"width": 127
+					}
+				},
+				"fontSize": "small",
+				"backgroundColor": "#2c2f35",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"context": {
+				"PhysicalMemoryGBColumnNumberConfig": {
+					"number": {
+						"precision": 2,
+						"thousandSeparated": true,
+						"unitPosition": "after",
+						"unit": "GB"
+					}
+				},
+				"Physical_MemoryColumnNumberConfig": {
+					"number": {
+						"precision": 3,
+						"thousandSeparated": true,
+						"unitPosition": "after"
+					}
+				},
+				"Physical_MemoryColumnFormatEditorConfig": {
+					"number": {
+						"precision": 1,
+						"unitPosition": "after",
+						"thousandSeparated": true,
+						"unit": "GB"
+					}
+				}
+			},
+			"dataSources": {
+				"primary": "ds_0ym7qkbO"
+			},
+			"title": "Hardware",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_LVeMHHtz": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"fontSize": "small",
+				"backgroundColor": "#2c2f35",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_ijRLILIf"
+			},
+			"title": "Operating System Release",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_HFDJ2wbz": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"fontSize": "small",
+				"backgroundColor": "#2c2f35",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				},
+				"columnFormat": {
+					"os_name": {
+						"width": 60
+					},
+					"os_release": {
+						"width": 60
+					},
+					"os_version": {
+						"width": 132
+					},
+					"host": {
+						"width": 64
+					},
+					"Time": {
+						"width": 64
+					}
+				}
+			},
+			"dataSources": {
+				"primary": "ds_qZwnRiQP"
+			},
+			"title": "Linux Kernel Version",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_A2k6z9A2": {
+			"type": "splunk.table",
+			"dataSources": {
+				"primary": "ds_JFIAIR8z"
+			},
+			"title": "Linux Devices",
+			"description": "Includes Disk Storage, Removable Media, and Read-Only Memory",
+			"options": {
+				"backgroundColor": "#2c2f35",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				},
+				"fontSize": "small",
+				"columnFormat": {
+					"rota": {
+						"width": 60
+					},
+					"rm": {
+						"width": 60
+					},
+					"size": {
+						"width": 60
+					},
+					"type": {
+						"width": 60
+					},
+					"name": {
+						"width": 60
+					},
+					"host": {
+						"width": 83
+					}
+				}
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		}
+	},
+	"dataSources": {
+		"ds_uPHVIKM4": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix source=\"Script:dpkg-query.sh\" maintainer!=\"*debian*\" maintainer!=\"*ubuntu*\" maintainer!=\"*canonical*\"\n| eval Time = strftime(_time, \"%Y-%m-%d %H:%M:%S\")\n| table Time host package version architecture priority essential maintainer origin \n| sort package",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Third-Party Software List"
+		},
+		"ds_lFLjFRfS": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix source=\"Script:dpkg-query.sh\"\n| eval Time = strftime(_time, \"%Y-%m-%d %H:%M:%S\")\n| table Time host package version architecture priority essential maintainer origin \n| sort package",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Complete Software List"
+		},
+		"ds_0ym7qkbO": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix sourcetype=hardware\n| dedup host\n| eval Physical_Memory=(RealMemory / 1024 / 1024)\n| table host cpu_type cpu_cores cpu_freq cpu_freq_unit Physical_Memory _raw",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Hardware - Table search"
+		},
+		"ds_ijRLILIf": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix source=Script:os-release.sh\n| eval Time = strftime(_time, \"%Y-%m-%d %H:%M:%S\")\n| table Time host os_name os_version pretty_name version_id version",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Operating System Release"
+		},
+		"ds_qZwnRiQP": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix source=Script:version.sh\n| eval Time = strftime(_time, \"%Y-%m-%d %H:%M:%S\")\n| table Time host os_name os_release os_version machine_hardware_name",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Linux Kernel Version"
+		},
+		"ds_JFIAIR8z": {
+			"type": "ds.search",
+			"options": {
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				},
+				"query": "index=nix sourcetype=_json source=\"*lsblk*\" source=\"Script:lsblk.sh\"\n| spath output=devices path=\"blockdevices{}\"\n| mvexpand devices\n| spath input=devices \n| search type!=loop\n| dedup host name type size rm rota serial model vendor\n| table host name type size rm rota serial model vendor"
+			},
+			"name": "Linux Devices"
+		}
+	},
+	"defaults": {
+		"dataSources": {
+			"ds.search": {
+				"options": {
+					"queryParameters": {}
+				}
+			}
+		}
+	},
+	"inputs": {
+		"input_4wXHtpi8": {
+			"type": "input.timerange",
+			"options": {
+				"token": "global_time",
+				"defaultValue": "-7d@d,now"
+			},
+			"title": ""
+		}
+	},
+	"layout": {
+		"type": "absolute",
+		"options": {
+			"submitButton": false,
+			"height": 2780,
+			"width": 1440,
+			"display": "fit-to-width",
+			"backgroundImage": {
+				"sizeType": "cover",
+				"x": 0,
+				"y": 0,
+				"src": "splunk-enterprise-kvstore://68234e433653a013370b201f"
+			},
+			"showTitleAndDescription": false
+		},
+		"structure": [
+			{
+				"item": "viz_BGryp7zC",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 950,
+					"w": 1420,
+					"h": 440
+				}
+			},
+			{
+				"item": "viz_VOIJ6LzL",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 1400,
+					"w": 1420,
+					"h": 440
+				}
+			},
+			{
+				"item": "viz_Pwh7VNrh",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 500,
+					"w": 1420,
+					"h": 440
+				}
+			},
+			{
+				"item": "viz_LVeMHHtz",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 1850,
+					"w": 1420,
+					"h": 440
+				}
+			},
+			{
+				"item": "viz_HFDJ2wbz",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 2300,
+					"w": 1420,
+					"h": 440
+				}
+			},
+			{
+				"item": "viz_A2k6z9A2",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 50,
+					"w": 1420,
+					"h": 440
+				}
+			},
+			{
+				"item": "input_4wXHtpi8",
+				"type": "input",
+				"position": {
+					"x": 1240,
+					"y": -20,
+					"w": 198,
+					"h": 82
+				}
+			}
+		],
+		"globalInputs": []
+	},
+	"description": "System Inventory",
+	"title": "Linux - Hardware/Software"
+}
+    ]]></definition>
+    <meta type="hiddenElements"><![CDATA[
+{
+	"hideEdit": false,
+	"hideOpenInSearch": false,
+	"hideExport": false
+}
+    ]]></meta>
+    <meta type="conversionReport"><![CDATA[
+{
+	"conversionErrors": [],
+	"conversionWarnings": [],
+	"counts": {
+		"visualizations": {
+			"count": 5,
+			"convertedCount": 5,
+			"configCount": 24,
+			"convertedConfigCount": 24
+		},
+		"inputs": {
+			"count": 3,
+			"convertedCount": 3,
+			"configCount": 14,
+			"convertedConfigCount": 14
+		},
+		"searches": {
+			"count": 5,
+			"convertedCount": 5,
+			"configCount": 15,
+			"convertedConfigCount": 15
+		},
+		"dataSources": 5,
+		"panels": {
+			"count": 5,
+			"convertedCount": 5,
+			"configCount": 0,
+			"convertedConfigCount": 0
+		},
+		"rows": {
+			"count": 5,
+			"convertedCount": 5,
+			"configCount": 0,
+			"convertedConfigCount": 0
+		},
+		"dashboardLevelConfigs": {
+			"count": 1,
+			"convertedCount": 1,
+			"configCount": 3,
+			"convertedConfigCount": 3
+		}
+	},
+	"conversionTime": 1747144079396,
+	"originDashboardTitle": "Linux - Baseline",
+	"originDashboardId": "linux_-_baseline",
+	"originDashboardApp": "CS_Overview"
+}
+    ]]></meta>
+</dashboard>

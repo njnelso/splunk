@@ -1,0 +1,4609 @@
+
+<dashboard version="2" theme="dark">
+    <label>Windows Summary</label>
+    <description></description>
+    <definition><![CDATA[
+{
+	"visualizations": {
+		"viz_j765J6JK": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Logons",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#535555",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_zFjTjVws"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Successful Logons",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_X6INImvp": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Attempts",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_gRiipQdr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Logon Failures",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_13e3KSkp": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Logoffs",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#1182f3"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#1182f3",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_ScJPYhJb"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Logoffs",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_r1qMex2o": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Logons",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_ZmUs7N45"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Cached Credentials",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_2TPZoUeP": {
+			"type": "splunk.line",
+			"options": {
+				"yAxisAbbreviation": "auto",
+				"y2AxisAbbreviation": "off",
+				"showRoundedY2AxisLabels": false,
+				"legendTruncation": "ellipsisEnd",
+				"showY2MajorGridLines": true,
+				"xAxisTitleVisibility": "hide",
+				"yAxisTitleVisibility": "hide",
+				"dataValuesDisplay": "off",
+				"backgroundColor": "transparent",
+				"yAxisScale": "log",
+				"showLineSmoothing": true
+			},
+			"dataSources": {
+				"primary": "ds_Yq3J1xZa"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Successful Logons - Other [Network, Batch, and Service Logons]",
+			"showProgressBar": true
+		},
+		"viz_DSxnYKFI": {
+			"type": "splunk.column",
+			"options": {
+				"yAxisAbbreviation": "off",
+				"y2AxisAbbreviation": "off",
+				"showRoundedY2AxisLabels": false,
+				"legendTruncation": "ellipsisMiddle",
+				"showY2MajorGridLines": true,
+				"xAxisTitleVisibility": "hide",
+				"yAxisTitleVisibility": "hide",
+				"yAxisScale": "log",
+				"dataValuesDisplay": "all",
+				"backgroundColor": "transparent",
+				"columnSpacing": 2
+			},
+			"dataSources": {
+				"primary": "ds_2k7SlC94"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Successful Logons",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_9Twa72XM": {
+			"type": "splunk.column",
+			"options": {
+				"yAxisAbbreviation": "off",
+				"y2AxisAbbreviation": "off",
+				"showRoundedY2AxisLabels": false,
+				"legendTruncation": "ellipsisMiddle",
+				"showY2MajorGridLines": true,
+				"xAxisTitleVisibility": "hide",
+				"yAxisTitleVisibility": "hide",
+				"yAxisScale": "log",
+				"dataValuesDisplay": "all",
+				"backgroundColor": "transparent",
+				"seriesColors": [
+					"#DD9900",
+					"#FF677B",
+					"#CB2196",
+					"#99B100",
+					"#FFA476",
+					"#FF6ACE",
+					"#00490A",
+					"#465D00",
+					"#9D6300",
+					"#F6540B"
+				],
+				"columnSpacing": 2
+			},
+			"dataSources": {
+				"primary": "ds_vzvOCJya"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Failed Logons",
+			"showProgressBar": true
+		},
+		"viz_odffsukc": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Events",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#53a051"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_pYIj3nTr"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Objects Created",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": ""
+		},
+		"viz_6H9GN2vj": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Events",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#f8be34"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#f8be34",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_pvwg36ut"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Objects Modified",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": ""
+		},
+		"viz_Caj07IZj": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Events",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#f8be34"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#f8be34",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_HDzoncg1"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Objects Moved",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": ""
+		},
+		"viz_0t1MBGja": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Events",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#f8be34"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#f8be34",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_v5NGVBPi"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Objects Deleted",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": ""
+		},
+		"viz_eXFYGale": {
+			"type": "splunk.column",
+			"options": {
+				"yAxisAbbreviation": "off",
+				"y2AxisAbbreviation": "off",
+				"showRoundedY2AxisLabels": false,
+				"legendTruncation": "ellipsisMiddle",
+				"showY2MajorGridLines": true,
+				"xAxisTitleVisibility": "hide",
+				"yAxisScale": "log",
+				"dataValuesDisplay": "all",
+				"backgroundColor": "transparent",
+				"columnSpacing": 5
+			},
+			"dataSources": {
+				"primary": "ds_a5wTTaia"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "New External Devices Recognized by System",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_d9MCW3aB": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "New Accounts",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#53a051"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_jaHN3jEQ"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"title": "Add",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_07lFWvwp": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Accounts Deleted",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_MemCDsrf"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"title": "Delete",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_fOsbYWKk": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Account Modifications",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 50,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 10,
+						"to": 50,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 10,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 10
+					},
+					{
+						"value": "#f58f39",
+						"from": 10,
+						"to": 50
+					},
+					{
+						"value": "#d93f3c",
+						"from": 50
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_dBRVX9BI"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"title": "Modify",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_evoqIac3": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Accounts Enabled",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#53a051"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_RUHqBiAF"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"title": "Enable",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_cVoJTm5k": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Accounts Disabled",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_rJwGYhOZ"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"title": "Disable",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_WybzbQLH": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Account Lockouts",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#f58f39"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#f58f39",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_AdCrj6qA"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"title": "Account Lockouts",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_JMDBHm1O": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "New Groups",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#53a051"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_N02XJnKE"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"title": "Add",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_42kQlN3o": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Deleted Groups",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_y4VRS9S1"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"title": "Delete",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_53FBVdb3": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Modified Groups",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 50,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 10,
+						"to": 50,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 10,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 10
+					},
+					{
+						"value": "#f58f39",
+						"from": 10,
+						"to": 50
+					},
+					{
+						"value": "#d93f3c",
+						"from": 50
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_WyUs0hAh"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"title": "Modify",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_61TC3Z2F": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "User Added to Group",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#53a051"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_ufsQEVxg"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"title": "User Added",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_7bViBp22": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "User Removed from Group",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 100,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 10,
+						"to": 100,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 10,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 10
+					},
+					{
+						"value": "#f58f39",
+						"from": 10,
+						"to": 100
+					},
+					{
+						"value": "#d93f3c",
+						"from": 100
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_08XmAnwE"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "CS_Overview",
+						"dashboard": "windows_-_account_management",
+						"tokens": [],
+						"newTab": true
+					}
+				}
+			],
+			"title": "User Removed",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_3xI84DX7": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)",
+				"underLabel": "Events"
+			},
+			"dataSources": {
+				"primary": "ds_BoFDy1ly"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Audit Policy Change",
+			"showProgressBar": true,
+			"context": {
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 3
+					},
+					{
+						"value": "#f58f39",
+						"from": 3,
+						"to": 10
+					},
+					{
+						"value": "#d93f3c",
+						"from": 10
+					}
+				]
+			},
+			"containerOptions": {},
+			"showLastUpdated": false,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_rha42s9m": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)",
+				"underLabel": "Events"
+			},
+			"dataSources": {
+				"primary": "ds_2wP3GWyA"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Group Policy Changes",
+			"showProgressBar": true,
+			"context": {
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 10
+					},
+					{
+						"value": "#f58f39",
+						"from": 10,
+						"to": 50
+					},
+					{
+						"value": "#d93f3c",
+						"from": 50
+					}
+				]
+			},
+			"containerOptions": {},
+			"showLastUpdated": false,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_0eJuJOC0": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "New Computers",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 100,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 10,
+						"to": 100,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 10,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 10
+					},
+					{
+						"value": "#f58f39",
+						"from": 10,
+						"to": 100
+					},
+					{
+						"value": "#d93f3c",
+						"from": 100
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_RdJNPrmy"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Computers Added",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_gwFZOfxL": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Deleted Computers",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 100,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 10,
+						"to": 100,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 10,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 10
+					},
+					{
+						"value": "#f58f39",
+						"from": 10,
+						"to": 100
+					},
+					{
+						"value": "#d93f3c",
+						"from": 100
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_WMd6a7rB"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Computers Removed",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_4eOoxiR2": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Software Installs",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 100,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 10,
+						"to": 100,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 10,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 10
+					},
+					{
+						"value": "#f58f39",
+						"from": 10,
+						"to": 100
+					},
+					{
+						"value": "#d93f3c",
+						"from": 100
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_2QyCpK0F"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Software Installs",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_xDyFg4ny": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Software Uninstalls",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 100,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 10,
+						"to": 100,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 10,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 10
+					},
+					{
+						"value": "#f58f39",
+						"from": 10,
+						"to": 100
+					},
+					{
+						"value": "#d93f3c",
+						"from": 100
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_EnceJZlM"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Software Uninstalled",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_es5Tc0dN": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"underLabel": "Number of Accounts",
+				"backgroundColor": "> majorValue | rangeValue(convertedColorRange)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#f58f39"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_kqpa5KLc"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Unique Privileged Account Logons",
+			"showProgressBar": true
+		},
+		"viz_wkewM4rS": {
+			"type": "splunk.bar",
+			"options": {
+				"yAxisAbbreviation": "auto",
+				"y2AxisAbbreviation": "off",
+				"showRoundedY2AxisLabels": false,
+				"legendTruncation": "ellipsisEnd",
+				"showY2MajorGridLines": true,
+				"xAxisTitleVisibility": "hide",
+				"yAxisTitleVisibility": "hide",
+				"dataValuesDisplay": "all",
+				"stackMode": "auto",
+				"showSplitSeries": false,
+				"backgroundColor": "transparent",
+				"yAxisScale": "log"
+			},
+			"dataSources": {
+				"primary": "ds_P7fw79fA"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "User Authentications with Special Privileges",
+			"showProgressBar": true
+		},
+		"viz_NpR4sYf9": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Built-in Token",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(convertedColorRange)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 1000,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 100,
+						"to": 1000,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 100,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_vdPmptdx"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Full Token - Type 1",
+			"showProgressBar": true
+		},
+		"viz_cC0vnf97": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Full Token",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(convertedColorRange)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 1000,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 100,
+						"to": 1000,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 100,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_1mnaD2tB"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Elevated Token - Type 2",
+			"showProgressBar": true
+		},
+		"viz_4LQHYDFg": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Limited Token",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(convertedColorRange)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 1000,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 100,
+						"to": 1000,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 100,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_hNxycPl1"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Limited Token - Type 3",
+			"showProgressBar": true
+		},
+		"viz_VjVoq9ql": {
+			"type": "splunk.markdown",
+			"options": {
+				"markdown": "# NIST AU-2.a.8 (Privilege Escalation)"
+			}
+		},
+		"viz_MlrnUhSL": {
+			"type": "splunk.line",
+			"options": {
+				"yAxisAbbreviation": "auto",
+				"y2AxisAbbreviation": "off",
+				"showRoundedY2AxisLabels": false,
+				"legendTruncation": "ellipsisEnd",
+				"showY2MajorGridLines": true,
+				"xAxisTitleVisibility": "hide",
+				"yAxisScale": "log",
+				"dataValuesDisplay": "minmax",
+				"backgroundColor": "transparent"
+			},
+			"dataSources": {
+				"primary": "ds_zlvlrQD2"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Full & Elevated Token Usage",
+			"showProgressBar": true,
+			"description": "Privilege Escalation"
+		},
+		"viz_hsaQcWgT": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Failed Attempts",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_lBpqj56Y"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Event Log Access",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_oxczIXqu": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "log cleared",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 100,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 10,
+						"to": 100,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 10,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 10
+					},
+					{
+						"value": "#f58f39",
+						"from": 10,
+						"to": 100
+					},
+					{
+						"value": "#d93f3c",
+						"from": 100
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_EtyzKAxq"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Logs Cleared",
+			"showProgressBar": true
+		},
+		"viz_DlBq6VDM": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "log is full",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 100,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 10,
+						"to": 100,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 10,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 10
+					},
+					{
+						"value": "#f58f39",
+						"from": 10,
+						"to": 100
+					},
+					{
+						"value": "#d93f3c",
+						"from": 100
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_WQjgChhA"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Logs Full",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_fzaUtvJF": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "log backed-up",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#53a051"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_vk2l3jgJ"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Logs Backed Up",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_lXSBf5ht": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Starts",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_Rm4PRrQc"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Windows Start Up",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_SF7GuLav": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Starts",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#555"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#555",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_0dUblPzj"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Windows Restart",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_kEZX3O7l": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Shutdowns",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_4wFOMqaC"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Shutdown Events",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_z6ideXnX": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Files Printed",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 5,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 3,
+						"to": 5,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 3,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 3
+					},
+					{
+						"value": "#f58f39",
+						"from": 3,
+						"to": 5
+					},
+					{
+						"value": "#d93f3c",
+						"from": 5
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_maE6SyLU"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Print to a Device",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_pmb85I9z": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Files Printed",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 5,
+						"value": "#d93f3c"
+					},
+					{
+						"from": 3,
+						"to": 5,
+						"value": "#f58f39"
+					},
+					{
+						"from": 0,
+						"to": 3,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#f7bc38",
+						"from": 1,
+						"to": 3
+					},
+					{
+						"value": "#f58f39",
+						"from": 3,
+						"to": 5
+					},
+					{
+						"value": "#d93f3c",
+						"from": 5
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_PSO4lPjp"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Print to a File",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_Hvy7gcxQ": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Events",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_zuhEc49Z"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Bitlocker Suspended",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_q9F0ttE4": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Events",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#f58f39"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#f58f39",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_iBXNgY4q"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Bitlocker Resumed",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_we8ELxNb": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Detectiions",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_5PhSVxzE"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Malware Detection",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_G9xkZcKa": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Actions",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_IjUMqE6m"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Actions Taken",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_6gXnL8QO": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Protection Disabled",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 0,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 0,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_2Z8oXItA"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Protection Disabled",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_03G2k9Os": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Days",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(convertedColorRange)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 8,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 8,
+						"value": "#53a051"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_bbCBbGZV"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Antispyware Definitions Age",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_ATGUNY0G": {
+			"type": "splunk.singlevalue",
+			"options": {
+				"numberPrecision": 0,
+				"sparklineDisplay": "below",
+				"trendDisplay": "absolute",
+				"underLabel": "Days",
+				"shouldUseThousandSeparators": true,
+				"backgroundColor": "> majorValue | rangeValue(convertedColorRange)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 8,
+						"value": "#d93f3c"
+					},
+					{
+						"to": 8,
+						"value": "#53a051"
+					}
+				]
+			},
+			"dataSources": {
+				"primary": "ds_3qEK5pEP"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": false
+					}
+				}
+			],
+			"title": "Antivirus Definitions Age",
+			"showProgressBar": true,
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_mFohg3y5": {
+			"type": "splunk.singlevalueicon",
+			"options": {
+				"showValue": false,
+				"icon": "splunk-enterprise-kvstore://icon-users__229c9a8c-1b2e-4978-9d7e-4222e1d7a9b3.svg"
+			}
+		},
+		"viz_3di5TjSL": {
+			"type": "splunk.singlevalueicon",
+			"options": {
+				"showValue": false,
+				"icon": "splunk-enterprise-kvstore://icon-datacenters__440605f5-471f-4bba-ab7d-80e274222c77.svg"
+			}
+		},
+		"viz_ZCsqiIx6": {
+			"type": "splunk.markdown",
+			"options": {
+				"markdown": "Active Directory Objects",
+				"fontSize": "extraLarge"
+			}
+		},
+		"viz_3xvGaUxz": {
+			"type": "splunk.singlevalueicon",
+			"options": {
+				"showValue": false,
+				"icon": "splunk-enterprise-kvstore://icon-profile__f42da35c-8364-4004-94b8-ff02a7d0db83.svg"
+			}
+		},
+		"viz_0e8aCDSw": {
+			"type": "splunk.markdown",
+			"options": {
+				"markdown": "User Account \nManagement",
+				"fontSize": "extraLarge"
+			}
+		},
+		"viz_VkSLz9sJ": {
+			"type": "splunk.markdown",
+			"options": {
+				"markdown": "Group Account \nManagement",
+				"fontSize": "extraLarge"
+			}
+		},
+		"viz_M9ZV4fFI": {
+			"type": "splunk.singlevalueicon",
+			"options": {
+				"showValue": false,
+				"icon": "splunk-enterprise-kvstore://icon-gear__c99f1d12-649f-433a-890a-bbf5cf548a6a.svg"
+			}
+		},
+		"viz_ZPJl5Nh6": {
+			"type": "splunk.markdown",
+			"options": {
+				"markdown": "Configuration\nChanges",
+				"fontSize": "extraLarge"
+			}
+		},
+		"viz_DaY21HuR": {
+			"type": "splunk.singlevalueicon",
+			"options": {
+				"showValue": false,
+				"icon": "splunk-enterprise-kvstore://icon-firewall__037c3797-3676-4b94-aa5f-01293cafab69.svg"
+			}
+		},
+		"viz_WwzQLwQ9": {
+			"type": "splunk.markdown",
+			"options": {
+				"markdown": "Antivirus\nEvents",
+				"fontSize": "extraLarge"
+			}
+		},
+		"viz_QYPrSjNo": {
+			"type": "splunk.singlevalueicon",
+			"options": {
+				"showValue": false,
+				"icon": "splunk-enterprise-kvstore://icon-active-directory__e03b60f5-d599-485e-bc89-67b86f2f80c7.svg"
+			}
+		},
+		"viz_tecAjLPt": {
+			"type": "splunk.singlevalueicon",
+			"options": {
+				"showValue": false,
+				"icon": "splunk-enterprise-kvstore://icon-desktop__65679a5e-ea9f-4dfc-9a72-e31b0f8b10ef.svg"
+			}
+		},
+		"viz_g4ZnylM1": {
+			"type": "splunk.markdown",
+			"options": {
+				"markdown": "System Events",
+				"fontSize": "extraLarge"
+			}
+		},
+		"viz_chqAqOXR": {
+			"type": "splunk.markdown",
+			"options": {
+				"markdown": "Data Transfers",
+				"fontSize": "extraLarge"
+			}
+		},
+		"viz_frUeXpFa": {
+			"type": "splunk.markdown",
+			"options": {
+				"markdown": "Data Encryption",
+				"fontSize": "extraLarge"
+			}
+		},
+		"viz_Hn4XIiBe": {
+			"type": "abslayout.line"
+		},
+		"viz_9rFqmw44": {
+			"type": "abslayout.line"
+		},
+		"viz_Inh1KMzq": {
+			"type": "abslayout.line"
+		},
+		"viz_znBhz035": {
+			"type": "splunk.singlevalueicon",
+			"options": {
+				"showValue": false,
+				"icon": "splunk-enterprise-kvstore://icon-laptop__52890fef-3a2c-46f8-bd0b-ed50e62b7290.svg"
+			}
+		},
+		"viz_8oZ9usIT": {
+			"type": "abslayout.line"
+		},
+		"viz_cB1TFiYA": {
+			"type": "abslayout.line"
+		},
+		"viz_M20mGwOZ": {
+			"type": "abslayout.line"
+		}
+	},
+	"dataSources": {
+		"ds_zFjTjVws": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" EventCode=4624 Security_ID=\"PROGRAM*\" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 \n| dedup _time Account_Name \n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Successful Logons search"
+		},
+		"ds_gRiipQdr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" EventCode=4625 Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 \n| dedup _time Account_Name\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Logon Failures search"
+		},
+		"ds_ScJPYhJb": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" EventCode=4647 OR (EventCode=4634 Security_ID=\"PROGRAM*\" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 ) \n| dedup _time\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Logoffs search"
+		},
+		"ds_ZmUs7N45": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4624 Security_ID=\"PROGRAM*\" Logon_Type=11\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Cached Credentials search"
+		},
+		"ds_Yq3J1xZa": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4624 Security_ID=\"PROGRAM*\" Logon_Type=3 OR Logon_Type=4 OR Logon_Type=5\n| eval User=lower(mvindex(Account_Name, 1))\n| search User!=\"*$\"\n| timechart count span=1h BY User",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Successful Logons - Other _Network_ Batch_ and Service Logons_ search"
+		},
+		"ds_2k7SlC94": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4624 Security_ID=\"PROGRAM*\" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 \n| timechart count BY user",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Success search"
+		},
+		"ds_vzvOCJya": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4625 Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 \n| timechart count BY user",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Failures search"
+		},
+		"ds_pYIj3nTr": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Security\" EventCode=5137 Security_ID=\"PROGRAM*\"\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Directory Service Objects Created search"
+		},
+		"ds_pvwg36ut": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Security\" EventCode=5136 Security_ID=\"PROGRAM*\" Keywords=\"Audit Success\"\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Directory Service Objects Modified search"
+		},
+		"ds_HDzoncg1": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Security\" EventCode=5139 Security_ID=\"PROGRAM*\"\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Directory Service Objects Moved search"
+		},
+		"ds_v5NGVBPi": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Security\" EventCode=5141\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Directory Service Objects Deleted search"
+		},
+		"ds_D4bcbdTp": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Security\" (EventCode=4663 OR EventCode=4688 OR EventCode=4674) Security_ID=\"PROGRAM*\"\n\"*Media Log*\" ``` <<< EDIT THIS PATH \nNote: Use an extra '\\' when entering a path to a file```\n| timechart count by user",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Media Log Access by User _Edit this panel to update the path_ search"
+		},
+		"ds_BIchafBN": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Security\" (EventCode=4663 OR EventCode=4688 OR EventCode=4674) Security_ID=\"PROGRAM*\"\n\"*\\\\Security\\\\Logs*\" ``` <<< EDIT THIS PATH \nNote: Use an extra '\\' when entering a path to a file```\n| stats count by user",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Security Log Archive Access by User  _Edit this panel to update the path_ search"
+		},
+		"ds_a5wTTaia": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=6416 (Class_Name=\"WPD\" OR Class_Name=\"CDROM\" OR Class_Name=\"Camera\" OR Class_Name=\"Image\" OR Class_Name=\"TapeDrive\" OR Class_Name=\"USBDevice\" OR Class_Name=\"WCEUSBS\")\n| dedup _raw\n| timechart count BY host",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "New External Devices Recognized by System search"
+		},
+		"ds_jaHN3jEQ": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4720 OR EventCode=624 | chart dc(user)",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Add 1 search"
+		},
+		"ds_MemCDsrf": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=630 OR EventCode=4726 |chart count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Delete 1 search"
+		},
+		"ds_dBRVX9BI": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=642 OR EventCode=4738\n| bucket span=1s _time\n| stats count by _time host user\n| stats count(_time)",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Modify 1 search"
+		},
+		"ds_RUHqBiAF": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4722 \n          |chart count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Enable search"
+		},
+		"ds_rJwGYhOZ": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4725 \n          |chart count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Disable search"
+		},
+		"ds_AdCrj6qA": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=644 OR EventCode=4740|chart count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Account Lockouts search"
+		},
+		"ds_N02XJnKE": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4731 OR EventCode=4727 OR EventCode=4754 OR EventCode=4744 OR EventCode=4749 OR EventCode=4759 | stats count(Group_Name)",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Add 2 search"
+		},
+		"ds_y4VRS9S1": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4734 OR EventCode=4730 OR EventCode=4758 OR EventCode=4748 OR EventCode=4753 OR EventCode=4763 | stats count(Group_Name)",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Delete 2 search"
+		},
+		"ds_WyUs0hAh": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4735 OR EventCode=4737 OR EventCode=4755 OR EventCode=4745 OR EventCode=4750 OR EventCode=4760 Security_ID=\"PROGRAM*\"\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Modify 2 search"
+		},
+		"ds_ufsQEVxg": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4732 OR EventCode=4728 OR EventCode=4756 OR EventCode=4746 OR EventCode=4751 OR EventCode=4761 \n| eval Admin_Account=mvindex(Account_Name, 0)\n| search Admin_Account!=*$\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "User Added search"
+		},
+		"ds_08XmAnwE": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4733 OR EventCode=4729 OR EventCode=4757 OR EventCode=4747 OR EventCode=4752 OR EventCode=4762\n| eval Admin_Account=mvindex(Account_Name, 0)\n| search Admin_Account!=*$\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "User Removed search"
+		},
+		"ds_BoFDy1ly": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4719 OR EventCode=4717 OR EventCode=4715 Security_ID=\"PROGRAM*\"\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Audit Policy Change search"
+		},
+		"ds_2wP3GWyA": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=5136 Class=groupPolicyContainer\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Group Policy Changes search"
+		},
+		"ds_RdJNPrmy": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4741 OR EventCode=645 | stats count(host)"
+			},
+			"name": "Computers Added search"
+		},
+		"ds_WMd6a7rB": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4743 OR EventCode=647 | stats count(host)"
+			},
+			"name": "Computers Removed search"
+		},
+		"ds_2QyCpK0F": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents SourceName=MsiInstaller EventCode=11707 host=\"*\" | stats count(host)",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Software Installs search"
+		},
+		"ds_EnceJZlM": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents SourceName=MsiInstaller EventCode=11724 host=\"*\" | stats count(host)",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Software Uninstalls search"
+		},
+		"ds_kqpa5KLc": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4672 Security_ID=\"PROGRAM*\" user!=\"*$\"\n| eval User=lower(Account_Name)\n| stats dc(User)",
+				"queryParameters": {
+					"earliest": "0",
+					"latest": ""
+				}
+			},
+			"name": "Unique Privileged Account Logons search"
+		},
+		"ds_P7fw79fA": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4672 Security_ID=\"PROGRAM*\" user!=\"*$\" user!=\"program_svc\"\n| eval User=lower(Account_Name)\n| chart count by User\n| sort -count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "User Authentications with Special Privileges search"
+		},
+		"ds_vdPmptdx": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4688 Token_Elevation_Type=\"%%1936\" Security_ID=\"PROGRAM*\" user!=\"*$\"\n| stats count",
+				"queryParameters": {
+					"earliest": "0",
+					"latest": ""
+				}
+			},
+			"name": "Full Token - Type 1 search"
+		},
+		"ds_1mnaD2tB": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4688 Token_Elevation_Type=\"%%1937\" Security_ID=\"PROGRAM*\" user!=\"*$\"\n| stats count",
+				"queryParameters": {
+					"earliest": "0",
+					"latest": ""
+				}
+			},
+			"name": "Elevated Token - Type 2 search"
+		},
+		"ds_hNxycPl1": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4688 Token_Elevation_Type=\"%%1938\" Security_ID=\"PROGRAM*\" user!=\"*$\"\n| stats count",
+				"queryParameters": {
+					"earliest": "0",
+					"latest": ""
+				}
+			},
+			"name": "Limited Token - Type 3 search"
+		},
+		"ds_zlvlrQD2": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4688 Security_ID=\"PROGRAM*\" user!=\"*$\" Token_Elevation_Type=\"%%1936\" OR Token_Elevation_Type=\"%%1937\"\n| timechart count span=1h BY user",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Full and Elevated Token Usage"
+		},
+		"ds_lBpqj56Y": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Security\" Object_Name=\"C:\\\\Windows\\\\System32\\\\winevt*\" action=failure\n| dedup _time Account_Name Object_Name\n| stats count",
+				"queryParameters": {
+					"earliest": "0",
+					"latest": ""
+				}
+			},
+			"name": "Event Log Access search"
+		},
+		"ds_EtyzKAxq": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=1102  \n| stats count",
+				"queryParameters": {
+					"earliest": "0",
+					"latest": ""
+				}
+			},
+			"name": "Logs Cleared search"
+		},
+		"ds_WQjgChhA": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=1104\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Logs Full search"
+		},
+		"ds_vk2l3jgJ": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Security\" EventCode=1105\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Logs Backed Up search"
+		},
+		"ds_Rm4PRrQc": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=4608 \n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Windows Start Up search"
+		},
+		"ds_0dUblPzj": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=1074 Shutdown_Type=\"restart\"\n| stats count(host)",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Windows Restart search"
+		},
+		"ds_4wFOMqaC": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents (EventCode=1074 Shutdown_Type=\"power off\" OR Shutdown_Type=\"shutdown\") OR EventCode=6008\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Shutdowns Computer search"
+		},
+		"ds_maE6SyLU": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=job printer!=\"*Microsoft*\" OR printer!=\"*PDF\"  | dedup _time, user, printer, document | stats count(printer)",
+				"queryParameters": {
+					"earliest": "0",
+					"latest": ""
+				}
+			},
+			"name": "Print to a Device search"
+		},
+		"ds_PSO4lPjp": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=job printer=\"*Microsoft*\" OR printer=\"*PDF\" | dedup _time, user, printer, document | stats count(printer)",
+				"queryParameters": {
+					"earliest": "0",
+					"latest": ""
+				}
+			},
+			"name": "Print to a File search"
+		},
+		"ds_od4LRpTG": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=win_backups EventCode=4 OR EventCode=49\n| dedup host\n| eval Result=case(EventCode==4, \"Success\", EventCode==49, \"Failed\")\n| stats count by Result",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Pie chart search"
+		},
+		"ds_zuhEc49Z": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=bitlocker-api EventCode=773\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Bitlocker Suspended search"
+		},
+		"ds_iBXNgY4q": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=bitlocker-api EventCode=774\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Bitlocker Resumed search"
+		},
+		"ds_5PhSVxzE": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents EventCode=1006 OR EventCode=1015 OR EventCode=1116 source=\"WinEventLog:Microsoft-Windows-Windows Defender/Operational\" | dedup host | stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Malware Detection search"
+		},
+		"ds_IjUMqE6m": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=defender EventCode=1007 OR EventCode=1117 \n| dedup host \n| stats count",
+				"queryParameters": {
+					"earliest": "0",
+					"latest": ""
+				}
+			},
+			"name": "Actions Taken search"
+		},
+		"ds_2Z8oXItA": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=defender EventCode=5001 OR EventCode=5010 OR EventCode=5012 \n| dedup host \n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Protection Disabled search"
+		},
+		"ds_bbCBbGZV": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Microsoft-Windows-Windows Defender/Operational\" EventCode=1151\n| stats latest(Antispyware_security_intelligence_age) AS \"Antispyware Age\" by host\n| sort - \"Antispyware Age\"\n| head 1\n| table \"Antispyware Age\"",
+				"queryParameters": {
+					"earliest": "-30d@d",
+					"latest": "now"
+				}
+			},
+			"name": "Antispyware Definitions Age search"
+		},
+		"ds_3qEK5pEP": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Microsoft-Windows-Windows Defender/Operational\" EventCode=1151\n| stats latest(Antivirus_security_intelligence_age) AS \"Antivirus Age\"  by host\n| sort - \"Antivirus Age\"\n| head 1\n| table \"Antivirus Age\"",
+				"queryParameters": {
+					"earliest": "-30d@d",
+					"latest": "now"
+				}
+			},
+			"name": "Antivirus Definitions Age search"
+		},
+		"ds_Hqlm8btL": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents (EventCode=4625 Failure_Reason=* Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10) OR EventCode=529\n| table _time host user Failure_Reason",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Logon Failure Reason"
+		}
+	},
+	"defaults": {
+		"dataSources": {
+			"ds.search": {
+				"options": {
+					"queryParameters": {
+						"latest": "$global_time.latest$",
+						"earliest": "$global_time.earliest$"
+					}
+				}
+			}
+		}
+	},
+	"inputs": {
+		"input_S9KrSlIa": {
+			"type": "input.timerange",
+			"options": {
+				"token": "global_time",
+				"defaultValue": "-7d@h,now"
+			}
+		}
+	},
+	"layout": {
+		"type": "absolute",
+		"options": {
+			"submitButton": false,
+			"height": 2780,
+			"width": 1440,
+			"display": "auto",
+			"showTitleAndDescription": false,
+			"backgroundColor": "transparent",
+			"backgroundImage": {
+				"sizeType": "cover",
+				"x": 0,
+				"y": 0,
+				"src": "splunk-enterprise-kvstore://6830911504fa15956f09c3f0"
+			}
+		},
+		"structure": [
+			{
+				"item": "viz_j765J6JK",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 10,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_X6INImvp",
+				"type": "block",
+				"position": {
+					"x": 180,
+					"y": 10,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_13e3KSkp",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 180,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_r1qMex2o",
+				"type": "block",
+				"position": {
+					"x": 180,
+					"y": 180,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_2TPZoUeP",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 670,
+					"w": 1080,
+					"h": 290
+				}
+			},
+			{
+				"item": "viz_DSxnYKFI",
+				"type": "block",
+				"position": {
+					"x": 350,
+					"y": 10,
+					"w": 1080,
+					"h": 330
+				}
+			},
+			{
+				"item": "viz_9Twa72XM",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 350,
+					"w": 1080,
+					"h": 310
+				}
+			},
+			{
+				"item": "viz_odffsukc",
+				"type": "block",
+				"position": {
+					"x": 1100,
+					"y": 440,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_6H9GN2vj",
+				"type": "block",
+				"position": {
+					"x": 1100,
+					"y": 610,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_Caj07IZj",
+				"type": "block",
+				"position": {
+					"x": 1270,
+					"y": 610,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_0t1MBGja",
+				"type": "block",
+				"position": {
+					"x": 1270,
+					"y": 440,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_eXFYGale",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 970,
+					"w": 1080,
+					"h": 250
+				}
+			},
+			{
+				"item": "viz_d9MCW3aB",
+				"type": "block",
+				"position": {
+					"x": 1100,
+					"y": 890,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_07lFWvwp",
+				"type": "block",
+				"position": {
+					"x": 1270,
+					"y": 890,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_fOsbYWKk",
+				"type": "block",
+				"position": {
+					"x": 1100,
+					"y": 1230,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_evoqIac3",
+				"type": "block",
+				"position": {
+					"x": 1270,
+					"y": 1060,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_cVoJTm5k",
+				"type": "block",
+				"position": {
+					"x": 1100,
+					"y": 1060,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_WybzbQLH",
+				"type": "block",
+				"position": {
+					"x": 1270,
+					"y": 1230,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_JMDBHm1O",
+				"type": "block",
+				"position": {
+					"x": 180,
+					"y": 1240,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_42kQlN3o",
+				"type": "block",
+				"position": {
+					"x": 350,
+					"y": 1240,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_53FBVdb3",
+				"type": "block",
+				"position": {
+					"x": 520,
+					"y": 1240,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_61TC3Z2F",
+				"type": "block",
+				"position": {
+					"x": 690,
+					"y": 1240,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_7bViBp22",
+				"type": "block",
+				"position": {
+					"x": 860,
+					"y": 1240,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_3xI84DX7",
+				"type": "block",
+				"position": {
+					"x": 180,
+					"y": 1440,
+					"w": 180,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_rha42s9m",
+				"type": "block",
+				"position": {
+					"x": 370,
+					"y": 1440,
+					"w": 180,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_0eJuJOC0",
+				"type": "block",
+				"position": {
+					"x": 560,
+					"y": 1440,
+					"w": 180,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_gwFZOfxL",
+				"type": "block",
+				"position": {
+					"x": 750,
+					"y": 1440,
+					"w": 180,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_4eOoxiR2",
+				"type": "block",
+				"position": {
+					"x": 940,
+					"y": 1440,
+					"w": 180,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_xDyFg4ny",
+				"type": "block",
+				"position": {
+					"x": 1130,
+					"y": 1440,
+					"w": 180,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_es5Tc0dN",
+				"type": "block",
+				"position": {
+					"x": 40,
+					"y": -550,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_wkewM4rS",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 2000,
+					"w": 820,
+					"h": 590
+				}
+			},
+			{
+				"item": "viz_NpR4sYf9",
+				"type": "block",
+				"position": {
+					"x": 760,
+					"y": -757,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_cC0vnf97",
+				"type": "block",
+				"position": {
+					"x": 760,
+					"y": -550,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_4LQHYDFg",
+				"type": "block",
+				"position": {
+					"x": 760,
+					"y": -343,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_VjVoq9ql",
+				"type": "block",
+				"position": {
+					"x": 760,
+					"y": -136,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_MlrnUhSL",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 1640,
+					"w": 740,
+					"h": 330
+				}
+			},
+			{
+				"item": "viz_hsaQcWgT",
+				"type": "block",
+				"position": {
+					"x": 1270,
+					"y": 1810,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_oxczIXqu",
+				"type": "block",
+				"position": {
+					"x": 1100,
+					"y": 1810,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_DlBq6VDM",
+				"type": "block",
+				"position": {
+					"x": 760.0000000000001,
+					"y": 1810,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_fzaUtvJF",
+				"type": "block",
+				"position": {
+					"x": 930.0000000000001,
+					"y": 1810,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_lXSBf5ht",
+				"type": "block",
+				"position": {
+					"x": 1270,
+					"y": 1640,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_SF7GuLav",
+				"type": "block",
+				"position": {
+					"x": 1100,
+					"y": 1640,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_kEZX3O7l",
+				"type": "block",
+				"position": {
+					"x": 930.0000000000001,
+					"y": 1640,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_z6ideXnX",
+				"type": "block",
+				"position": {
+					"x": 1100,
+					"y": 2210,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_pmb85I9z",
+				"type": "block",
+				"position": {
+					"x": 930,
+					"y": 2210,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_Hvy7gcxQ",
+				"type": "block",
+				"position": {
+					"x": 1100,
+					"y": 2010,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_q9F0ttE4",
+				"type": "block",
+				"position": {
+					"x": 1270,
+					"y": 2010,
+					"w": 160,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_we8ELxNb",
+				"type": "block",
+				"position": {
+					"x": 1060,
+					"y": 2580,
+					"w": 180,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_G9xkZcKa",
+				"type": "block",
+				"position": {
+					"x": 1250,
+					"y": 2580,
+					"w": 180,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_6gXnL8QO",
+				"type": "block",
+				"position": {
+					"x": 870,
+					"y": 2580,
+					"w": 180,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_03G2k9Os",
+				"type": "block",
+				"position": {
+					"x": 1210,
+					"y": 2410,
+					"w": 220,
+					"h": 160
+				}
+			},
+			{
+				"item": "viz_ATGUNY0G",
+				"type": "block",
+				"position": {
+					"x": 980,
+					"y": 2410,
+					"w": 220,
+					"h": 160
+				}
+			},
+			{
+				"item": "input_S9KrSlIa",
+				"type": "input",
+				"position": {
+					"x": 1230,
+					"y": -20,
+					"w": 200,
+					"h": 82
+				}
+			},
+			{
+				"item": "viz_mFohg3y5",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 1250,
+					"w": 160,
+					"h": 80
+				}
+			},
+			{
+				"item": "viz_3di5TjSL",
+				"type": "block",
+				"position": {
+					"x": 930,
+					"y": 2020,
+					"w": 160,
+					"h": 80
+				}
+			},
+			{
+				"item": "viz_ZCsqiIx6",
+				"type": "block",
+				"position": {
+					"x": 1280,
+					"y": 360,
+					"w": 140,
+					"h": 50
+				}
+			},
+			{
+				"item": "viz_3xvGaUxz",
+				"type": "block",
+				"position": {
+					"x": 1100,
+					"y": 800,
+					"w": 160,
+					"h": 80
+				}
+			},
+			{
+				"item": "viz_0e8aCDSw",
+				"type": "block",
+				"position": {
+					"x": 1270,
+					"y": 820,
+					"w": 160,
+					"h": 50
+				}
+			},
+			{
+				"item": "viz_VkSLz9sJ",
+				"type": "block",
+				"position": {
+					"x": 30,
+					"y": 1340,
+					"w": 130,
+					"h": 50
+				}
+			},
+			{
+				"item": "viz_M9ZV4fFI",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 1450,
+					"w": 160,
+					"h": 80
+				}
+			},
+			{
+				"item": "viz_ZPJl5Nh6",
+				"type": "block",
+				"position": {
+					"x": 30,
+					"y": 1540,
+					"w": 130,
+					"h": 50
+				}
+			},
+			{
+				"item": "viz_DaY21HuR",
+				"type": "block",
+				"position": {
+					"x": 810,
+					"y": 2420,
+					"w": 160,
+					"h": 80
+				}
+			},
+			{
+				"item": "viz_WwzQLwQ9",
+				"type": "block",
+				"position": {
+					"x": 850,
+					"y": 2510,
+					"w": 80,
+					"h": 50
+				}
+			},
+			{
+				"item": "viz_QYPrSjNo",
+				"type": "block",
+				"position": {
+					"x": 1100,
+					"y": 350,
+					"w": 160,
+					"h": 80
+				}
+			},
+			{
+				"item": "viz_tecAjLPt",
+				"type": "block",
+				"position": {
+					"x": 760,
+					"y": 1650,
+					"w": 160,
+					"h": 80
+				}
+			},
+			{
+				"item": "viz_g4ZnylM1",
+				"type": "block",
+				"position": {
+					"x": 780,
+					"y": 1740,
+					"w": 130,
+					"h": 50
+				}
+			},
+			{
+				"item": "viz_chqAqOXR",
+				"type": "block",
+				"position": {
+					"x": 1290,
+					"y": 2310,
+					"w": 130,
+					"h": 50
+				}
+			},
+			{
+				"item": "viz_frUeXpFa",
+				"type": "block",
+				"position": {
+					"x": 940,
+					"y": 2110,
+					"w": 140,
+					"h": 50
+				}
+			},
+			{
+				"item": "viz_Hn4XIiBe",
+				"type": "line",
+				"position": {
+					"from": {
+						"x": 20,
+						"y": 1419
+					},
+					"to": {
+						"x": 1419,
+						"y": 1419
+					}
+				}
+			},
+			{
+				"item": "viz_9rFqmw44",
+				"type": "line",
+				"position": {
+					"from": {
+						"x": 1100,
+						"y": 789
+					},
+					"to": {
+						"x": 1428,
+						"y": 789
+					}
+				}
+			},
+			{
+				"item": "viz_Inh1KMzq",
+				"type": "line",
+				"position": {
+					"from": {
+						"x": 749,
+						"y": 1619
+					},
+					"to": {
+						"x": 1430,
+						"y": 1620
+					}
+				}
+			},
+			{
+				"item": "viz_znBhz035",
+				"type": "block",
+				"position": {
+					"x": 1270,
+					"y": 2220,
+					"w": 160,
+					"h": 80
+				}
+			},
+			{
+				"item": "viz_8oZ9usIT",
+				"type": "line",
+				"position": {
+					"from": {
+						"x": 17,
+						"y": 1990
+					},
+					"to": {
+						"x": 1425,
+						"y": 1990
+					}
+				}
+			},
+			{
+				"item": "viz_cB1TFiYA",
+				"type": "line",
+				"position": {
+					"from": {
+						"x": 900,
+						"y": 2190
+					},
+					"to": {
+						"x": 1420,
+						"y": 2190
+					}
+				}
+			},
+			{
+				"item": "viz_M20mGwOZ",
+				"type": "line",
+				"position": {
+					"from": {
+						"x": 868,
+						"y": 2390
+					},
+					"to": {
+						"x": 1427,
+						"y": 2389
+					}
+				}
+			}
+		],
+		"globalInputs": []
+	},
+	"description": "",
+	"title": "Windows Summary"
+}
+    ]]></definition>
+    <meta type="hiddenElements"><![CDATA[
+{
+	"hideEdit": false,
+	"hideOpenInSearch": false,
+	"hideExport": false
+}
+    ]]></meta>
+    <meta type="conversionReport"><![CDATA[
+{
+	"conversionErrors": [],
+	"conversionWarnings": [
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 324,
+			"convertedId": "viz_d9MCW3aB",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "auto",
+			"line": 347,
+			"convertedId": "viz_07lFWvwp",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 376,
+			"convertedId": "viz_fOsbYWKk",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "auto",
+			"line": 400,
+			"convertedId": "viz_evoqIac3",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "auto",
+			"line": 424,
+			"convertedId": "viz_cVoJTm5k",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "auto",
+			"line": 447,
+			"convertedId": "viz_WybzbQLH",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 479,
+			"convertedId": "viz_JMDBHm1O",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 502,
+			"convertedId": "viz_42kQlN3o",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 529,
+			"convertedId": "viz_53FBVdb3",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 552,
+			"convertedId": "viz_61TC3Z2F",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 575,
+			"convertedId": "viz_7bViBp22",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 651,
+			"convertedId": "viz_0eJuJOC0",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 671,
+			"convertedId": "viz_gwFZOfxL",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 691,
+			"convertedId": "viz_4eOoxiR2",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 711,
+			"convertedId": "viz_xDyFg4ny",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 791,
+			"convertedId": "viz_NpR4sYf9",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 815,
+			"convertedId": "viz_cC0vnf97",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 839,
+			"convertedId": "viz_4LQHYDFg",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 894,
+			"convertedId": "viz_hsaQcWgT",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 918,
+			"convertedId": "viz_oxczIXqu",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 942,
+			"convertedId": "viz_DlBq6VDM",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 966,
+			"convertedId": "viz_fzaUtvJF",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-24h",
+			"line": 1000,
+			"convertedId": "viz_lXSBf5ht",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-24h",
+			"line": 1024,
+			"convertedId": "viz_SF7GuLav",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "7d",
+			"line": 1049,
+			"convertedId": "viz_kEZX3O7l",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-24h",
+			"line": 1081,
+			"convertedId": "viz_z6ideXnX",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-24h",
+			"line": 1104,
+			"convertedId": "viz_pmb85I9z",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 1161,
+			"convertedId": "viz_Hvy7gcxQ",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 1185,
+			"convertedId": "viz_q9F0ttE4",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 1220,
+			"convertedId": "viz_we8ELxNb",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 1245,
+			"convertedId": "viz_G9xkZcKa",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 1270,
+			"convertedId": "viz_6gXnL8QO",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 1297,
+			"convertedId": "viz_03G2k9Os",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "trendInterval",
+			"optionValue": "-7d",
+			"line": 1324,
+			"convertedId": "viz_ATGUNY0G",
+			"vizType": "splunk.singlevalue"
+		},
+		{
+			"type": "partiallySuccessfulHtmlToMarkdown"
+		}
+	],
+	"counts": {
+		"visualizations": {
+			"count": 77,
+			"convertedCount": 76,
+			"configCount": 703,
+			"convertedConfigCount": 669
+		},
+		"inputs": {
+			"count": 1,
+			"convertedCount": 1,
+			"configCount": 2,
+			"convertedConfigCount": 2
+		},
+		"searches": {
+			"count": 54,
+			"convertedCount": 54,
+			"configCount": 136,
+			"convertedConfigCount": 136
+		},
+		"dataSources": 54,
+		"panels": {
+			"count": 20,
+			"convertedCount": 20,
+			"configCount": 0,
+			"convertedConfigCount": 0
+		},
+		"rows": {
+			"count": 15,
+			"convertedCount": 15,
+			"configCount": 0,
+			"convertedConfigCount": 0
+		},
+		"dashboardLevelConfigs": {
+			"count": 1,
+			"convertedCount": 1,
+			"configCount": 2,
+			"convertedConfigCount": 2
+		}
+	},
+	"conversionTime": 1746128458933,
+	"originDashboardTitle": "Executive Summary",
+	"originDashboardId": "Windows_Overview",
+	"originDashboardApp": "CS_Overview"
+}
+    ]]></meta>
+</dashboard>

@@ -1,0 +1,172 @@
+<form version="1.1" theme="dark">
+  <label>Active Directory Report</label>
+  <init>
+    <set token="group_token">*</set>
+  </init>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+      <div>To view documentation for this dashboard, click here: <a href="https://localhost:8000/static/app/CS_Overview/Weekly-Audit-Report.pdf" target="_blank">Link to Documentation</a>
+        </div>
+    </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Active Directory Accounts - Enabled</title>
+      <single>
+        <search>
+          <query>index=windows source="script:get-aduser_details.bat" Enabled=true
+| stats dc(SamAccountName)</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x555","0x0877a6"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Enabled</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Active Directory Accounts - Locked Out</title>
+      <single>
+        <search>
+          <query>index=windows source="script:get-aduser_details.bat" LockedOut=true
+| stats dc(SamAccountName)</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x555","0xf58f39"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Locked Out</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Active Directory Accounts - Disabled</title>
+      <single>
+        <search>
+          <query>index=windows source="script:get-aduser_details.bat" Enabled=false
+| stats dc(SamAccountName)</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x555","0x555"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Disabled</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Active Directory Accounts</title>
+      <input type="dropdown" token="enabled_token" searchWhenChanged="true">
+        <label>Enabled?</label>
+        <choice value="*">All</choice>
+        <choice value="true">Enabled</choice>
+        <choice value="false">Disabled</choice>
+        <default>*</default>
+        <initialValue>*</initialValue>
+      </input>
+      <table>
+        <search>
+          <query>index=windows source="script:get-aduser_details.bat" Enabled=$enabled_token$
+| dedup SamAccountName
+| eval timestamp1 = replace(PasswordLastSet, "/Date\\((\\d+)\\)/", "\1")
+| eval timestamp2 = replace(LastBadPasswordAttempt, "/Date\\((\\d+)\\)/", "\1")
+| table _time Name SamAccountName Enabled LockedOut PasswordExpired  PasswordNeverExpires PasswordNotRequired Description
+| sort SamAccountName</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">20</option>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Active Directory Group Members</title>
+      <input type="dropdown" token="empty_groups" searchWhenChanged="true">
+        <label></label>
+        <choice value="all">Show All Groups</choice>
+        <choice value="empty">Hide Empty Groups</choice>
+        <default>all</default>
+        <initialValue>all</initialValue>
+      </input>
+      <single>
+        <search>
+          <query>index=windows source="Script:Get-ADGroupMember.bat"
+| stats dc(Members{}.SamAccountName) AS member_count BY GroupName
+| eval filter_empty = if("$empty_groups$"="empty" AND member_count=0, 1, 0)
+| where filter_empty=0
+| sort - member_count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="height">335</option>
+        <option name="rangeColors">["0x555","0x0877a6"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">1</option>
+        <option name="trellis.size">small</option>
+        <option name="underLabel">Members</option>
+        <option name="useColors">1</option>
+        <drilldown>
+          <set token="group_token">$trellis.split.GroupName$</set>
+        </drilldown>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Active Directory Group Members</title>
+      <table>
+        <title>** To remove filters on this panel, refresh the entire page</title>
+        <search>
+          <query>index=windows source="Script:Get-ADGroupMember.bat" GroupName="$group_token$"
+| stats values("Members{}.Name") AS "Names", values("Members{}.SamAccountName") AS "Usernames" BY GroupName</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>index=windows source="Script:Get-ADGroup.bat"</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>

@@ -1,0 +1,73 @@
+<form version="1.1" theme="dark">
+  <label>Privleged User Detail Panel</label>
+  <description>User Name Input</description>
+  <fieldset autoRun="true"
+            submitButton="false">
+    <input type="text"
+           token="usertok"
+           searchWhenChanged="true">
+      <label>Enter a user:</label>
+      <default></default>
+    </input>
+  </fieldset>
+  <row>
+    <table>
+      <title>Search for host by $usertok$</title>
+      <search>
+        <query>index=winevents user=$usertok$ | stats count sparkline AS Trend by host</query>
+        <earliest>-30d</earliest>
+        <latest>now</latest>
+      </search>
+      <option name="rowNumbers">true</option>
+      <option name="wrap">true</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">cell</option>
+      <option name="count">10</option>
+    </table>
+  </row>
+  <row>
+    <table>
+      <title>Search for Active Directory actions by $usertok$</title>
+      <search>
+        <query>index=winevents EventCode=625 OR EventCode=626 OR EventCode=629 OR EventCode=4722 OR EventCode=4725| eval PerByAcct_7=mvindex(Account_Name,0) | eval PerByAcct_XP=Caller_User_Name| eval PerByAcct=coalesce(PerByAcct_7,PerByAcct_XP)| search PerByAcct=$usertok$| table EventCode, signature, PerByAcct, user, host, _time | rename PerByAcct AS &quot;Preformed By&quot;, user AS &quot;Preformed To&quot;</query>
+        <earliest>-30d</earliest>
+        <latest>now</latest>
+      </search>
+      <option name="rowNumbers">true</option>
+      <option name="wrap">true</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">cell</option>
+      <option name="count">10</option>
+    </table>
+  </row>
+  <row>
+    <table>
+      <title>Search for all Software Installs by $usertok$</title>
+      <search>
+        <query>SourceName=MsiInstaller EventCode=11707 User=$usertok$ | rex field=Message &quot;(?s)Product: (?&lt;product_name&gt;.*) --&quot; | stats sparkline as &quot;Trend&quot;, count by product_name | sort -count</query>
+        <earliest>-30d</earliest>
+        <latest>now</latest>
+      </search>
+      <option name="rowNumbers">true</option>
+      <option name="wrap">true</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">cell</option>
+      <option name="count">10</option>
+    </table>
+  </row>
+  <row>
+    <table>
+      <title>Search for Media actions by $usertok$</title>
+      <search>
+        <query>sourcetype=&quot;WinEventLog:System&quot; SourceName=scomc (EventCode=14 OR EventCode=16) | eval Time=strftime(_time, &quot;%m/%d/%Y %I:%M %p&quot;) | rex field=_raw &quot;user (?&lt;By_User2&gt;[^.]*)&quot; |eval By_User=mvindex(split(By_User2,&quot;\\&quot;),-1) | rex field=_raw &quot;Device \&quot;(?&lt;Device&gt;[^,]*)&quot; | rex field=_raw &quot;Volume Name: (?&lt;Volume&gt;[^S+]*)&quot; | lookup LumensionCodes.csv EventCode | search By_User=$usertok$| eval Media=coalesce(Device,Volume) | table EventCode, EventCodeDesc, Time, By_User, Media, host, | rename host AS Computer,By_User AS User,EventCode AS Type, Media as &quot;Device Attached/Inserted&quot;</query>
+        <earliest>-30d</earliest>
+        <latest>now</latest>
+      </search>
+      <option name="rowNumbers">true</option>
+      <option name="wrap">true</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">cell</option>
+      <option name="count">10</option>
+    </table>
+  </row>
+</form>

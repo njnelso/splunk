@@ -1,0 +1,597 @@
+<form version="1.1" theme="dark">
+  <label>Weekly Audit Report</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+      <div>To view documentation for this dashboard, click here: <a href="https://localhost:8000/static/app/CS_Overview/Weekly-Audit-Report.pdf" target="_blank">Link to Documentation</a>
+        </div>
+    </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Windows</h1>
+      </div>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Event 517/1102/1103/1104/1105 - The audit log has been cleared or full/stopped</title>
+      <table>
+        <search>
+          <query>index=winevents EventCode=517 OR EventCode=1102 OR EventCode=1104 OR EventCode=1104 OR EventCode=1105
+| eval Event=case(EventCode==1102, "Audit log was cleared", EventCode==1103, "Security log is 90% full", EventCode==1104, "Security log is full", EventCode==1105, "Event log automatically backed up") 
+| stats count BY host Event</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Event 528/4624 - Successful logon</title>
+      <table>
+        <search>
+          <query>index=winevents (EventCode=4624 Security_ID="PROGRAM*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10) OR EventCode=528
+| stats count by user
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Event 529/4625 - Logon failure: Unknown user name or bad password</title>
+      <table>
+        <search>
+          <query>index=winevents (EventCode=4625 Failure_Reason="Unknown user name or bad password." Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10) OR EventCode=529
+| stats count by user
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Event 531/4625 - Logon failure: Account disabled</title>
+      <table>
+        <search>
+          <query>index=winevents (EventCode=4625 Failure_Reason="*disabled*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10) OR EventCode=531
+| stats count by user
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Event 535/4625 - Logon failure: Expired password</title>
+      <table>
+        <search>
+          <query>index=winevents (EventCode=4625 Failure_Reason="*Expired*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10) OR EventCode=535
+| stats count by user
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Event 539/4625 - Logon failure: Account locked out</title>
+      <table>
+        <search>
+          <query>index=winevents (EventCode=4625 Failure_Reason="*locked*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10) OR EventCode=535
+| stats count by user
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Event 4616 - System time change</title>
+      <table>
+        <search>
+          <query>index=winevents EventCode=4616
+| stats count by user</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Event 560/4656 - A handle to an object was requested</title>
+      <table>
+        <title>Granted Access</title>
+        <search>
+          <query>index=winevents EventCode=4656 Security_ID="PROGRAM*" Access_Reasons="*Granted by*" NOT Access_Reasons="SYNCHRONIZE*"
+Object_Name="C:\\Windows\\INF*" OR
+Object_Name="C:\\Windows\\Program Files*" OR
+Object_Name="C:\\Windows\\System32*" OR 
+Object_Name="C:\\Windows\\SysWOW64*" OR
+Object_Name="C:\\Windows\\Tasks*" OR
+Object_Name="C:\\Windows\\Temp*" OR
+Object_Name="\\REGISTRY\\MACHINE\\SECURITY*" OR 
+Object_Name="\\REGISTRY\\MACHINE\\SAM*" OR 
+Object_Name="\\REGISTRY\\MACHINE\\SYSTEM*" OR 
+Object_Name="\\REGISTRY\\MACHINE\\HARDWARE*"
+| stats count latest(_time) AS _time values(Access_Reasons) AS "Access Result" BY user Object_Name
+| table _time user "Access Result" Object_Name count
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Event 560/4656 - A handle to an object was requested</title>
+      <table>
+        <title>Denied Access</title>
+        <search>
+          <query>index=winevents EventCode=4656 Security_ID="PROGRAM*" Access_Reasons="*Not granted*" NOT Access_Reasons="SYNCHRONIZE*"
+Object_Name="C:\\Windows\\INF*" OR
+Object_Name="C:\\Windows\\Program Files*" OR
+Object_Name="C:\\Windows\\System32*" OR 
+Object_Name="C:\\Windows\\SysWOW64*" OR
+Object_Name="C:\\Windows\\Tasks*" OR
+Object_Name="C:\\Windows\\Temp*" OR
+Object_Name="\\REGISTRY\\MACHINE\\SECURITY*" OR 
+Object_Name="\\REGISTRY\\MACHINE\\SAM*" OR 
+Object_Name="\\REGISTRY\\MACHINE\\SYSTEM*" OR 
+Object_Name="\\REGISTRY\\MACHINE\\HARDWARE*"
+| stats count latest(_time) AS _time values(Access_Reasons) AS "Access Result" BY user Object_Name
+| table _time user "Access Result" Object_Name count
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Event 577/4673 - A user attempted to perform a privileged system action</title>
+      <table>
+        <search>
+          <query>index=winevents sourcetype="security" user!="*$" EventCode=4673 OR EventCode=577
+| stats count by user status privilege
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Event 512/4719 - Audit policy changed</title>
+      <table>
+        <search>
+          <query>index=winevents sourcetype="security" EventCode=4719 OR EventCode=612
+| stats count by host
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Event 624,630/4720,4726 - User account created/deleted</title>
+      <table>
+        <search>
+          <query>index=winevents sourcetype="security" EventCode=4720 OR EventCode=4726 OR EventCode=624 OR EventCode=630
+| rename src_user AS Admin
+| rename msad_action AS Action
+| table _time Admin Action user</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Event 632,636/4728,4732 - Security enabled group member added</title>
+      <table>
+        <search>
+          <query>index=winevents sourcetype="security" EventCode=4728 OR EventCode=4732 OR EventCode=632 OR EventCode=636
+| rename src_user AS Admin
+| table _time Admin user Group_Name</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Event 633,637/4729,4733 - Security enabled group member deleted</title>
+      <table>
+        <search>
+          <query>index=winevents sourcetype="security" EventCode=4729 OR EventCode=4733 OR EventCode=633 OR EventCode=637
+| rename src_user AS Admin
+| table _time Admin user Group_Name</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Event 643/4739 - Domain policy changed</title>
+      <table>
+        <search>
+          <query>index=winevents sourcetype="security" EventCode=4739 OR EventCode=643
+| stats count by user
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Event 645-647/4725,4741,4742,4743 - Computer account modified or deleted</title>
+      <table>
+        <search>
+          <query>index=winevents sourcetype="security"  src_nt_domain="PROGRAM" (EventCode=4725 OR EventCode=4741 OR EventCode=4742 OR EventCode=4743 OR EventCode=645 OR EventCode=646 OR EventCode=647)
+| rename src_user AS Admin
+| table _time Admin action user
+| sort - _time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>After hours login activity</title>
+      <table>
+        <title>Includes Saturday &amp; Sunday and between the hours of 6PM and 6AM</title>
+        <search>
+          <query>index=winevents sourcetype="security" EventCode=4624 Security_ID="PROGRAM*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10
+| eval hour=strftime(_time, "%H"), day=strftime(_time, "%A")
+| search (day IN("Saturday", "Sunday")) OR (hour &gt;= 18 OR hour &lt; 6)
+| eval Logon_Type_Description=case(Logon_Type==2, "Interactive", Logon_Type==7, "Unlock", Logon_Type==10, "Remote Interactive")
+| table _time host user Logon_Type_Description
+| sort - _time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Linux</h1>
+      </div>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Successful Logons</title>
+      <table>
+        <title>GNOME</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication"  exe="/usr/lib/gdm3/gdm-session-worker" NOT acct=gdm res=success
+| rename acct AS User
+| stats count by User
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Successful Logons</title>
+      <table>
+        <title>SSH</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/sbin/sshd" res=success
+| rename acct AS User
+| stats count by User
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Failed Logons</title>
+      <table>
+        <title>GNOME</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication"  exe="/usr/lib/gdm3/gdm-session-worker" NOT acct=gdm res=failed
+| rename acct AS User
+| stats count by User
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Failed Logons</title>
+      <table>
+        <title>SSH</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/sbin/sshd" res=failed
+| rename acct AS User
+| stats count by User
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Successful Authentication</title>
+      <table>
+        <title>Substitute User (SU)</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/bin/su" res=success
+| rename acct AS User
+| stats count by User
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Successful Authentication</title>
+      <table>
+        <title>Sudo</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_AUTH exe="/usr/bin/sudo" res=success
+| rename acct AS User
+| stats count by User
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Failed Authentication</title>
+      <table>
+        <title>Substitute User (SU)</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/bin/su" res=failed
+| rename acct AS User
+| stats count by User
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Failed Authentication</title>
+      <table>
+        <title>Sudo</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_AUTH exe="/usr/bin/sudo" res=failed
+| rename acct AS User
+| stats count by User
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Successful/failed account modifications</title>
+      <table>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_MGMT
+| stats count by acct</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Successful/failed user activity</title>
+      <table>
+        <title>User Commands</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_CMD
+| join pid [ search index=nix sourcetype=audit_log type=USER_ACCT | table pid acct ]
+| stats count by acct res
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Successful/failed user activity</title>
+      <table>
+        <title>Processes Executed</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=EXECVE
+| join type=left msg [ search index=nix sourcetype=audit_log type=SYSCALL | table msg pid res ]
+| join type=left pid [ search index=nix sourcetype=audit_log type=USER_ACCT | table pid acct res ]
+| stats count BY acct res
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Successful/failed file modification attempts</title>
+      <table>
+        <search>
+          <query>index=nix sourcetype=audit_log type=SYSCALL (comm="cp" OR comm="mv" OR comm="rm" OR comm="touch" OR comm="vi" OR comm="vim" OR comm="nano" OR comm="emacs" OR comm="rmdir" OR comm="chmod" OR comm="chown" OR comm="chgrp" OR comm="umask" OR comm="setfacl")
+| join type=left uid [ search index=nix sourcetype=audit_log type=USER_ACCT | table uid acct ]
+| stats count by acct comm  
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>General configuration changes/General changes to hosts</title>
+      <table>
+        <search>
+          <query>index=nix sourcetype=audit_log type=CONFIG_CHANGE
+| stats count by key op
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Successful/failed modifications of audit files</title>
+      <table>
+        <search>
+          <query>index=nix sourcetype=audit_log type=EXECVE
+| eval arg0=urldecode(ltrim(replace(a0,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg0=if(isnull(arg0), a0, arg0)
+| eval arg1=urldecode(ltrim(replace(a1,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg1=if(isnull(arg1), a1, arg1)
+| eval arg2=urldecode(ltrim(replace(a2,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg2=if(isnull(arg2), a2, arg2)
+| eval arg3=urldecode(ltrim(replace(a3,"([a-fA-F0-9]{2})","%\1"),"0x"))
+| eval arg3=if(isnull(arg3), a3, arg3)
+| eval cmdline=coalesce(arg0, "") + " " + coalesce(arg1, "") + " " + coalesce(arg2, "") + " " + coalesce(arg3, "")
+| eval cmdline=trim(replace(cmdline, "\s+", " "))
+| search "/var/log/*" OR "/etc/audit/*"
+| stats count by cmdline
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Miscellaneous</h1>
+      </div>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Cisco IOS Successful Logins</title>
+      <table>
+        <search>
+          <query>index=cisco source="tcp:1470" sourcetype="cisco:ios" mnemonic=LOGIN_SUCCESS
+| stats count by user src_ip</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Cisco IOS Failed Logins</title>
+      <table>
+        <search>
+          <query>index=cisco source="tcp:1470" sourcetype="cisco:ios" mnemonic=LOGIN_FAILED
+| stats count by user</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Cisco IOS Configuration Changes</title>
+      <table>
+        <search>
+          <query>index=cisco source="tcp:1470" sourcetype="cisco:ios" mnemonic=LOG_CONFIG_CHANGE 
+| stats count by host</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+</form>

@@ -1,0 +1,1 @@
+Manage-BDE -Status | ConvertTo-Json

@@ -1,0 +1,134 @@
+<form version="1.1" theme="dark">
+  <label>Data Loss Protection Detailed</label>
+  <fieldset submitButton="false"
+            autoRun="true">
+    <input type="time"
+           searchWhenChanged="true">
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+        <h1>
+          <center>Data Loss Protection Action Panel</center>
+        </h1>
+        <h3>
+          <center>(Investigate any actions that appear here)</center>
+        </h3>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>File Shadow Reads</title>
+        <search>
+          <query>index=winevents source="WinEventLog:System" SourceName=scomc EventCode=26 | eval Time=strftime(_time, "%m/%d/%Y %I:%M %p") | rex field=_raw "user (?&lt;By_User&gt;[^ ]*)" | rex field=_raw "file (?&lt;File&gt;[^.]*)" | lookup LumensionCodes.csv EventCode | transaction _time, host, By_User| table EventCode, EventCodeDesc, Time, By_User, host, File | rename host AS Computer,By_User AS User,EventCode AS Type,File as "File Name/File Printed"</query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">true</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">10</option>
+        <format field="Trend"
+                type="sparkline">
+          <option name="lineWidth">1</option>
+          <option name="lineColor">#5379af</option>
+          <option name="fillColor">#CCDDFF</option>
+          <option name="height">25px</option>
+        </format>
+      </table>
+      <table>
+        <title>File Shadow Writes</title>
+        <search>
+          <query>index=winevents source="WinEventLog:System" SourceName=scomc EventCode=25 | eval Time=strftime(_time, "%m/%d/%Y %I:%M %p") | rex field=_raw "user (?&lt;By_User&gt;[^ ]*)" | rex field=_raw "file (?&lt;File&gt;[^.]*)" | lookup LumensionCodes.csv EventCode | transaction _time, host, By_User| table EventCode, EventCodeDesc, Time, By_User, host, File | rename host AS Computer,By_User AS User,EventCode AS Type,File as "File Name/File Printed"</query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">true</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">10</option>
+        <format field="Trend"
+                type="sparkline">
+          <option name="lineWidth">1</option>
+          <option name="lineColor">#5379af</option>
+          <option name="fillColor">#CCDDFF</option>
+          <option name="height">25px</option>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>File Failed Reads</title>
+        <search>
+          <query>index=winevents source="WinEventLog:System" SourceName=scomc EventCode=18 | eval Time=strftime(_time, "%m/%d/%Y %I:%M %p") | rex field=_raw "user (?&lt;By_User2&gt;[^.]*)" |eval By_User=mvindex(split(By_User2,"\\"),-1) | rex field=_raw "file (?&lt;File&gt;[^.]*)" | lookup LumensionCodes.csv EventCode | transaction _time, host, By_User| table EventCode, EventCodeDesc, Time, By_User, host, File | rename host AS Computer,By_User AS User,EventCode AS Type,File as "File Name/File Printed"</query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">true</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">10</option>
+        <format field="Trend"
+                type="sparkline">
+          <option name="lineWidth">1</option>
+          <option name="lineColor">#5379af</option>
+          <option name="fillColor">#CCDDFF</option>
+          <option name="height">25px</option>
+        </format>
+        <format field="Trend"
+                type="sparkline">
+          <option name="lineColor">#5379af</option>
+          <option name="lineWidth">1</option>
+          <option name="height">25px</option>
+          <option name="fillColor">#CCDDFF</option>
+        </format>
+      </table>
+      <table>
+        <title>File Failed Writes</title>
+        <search>
+          <query>index=winevents source="WinEventLog:System" SourceName=scomc EventCode=19 | eval Time=strftime(_time, "%m/%d/%Y %I:%M %p") | rex field=_raw "user (?&lt;By_User2&gt;[^.]*)" |eval By_User=mvindex(split(By_User2,"\\"),-1) | rex field=_raw "file (?&lt;File&gt;[^.]*)" | lookup LumensionCodes.csv EventCode | transaction _time, host, By_User| table EventCode, EventCodeDesc, Time, By_User, host, File | rename host AS Computer,By_User AS User,EventCode AS Type,File as "File Name/File Printed"</query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">true</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">10</option>
+        <format field="Trend"
+                type="sparkline">
+          <option name="lineWidth">1</option>
+          <option name="lineColor">#5379af</option>
+          <option name="fillColor">#CCDDFF</option>
+          <option name="height">25px</option>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Media/Device Actions</title>
+        <search>
+          <query>index=winevents source="WinEventLog:System" SourceName=scomc (EventCode=14 OR EventCode=16) | eval Time=strftime(_time, "%m/%d/%Y %I:%M %p") | rex field=_raw "user (?&lt;By_User2&gt;[^.]*)" |eval By_User=mvindex(split(By_User2,"\\"),-1) | rex field=_raw "Device \"(?&lt;Device&gt;[^,]*)" | rex field=_raw "Volume Name: (?&lt;Volume&gt;[^S+]*)" | lookup LumensionCodes.csv EventCode | eval Media=coalesce(Device,Volume) | transaction _time, host, By_User| table EventCode, EventCodeDesc, Time, By_User, Media, host, | rename host AS Computer,By_User AS User,EventCode AS Type, Media as "Device Attached/Inserted"</query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">true</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">10</option>
+        <format field="Trend"
+                type="sparkline">
+          <option name="lineWidth">1</option>
+          <option name="lineColor">#5379af</option>
+          <option name="fillColor">#CCDDFF</option>
+          <option name="height">25px</option>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>

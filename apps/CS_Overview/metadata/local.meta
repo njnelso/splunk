@@ -1,0 +1,1098 @@
+[views/Windows_Overview]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = nobody
+version = 9.3.1
+modtime = 1733342290.108973900
+
+[props/SCAP_SCC]
+version = 7.2.3
+modtime = 1551727104.863415600
+
+[props/SCC]
+owner = admin
+version = 7.2.3
+modtime = 1551737841.074445800
+
+[props/scc]
+owner = admin
+version = 7.2.3
+modtime = 1551742402.057972800
+
+[indexes/scap]
+owner = admin
+version = 7.2.3
+modtime = 1553117562.433359500
+
+[indexes/windows]
+owner = admin
+version = 7.2.3
+modtime = 1553117696.367348000
+
+[views/Tenable]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = admin
+version = 7.2.3
+modtime = 1562775326.180193700
+
+[nav/default]
+version = 9.2.2
+modtime = 1724104155.255939700
+
+[indexes/scap_linux]
+owner = admin
+version = 7.2.3
+modtime = 1554414104.552156600
+
+[views/SCAP_Overview_Linux]
+version = 7.2.3
+modtime = 1559266948.846083400
+
+[savedsearches/CS-Linux_SEPStatus]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1593732385.941481300
+
+[savedsearches/Tenable%20.audit]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = admin
+version = 7.2.3
+modtime = 1557174951.960133100
+
+[savedsearches/CS-Linux_reboots]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1637103252.901541800
+
+[views/Linux_Overview]
+version = 9.3.2
+modtime = 1742225724.724501300
+
+[views/SCAP_Detailed_Linux]
+version = 8.0.6
+modtime = 1601938518.412769100
+
+[views/CS_Overview]
+version = 9.3.3
+modtime = 1746107130.672348800
+
+[views/Solaris_Overview]
+version = 7.2.3
+modtime = 1555942342.588643000
+
+[views/SCAP_Overview]
+version = 7.2.3
+modtime = 1557847652.724723000
+
+[savedsearches/CS-Linux_SCAP_Min_Score]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601340422.419646900
+
+[savedsearches/CS-Linux_SCAP_Max_Score]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601340386.174336500
+
+[savedsearches/CS-Linux_SCAP_Avg_Score]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601340448.135604300
+
+[views/SCAP_Detailed]
+version = 7.2.3
+modtime = 1556305024.943807000
+
+[savedsearches/CS-Win-ProcessCreation-Type1]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = admin
+version = 7.2.3
+modtime = 1557861949.701854000
+
+[savedsearches/CS-Win-ProcessCreation-Type2]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = admin
+version = 7.2.3
+modtime = 1557323277.456143200
+
+[savedsearches/CS-Win-ProcessCreation-Type3]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = admin
+version = 7.2.3
+modtime = 1557323736.212067400
+
+[savedsearches/Audit_Policy_Change]
+version = 7.2.3
+modtime = 1557499224.435858500
+
+[savedsearches/CS-WIN-Startup-Dedup]
+version = 7.2.3
+modtime = 1557499773.210978700
+
+[savedsearches/CS-Win-Startups_Shutdowns]
+version = 7.2.3
+modtime = 1557499916.111196900
+
+[savedsearches/CS-Win-Account_Lockouts]
+version = 7.2.3
+modtime = 1557500192.855029600
+
+[savedsearches/CS-Win-Audit_Policy_Change]
+version = 7.2.3
+modtime = 1557500363.326719600
+
+[savedsearches/CS-Win-Crash_Audit_Fail]
+version = 7.2.3
+modtime = 1557500456.559129800
+
+[savedsearches/CS-Win-Failed_Object_Access_All_Users]
+version = 7.2.3
+modtime = 1557500634.402444900
+
+[savedsearches/CS-Win-Logons_After_Hours]
+version = 7.2.3
+modtime = 1557500954.269268900
+
+[savedsearches/CS-Win-Logons_Failed_Chart]
+version = 7.2.3
+modtime = 1557501142.891713900
+
+[savedsearches/CS-Win-Logons_Failed_Table]
+version = 7.2.3
+modtime = 1557501346.620437100
+
+[savedsearches/CS-Win-Password_Changes]
+version = 7.2.3
+modtime = 1557501375.053074200
+
+[savedsearches/CS-Win-Software_%26_Service_Status]
+version = 7.2.3
+modtime = 1557501450.845812700
+
+[savedsearches/CS-Win-System_%26_Service%20Failures]
+version = 7.2.3
+modtime = 1557501602.601169900
+
+[savedsearches/CS-Win-Windows_Update_Errors]
+version = 7.2.3
+modtime = 1557501755.802195100
+
+[savedsearches/Login_Logout_by_the_Hour]
+version = 7.2.3
+modtime = 1557501934.612434200
+
+[props/cisco%3Aios]
+owner = admin
+version = 7.2.3
+modtime = 1557859220.418285600
+
+[indexes/cisco]
+owner = admin
+version = 7.2.3
+modtime = 1557859700.696576900
+
+[views/Cisco_Overview]
+version = 9.3.1
+modtime = 1733408324.783663800
+
+[savedsearches/CS-Linux_SUDO]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1603219686.481040700
+
+[savedsearches/CS-Linux_ssh_Logons]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.5
+modtime = 1597265271.432526200
+
+[savedsearches/CS-Linux_Concurrent_Session_Monitoring]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1603237105.145468700
+
+[savedsearches/CS-Linux_Password_Changes]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595444811.970166800
+
+[savedsearches/CS-Linux_Privileged_Command]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1637339335.884047100
+
+[props/software]
+version = 7.2.3
+modtime = 1559058386.168073000
+
+[savedsearches/CS-Lookups-AD-Groups-Update]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.2.3
+modtime = 1559064731.010289000
+
+[savedsearches/CS-Linux_audit_stop_audit_start]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601077366.902381000
+
+[savedsearches/SCAP-Linux_high_details1]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.2.3
+modtime = 1559258126.101291500
+
+[savedsearches/CS-WIN-Lumension-All-Events]
+version = 7.2.3
+modtime = 1562767192.952495100
+
+[savedsearches/CS-Win-AV_Updates]
+version = 7.2.3
+modtime = 1562767280.422723500
+
+[savedsearches/CS-Win-Failed%20Logons%20for%20Unknown%20Accounts]
+version = 7.2.3
+modtime = 1562767350.572986100
+
+[views/DLP_Detailed]
+version = 7.2.3
+modtime = 1562767726.186053000
+
+[savedsearches/CS-Linux-Logons_By_Hour_Chart]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.2.2
+modtime = 1724361220.405040700
+
+[transforms/nix_hosts_lookup]
+version = 8.0.3
+modtime = 1593100236.722738300
+
+[transforms/nix_hosts_alive]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1593614724.034270100
+
+[savedsearches/CS-Linux_Num_of_Linux_Systems]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1593119479.147845700
+
+[savedsearches/CS-Linux_hostnames]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1593120104.889856700
+
+[savedsearches/CS-Linux_Account_Changes]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1637700950.663837000
+
+[savedsearches/CS-Linux_sudo_reboot]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1593614718.315722600
+
+[savedsearches/CS-Linux_hosts_alive_lookup]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.5
+modtime = 1597207256.518703600
+
+[savedsearches/CS-Linux_root_Console_Logins]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1603237132.237330100
+
+[savedsearches/CS-Linux_General_Users_Console_Logons_Regular_hours]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1637333777.068457500
+
+[savedsearches/CS-Linux_General_Users_Console_Logons_After_hours]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1637168582.671662400
+
+[savedsearches/CS-Linux_Time]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1593554270.779230300
+
+[savedsearches/CS-Linux_Audit_Restart_root]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595956481.614337400
+
+[savedsearches/CS-Linux_Audit_sudo_restart]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595959669.442105000
+
+[props/SEP_AV_Date]
+owner = admin
+version = 8.0.3
+modtime = 1593731260.910637000
+
+[savedsearches/CS-Linux_root_reboots]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595454706.866016500
+
+[savedsearches/CS-Linux_Rmedialock_Status]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595531915.287909600
+
+[savedsearches/CS-Linux_Services]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595538021.099960900
+
+[savedsearches/CS-Linux_clamstatus]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595541006.788279900
+
+[inputs/http%3A%2F%2Fconfig_check_test]
+access = read : [ admin ], write : [ admin ]
+export = none
+owner = admin
+version = 8.0.3
+modtime = 1595548220.320182600
+
+[savedsearches/CS-Linux_usb_cdrom_lockdown]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595865762.677922000
+
+[savedsearches/CS-Linux_USB_CDROM_Usage]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1603237041.051986100
+
+[savedsearches/Linux_reboots_report]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595877595.671680800
+
+[savedsearches/Linux_reboot_report]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595878014.180323800
+
+[savedsearches/Linux_reboot_report2]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595878467.990723900
+
+[savedsearches/Linux_reboot_report3]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595879059.180439000
+
+[savedsearches/CS-Linux_Config_Change_Last_Week]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595895518.359190400
+
+[savedsearches/CS-Linux_Cumulative_config_changes]
+version = 8.0.3
+modtime = 1595891254.200709200
+
+[savedsearches/CS-Linux-Package-list]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601416890.034658400
+
+[props/time_failed]
+owner = admin
+version = 8.0.3
+modtime = 1595949492.934193100
+
+[props/time]
+owner = admin
+version = 8.0.3
+modtime = 1595949578.088299500
+
+[savedsearches/CS-Linux_auditd_root_stop_start]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1595954588.724937800
+
+[savedsearches/CS-Linux_user_reboots]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1603238247.370733600
+
+[savedsearches/CS-Linux_ClamDate]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.5
+modtime = 1597422446.939621700
+
+[savedsearches/Summary_Linux_Account_Changes]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1637104992.298890300
+
+[savedsearches/Summary_Linux_ClamAV_Status]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.5
+modtime = 1600292910.247124300
+
+[savedsearches/Summary_Linux_Host_Count]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.5
+modtime = 1600292930.587143000
+
+[savedsearches/Summary_Linux_Num_of_Reboots]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1637103605.174222700
+
+[savedsearches/Summary_Linux_Reboots_by_User]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1637103698.901003200
+
+[savedsearches/Summary_Linux_audit_restarts_by_root]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601054032.450850000
+
+[savedsearches/Summary_Linux_audit_restarts_by_user]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601054121.791779500
+
+[savedsearches/Summary_Linux_failed_passwd_change]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601053436.435682200
+
+[savedsearches/Summary_Linux_failed_ssh]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601053335.540160500
+
+[savedsearches/Summary_Linux_off_hours_login]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1637256099.383393800
+
+[savedsearches/Summary_Linux_reg_hours_login]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1637256021.533137000
+
+[savedsearches/Summary_Linux_rmedialock_usage]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601055263.056457600
+
+[savedsearches/Summary_Linux_root_console_login]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601053267.270295300
+
+[savedsearches/Summary_Linux_selinux_status]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.2.2
+modtime = 1724361152.595836100
+
+[savedsearches/Summary_Linux_sudo]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601054181.386419400
+
+[savedsearches/Summary_Linux_time_status]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601053912.144402300
+
+[savedsearches/Summary_Linux_usb_cdrom_lockdown]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601055104.417215700
+
+[savedsearches/Summary_Linux_usb_drive_usage]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601055415.269575500
+
+[savedsearches/Summary_Linux_writable_cdrom]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601055336.934302000
+
+[savedsearches/CS-Linux_Locked_Accounts]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1600906879.487457600
+
+[savedsearches/Summary_Linux_Locked_Accounts]
+version = 8.0.6
+modtime = 1601053727.399070300
+
+[savedsearches/CS-Linux_Remote_FS_Mounts]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1603295652.141442400
+
+[savedsearches/CS-Linux_Mounted_USB_drive]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1600985811.356494200
+
+[savedsearches/CS-Linux-Packages-to-be-Updated]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601076199.010155800
+
+[savedsearches/CS-Linux-Audit_Policy_Change]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601412396.439741700
+
+[savedsearches/CS-Linux_Audit_Stop]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601423132.482580700
+
+[savedsearches/Summary_Linux_audit_stop]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601423818.339215200
+
+[savedsearches/CS-Linux_Host_not_rec_audit_logs]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601940244.059922000
+
+[savedsearches/CS-Lookup_Linux_DNS_hosts]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601583381.931320700
+
+[savedsearches/Summary_Linux_Auditing_hosts]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601592577.032628000
+
+[savedsearches/SCAP-Linux_SCCVer_STIGVer]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1601922662.348217200
+
+[transforms/audit_rules_rh7]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1602114850.393734700
+
+[savedsearches/CS-Linux_Disk_partition_info]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1603131213.968506900
+
+[app/install/state]
+version = 8.0.6
+modtime = 1603150254.738880400
+
+[savedsearches/CS-Linux_SELinux_status]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1603237054.222072300
+
+[savedsearches/CS-Linux_ClamDate_Local]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1603237085.359931800
+
+[savedsearches/CS-Linux_Num_of_Reboots]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1603237118.906517500
+
+[savedsearches/CS-Linux_writable_CDROM_mounts]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.0.6
+modtime = 1603237140.531558900
+
+[savedsearches/Monitor%20CDROM%20using%20mount%20command]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1638287434.138282000
+
+[savedsearches/CS-Linux_CDROM_using_mount_command]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1638307247.412138700
+
+[savedsearches/Summary_Linux_CD_mount]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1638294842.743724900
+
+[savedsearches/CS-Linux_USB_using_mount_command]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1638306733.442853600
+
+[savedsearches/Summary_Linux_USB_mount]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1638311726.073427600
+
+[savedsearches/CS-Linux_USB_Block]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1638314553.189938200
+
+[savedsearches/CS-Linux_clamav_infected_files]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1638395859.170990200
+
+[savedsearches/Summary_Linux_clamav_infected_files]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 8.1.1
+modtime = 1638396354.257379600
+
+[props/aide]
+owner = admin
+version = 8.1.1
+modtime = 1638806036.264233500
+
+[views/Windows_Overview_NIST_Original]
+version = 9.2.2
+modtime = 1722527457.615523900
+
+[indexes/roxio]
+owner = admin
+version = 8.1.1
+modtime = 1646743495.099496700
+
+[inputs/tcp%3A%2F%2F1470]
+owner = admin
+version = 9.3.1
+modtime = 1730818485.181537700
+
+[views/linux_network_security]
+owner = admin
+version = 9.2.1
+modtime = 1719599607.351234500
+
+[views/program_overview]
+owner = admin
+version = 9.2.1
+modtime = 1719600785.599155300
+
+[inputs/udp%3A%2F%2F1470]
+owner = admin
+version = 9.2.1
+modtime = 1719952454.454294600
+
+[views/nistau2fast_in_progress]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.2.1
+modtime = 1720703713.163964100
+
+[savedsearches/Windows_User_Account_Management]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.2.1
+modtime = 1720555088.642490500
+
+[savedsearches/Windows_User_Account_Management_Events]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.2.1
+modtime = 1720614127.137729000
+
+[app/ui]
+version = 9.3.1
+modtime = 1736191151.733750900
+
+[app/launcher]
+version = 9.3.1
+modtime = 1736191151.762761700
+
+[app/package/check_for_updates]
+version = 9.3.1
+modtime = 1736191151.774748900
+
+[savedsearches/CS-Lookups_Linux_DNS_hosts]
+version = 9.2.2
+modtime = 1724360780.577428800
+
+[views/linux_-_configuration_changes]
+version = 9.3.2
+modtime = 1742226847.844526000
+
+[savedsearches/Linux%20-%20Process%20Execution]
+access = read : [ * ], write : [ admin, can_delete, power, splunk-system-role ]
+export = system
+owner = nnelson_sec
+version = 9.2.2
+modtime = 1725465829.454874200
+
+[views/windows_-_authentication]
+version = 9.3.2
+modtime = 1736870814.753623900
+
+[views/weekly_audit_report]
+version = 9.3.1
+modtime = 1733336482.787743700
+
+[views/windows_baseline]
+version = 9.3.3
+modtime = 1745845493.732344100
+
+[views/linux__baseline_copy]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = nnelson_sec
+version = 9.2.2
+modtime = 1726497277.096041100
+
+[views/linux__account_management]
+export = none
+owner = admin
+version = 9.3.3
+modtime = 1747080933.425898600
+
+[views/linux_-_baseline]
+version = 9.3.2
+modtime = 1743608394.785464500
+
+[inputs/script%3A%2F%2F%24SPLUNK_HOME%5Cetc%5Capps%5CCS_Overview%5Cbin%5CGet-ADComputer.bat]
+owner = nnelson_sec
+version = 9.3.1
+modtime = 1732206180.762769300
+
+[views/network_security]
+version = 9.3.1
+modtime = 1736459974.314760600
+
+[inputs/script%3A%2F%2F%24SPLUNK_HOME%5Cetc%5Capps%5CCS_Overview%5Cbin%5CGet-ADUser.bat]
+owner = nnelson_sec
+version = 9.3.1
+modtime = 1732206157.549557800
+
+[views/windows_-_configuration_changes]
+version = 9.3.1
+modtime = 1728928421.433973100
+
+[views/linux_-_account_management]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.3
+modtime = 1747080885.638218900
+
+[views/vmware_-_executive_summary]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.3
+modtime = 1747323431.592360000
+
+[views/linux_-_authentication]
+version = 9.3.3
+modtime = 1745598913.559662300
+
+[views/windows_-_privileged_user_actions]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.3
+modtime = 1747080948.896858900
+
+[views/linux_-_privileged_user_actions]
+export = none
+owner = admin
+version = 9.3.3
+modtime = 1747080929.750218800
+
+[views/windows_-_account_management]
+version = 9.3.4
+modtime = 1748017300.287329800
+
+[views/scuba]
+version = 9.3.2
+modtime = 1736954709.796406800
+
+[inputs/tcp%3A%2F%2F1473]
+version = 9.3.1
+modtime = 1736187583.990093800
+
+[views/AD_audit_report]
+version = 9.3.2
+modtime = 1741112128.586098100
+
+[views/splunk_management]
+version = 9.3.4
+modtime = 1748453853.598612400
+
+[views/overview_copy]
+owner = nnelson_sec
+version = 9.3.3
+modtime = 1746101824.921080500
+
+[views/Overview]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = nobody
+version = 9.3.4
+modtime = 1748360256.327535700
+
+[views/executive_summary_copy]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.4
+modtime = 1748018433.575222100
+
+[savedsearches/Interactive%20Logon%20Count%20Failures]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.3
+modtime = 1747065459.515173200
+
+[savedsearches/Interactive%20Logon%20Count]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.3
+modtime = 1747065450.053821200
+
+[views/authentications]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.3
+modtime = 1747230591.027662600
+
+[views/it_overview]
+export = none
+owner = admin
+version = 9.3.3
+modtime = 1747081070.443099600
+
+[views/conmon_controls_windows]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.3
+modtime = 1747316827.538591100
+
+[views/conmon_controls_linux]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.3
+modtime = 1747230528.028585800
+
+[views/linux_-_hardwaresoftware]
+export = none
+owner = admin
+version = 9.3.4
+modtime = 1748018698.056883500
+
+[views/vmware_overview]
+export = none
+owner = admin
+version = 9.3.4
+modtime = 1748018707.579016200
+
+[views/windows_summary]
+version = 9.3.4
+modtime = 1748360197.008689100
+
+[views/splunk_management_new]
+owner = nnelson_sec
+version = 9.3.4
+modtime = 1748457996.007359600
+
+[views/network_traffic]
+access = read : [ * ], write : [ admin, power ]
+export = system
+owner = admin
+version = 9.3.4
+modtime = 1748457470.656946800
+

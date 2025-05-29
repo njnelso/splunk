@@ -1,0 +1,252 @@
+<form version="1.1" theme="dark">
+  <label>Windows - Authentication</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="text" token="user_token" searchWhenChanged="true">
+      <label>User</label>
+      <default>*</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Interactive Logons - Success</h1>
+      </div>
+      </html>
+      <single>
+        <search>
+          <query>index=winevents source="wineventlog:security" user=$user_token$ EventCode=4624 Security_ID="PROGRAM*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 
+| dedup _time Account_Name 
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0xf7bc38"]</option>
+        <option name="rangeValues">[90]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Logons</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <search>
+          <query>index=winevents source="wineventlog:security" user=$user_token$ (EventCode=4624 Security_ID="PROGRAM*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10)
+| dedup _time host user
+| eval Logon_Type_Description=case(Logon_Type==2, "Interactive", Logon_Type==7, "Unlock", Logon_Type==10, "Remote Interactive")
+| table _time host user Logon_Type_Description</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Interactive Logons - Failure</h1>
+      </div>
+      </html>
+      <single>
+        <search>
+          <query>index=winevents source="wineventlog:security" user=$user_token$ EventCode=4625 Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 
+| dedup _time
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0xd93f3c"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Attempts</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <search>
+          <query>index=winevents source="wineventlog:security" EventCode=4625 user=$user_token$ Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 
+| dedup _time
+| eval Logon_Type_Description=case(Logon_Type==2, "Interactive", Logon_Type==7, "Unlock", Logon_Type==10, "Remote Interactive")
+| table _time host user Logon_Type_Description Failure_Reason</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <format type="number" field="Logon_Type_Description"></format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>After Hours Logons</h1>
+      </div>
+      </html>
+      <single>
+        <title>Includes Saturday &amp; Sunday and between the hours of 6PM and 6AM</title>
+        <search>
+          <query>index=winevents sourcetype="security" EventCode=4624 Security_ID="PROGRAM*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10
+| eval hour=strftime(_time, "%H"), day=strftime(_time, "%A")
+| search (day IN("Saturday", "Sunday")) OR (hour &gt;= 18 OR hour &lt; 6) 
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0xcba700"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Logons</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <search>
+          <query>index=winevents sourcetype="security" EventCode=4624 Security_ID="PROGRAM*" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10
+| eval hour=strftime(_time, "%H"), day=strftime(_time, "%A")
+| search (day IN("Saturday", "Sunday")) OR (hour &gt;= 18 OR hour &lt; 6)
+| eval Logon_Type_Description=case(Logon_Type==2, "Interactive", Logon_Type==7, "Unlock", Logon_Type==10, "Remote Interactive")
+| table _time host user Logon_Type_Description
+| sort - _time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Failed Logons by User</h1>
+      </div>
+      </html>
+      <table>
+        <title>Interactive</title>
+        <search>
+          <query>index=winevents source="wineventlog:security" user=$user_token$ EventCode=4625 Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 
+| dedup _time
+| stats count by user
+| sort - count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <format type="color" field="count">
+          <colorPalette type="minMidMax" maxColor="#D93F3C" midColor="#F86C6B" minColor="#FFC0CB"></colorPalette>
+          <scale type="minMidMax" midValue="2"></scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Interactive Logoffs - Success</h1>
+      </div>
+      </html>
+      <single>
+        <search>
+          <query>index=winevents source="wineventlog:security" user=$user_token$ EventCode=4800 OR EventCode=4647
+| dedup _time
+| stats count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x555","0x1182f3"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Logoffs</option>
+        <option name="useColors">1</option>
+      </single>
+      <table>
+        <search>
+          <query>index=winevents source="wineventlog:security" user=$user_token$ EventCode=4800 OR EventCode=4647 
+| dedup _time
+| eval Action=case(EventCode=4800, "Lock", EventCode=4647, "Logoff")
+| table _time host user Action</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Network Logons</h1>
+      </div>
+      </html>
+      <chart>
+        <search>
+          <query>index=winevents sourcetype=security EventCode=4624 Logon_Type=3 Security_ID="PROGRAM*" user!="*$" 
+| timechart count span=1h by user</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <input type="time" token="field2">
+        <label></label>
+        <default>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+        </default>
+      </input>
+      <input type="text" token="user_token1" searchWhenChanged="true">
+        <label>User</label>
+        <default>*</default>
+      </input>
+      <input type="text" token="ip_token" searchWhenChanged="true">
+        <label>IP Address</label>
+        <default>*</default>
+      </input>
+      <input type="text" token="auth_token" searchWhenChanged="true">
+        <label>Authentication Package</label>
+        <default>*</default>
+      </input>
+      <table>
+        <search>
+          <query>index=winevents sourcetype=security EventCode=4624 Logon_Type=3 Security_ID="PROGRAM*" user!="*$"
+| search user=$user_token1$ Source_Network_Address=$ip_token$ Authentication_Package=$auth_token$
+| join Source_Network_Address [ search index=windows source="script:get-adcomputer.bat" IPv4address!=null | rename IPv4address AS Source_Network_Address | table Name Source_Network_Address ]
+| rename Authentication_Package AS "Authentication Package"
+| rename Logon_Process AS "Logon Process"
+| rename Source_Network_Address AS "Source IP Address"
+| rename Source_Port AS "Source Port"
+| rename Name AS "Source Host"
+| table _time host user "Authentication Package" "Logon Process" "Source Host" "Source IP Address" "Source Port"</query>
+          <earliest>$field2.earliest$</earliest>
+          <latest>$field2.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>

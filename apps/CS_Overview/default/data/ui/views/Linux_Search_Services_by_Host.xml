@@ -1,0 +1,23 @@
+<form version="1.1" theme="dark">
+  <label>Search Linux Services by Host</label>
+
+  
+  <fieldset>
+      <!-- the default is a text box, with no seed value; if user does not input
+          a value, then the $from$ token in searchTemplate will be removed -->
+      <input type="text" token="Host" />
+  </fieldset>
+
+  <row>
+      <!-- output the results as a 50 row events view -->
+      <panel>
+        <table>
+            <title>Services Results sorted by service</title>
+          <!-- define master search template, with replacement tokens delimited with $. This is an example, replace with your own search.-->
+  <searchTemplate>index=nix host="$Host$" sourcetype=service  earliest=-1d@d Service=* (runlevel1=on OR runlevel2=on OR runlevel3=on OR runlevel4=on OR runlevel5=on)  | dedup Service | eval Date=strftime(_time, "%m-%d-%Y") | table Date, host, Service, Severity, Description | sort by Service</searchTemplate>
+            <option name="count">50</option>
+        </table>
+      </panel>
+  </row>
+
+</form>

@@ -1,0 +1,80 @@
+<form version="1.1" theme="dark">
+  <label>Windows - Baseline</label>
+  <description>Hardware &amp; Software Baseline</description>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Software</title>
+      <input type="text" token="host_token" searchWhenChanged="true">
+        <label>Host Name</label>
+        <default>*</default>
+        <initialValue>*</initialValue>
+        <prefix>*</prefix>
+        <suffix>*</suffix>
+      </input>
+      <input type="text" token="software_pub">
+        <label>Publisher</label>
+        <default>*</default>
+        <initialValue>*</initialValue>
+        <prefix>*</prefix>
+        <suffix>*</suffix>
+      </input>
+      <input type="text" token="software_token">
+        <label>Software Name</label>
+        <default>*</default>
+        <initialValue>*</initialValue>
+        <prefix>*</prefix>
+        <suffix>*</suffix>
+      </input>
+      <table>
+        <search>
+          <query>index=windows sourcetype="InstalledApps" host=$host_token$ DisplayName="$software_token$" Publisher="$software_pub$" NOT DisplayName="\"\""  
+| dedup host DisplayName Publisher DisplayVersion InstallDate InstallSource  
+| table  host DisplayName Publisher DisplayVersion InstallDate InstallSource  
+| sort  DisplayName</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Operating System</title>
+      <table>
+        <search>
+          <query>index=windows sourcetype=OperatingSystem 
+| dedup host OS Version BuildNumber
+| table host OS Architecture Version BuildNumber</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Hardware</title>
+      <table>
+        <search>
+          <query>index=windows sourcetype=Computer
+| dedup Name Manufacturer Model 
+| table Name Manufacturer Model</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>

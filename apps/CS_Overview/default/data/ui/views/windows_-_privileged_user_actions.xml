@@ -1,0 +1,217 @@
+<form version="1.1" theme="dark">
+  <label>Windows - Privileged User Actions</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+      <div>To view documentation for this dashboard, click here: <a href="https://localhost:8000/static/app/CS_Overview/Win-Privileged-User.pdf" target="_blank">Link to Documentation</a>
+        </div>
+    </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Processes Created by User</h1>
+      </div>
+      </html>
+      <chart>
+        <search>
+          <query>index=winevents source="WinEventLog:Security" EventCode=4688 Security_ID="PROGRAM*" NOT user=*$
+| dedup _time host user New_Process_Name Process_Command_Line 
+| stats count by user
+| sort - count
+| head 10</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+        <option name="height">347</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Processes Created - Top 10 Processes</h1>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents source="WinEventLog:Security" EventCode=4688 Security_ID="PROGRAM*"
+| dedup _time host user New_Process_Name Process_Command_Line 
+| rename New_Process_Name AS "Process Name"
+| stats count by user "Process Name"
+| sort - count
+| head 10</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Processes Created - Details</title>
+      <input type="time" token="field2">
+        <label>Time</label>
+        <default>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+        </default>
+      </input>
+      <input type="text" token="host_token1">
+        <label>Host</label>
+        <default>*</default>
+        <suffix>*</suffix>
+      </input>
+      <input type="text" token="user_token1">
+        <label>User</label>
+        <default>*</default>
+      </input>
+      <input type="text" token="process_token1">
+        <label>Process Name</label>
+        <default>*</default>
+        <prefix>*</prefix>
+        <suffix>*</suffix>
+      </input>
+      <table>
+        <title>[Drilldown: Use the Above Filters to Search]</title>
+        <search>
+          <query>index=winevents source="WinEventLog:Security" Security_ID="PROGRAM*" host=$host_token1$ user=$user_token1$ New_Process_Name="$process_token1$"
+| dedup _time host user New_Process_Name Process_Command_Line 
+| stats count latest(_time) AS _time by host user Creator_Process_Name New_Process_Name Process_Command_Line 
+| table _time host user Creator_Process_Name New_Process_Name Process_Command_Line count</query>
+          <earliest>$field2.earliest$</earliest>
+          <latest>$field2.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Privileged Objects</h1>
+      </div>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Actions Taken on Privileged Objects by User</h1>
+      </div>
+      </html>
+      <chart>
+        <search>
+          <query>index=winevents EventCode=4674 NOT (Object_Type="-" OR Object_Name="-")
+| timechart count span=1h BY user</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.nullValueMode">zero</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.drilldown">none</option>
+        <option name="height">286</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Actions Taken on Privileged Objects - Top 10 Objects</h1>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents EventCode=4674 NOT (Object_Type="-" OR Object_Name="-")
+| stats count by user Object_Type Object_Name 
+| sort - count
+| head 10</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Actions Taken on Privileged Objects - Details</title>
+      <input type="time" token="field3">
+        <label>Time</label>
+        <default>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+        </default>
+      </input>
+      <input type="text" token="host_token2">
+        <label>Host</label>
+        <default>*</default>
+      </input>
+      <input type="text" token="user_token2">
+        <label>User</label>
+        <default>*</default>
+      </input>
+      <input type="text" token="desired_access_token2">
+        <label>Desired Access</label>
+        <default>*</default>
+      </input>
+      <input type="text" token="object_type_token2">
+        <label>Object Type</label>
+        <default>*</default>
+      </input>
+      <table>
+        <title>[Drilldown: Use the Above Filters to Search]</title>
+        <search>
+          <query>index=winevents EventCode=4674 host=$host_token2$ user=$user_token2$ Desired_Access=$desired_access_token2$ Object_Type=$object_type_token2$ NOT (Object_Type="-" OR Object_Name="-")
+| stats count latest(_time) AS _time values(host) AS Host BY user Desired_Access Object_Type Object_Name
+| table _time host user Desired_Access Object_Type Object_Name count
+| sort - count</query>
+          <earliest>$field3.earliest$</earliest>
+          <latest>$field3.latest$</latest>
+        </search>
+        <option name="count">15</option>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>SC-28 - Protection of Information at Rest</title>
+      <table>
+        <title>Bitlocker Events</title>
+        <search>
+          <query>index=winevents sourcetype=bitlocker-api EventCode=773 OR EventCode=774 OR EventCode=770 OR EventCode=768
+| table _time host Message LogName Type EventCode</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+</form>

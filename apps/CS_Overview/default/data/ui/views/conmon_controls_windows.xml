@@ -1,0 +1,600 @@
+
+<dashboard version="2" theme="dark">
+    <label>Windows - ConMon</label>
+    <description></description>
+    <definition><![CDATA[
+{
+	"visualizations": {
+		"viz_DDCf4y6Y": {
+			"type": "splunk.column",
+			"options": {
+				"xAxisTitleVisibility": "hide",
+				"yAxisTitleVisibility": "hide",
+				"backgroundColor": "transparent"
+			},
+			"dataSources": {
+				"primary": "ds_YrnPGVWT"
+			},
+			"containerOptions": {},
+			"showProgressBar": false,
+			"showLastUpdated": false,
+			"title": "AU-9(2) - Store on Separate Physical Device",
+			"description": "Log Collection Scheduled Task",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_KmFL39is": {
+			"type": "splunk.table",
+			"dataSources": {
+				"primary": "ds_Us973SEk"
+			},
+			"showProgressBar": true,
+			"title": "AU-5(1) - Storage Capacity Warning",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "All System Storage Details",
+			"options": {
+				"drilldown": "none",
+				"showInternalFields": false,
+				"columnFormat": {
+					"UsedPct": {
+						"data": "> table | seriesByName(\"UsedPct\") | formatByType(UsedPctColumnFormatEditorConfig)",
+						"rowBackgroundColors": "> table | seriesByName(\"UsedPct\") | rangeValue(UsedPctColumnColorConfig)"
+					},
+					"Name": {
+						"width": 60
+					},
+					"UsedGB": {
+						"width": 68,
+						"data": "> table | seriesByName(\"UsedGB\") | formatByType(UsedGBColumnFormatEditorConfig)"
+					},
+					"TotalGB": {
+						"width": 63,
+						"data": "> table | seriesByName(\"TotalGB\") | formatByType(TotalGBColumnFormatEditorConfig)"
+					}
+				},
+				"backgroundColor": "#2f3241",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				},
+				"count": 15
+			},
+			"context": {
+				"UsedPctColumnNumberConfig": {
+					"number": {
+						"precision": 2,
+						"thousandSeparated": true,
+						"unitPosition": "after",
+						"unit": "%"
+					}
+				},
+				"UsedPctColumnColorConfig": [
+					{
+						"to": 75,
+						"value": "#277C52"
+					},
+					{
+						"from": 75,
+						"to": 90,
+						"value": "#F58F39"
+					},
+					{
+						"from": 90,
+						"value": "#D93F3C"
+					}
+				],
+				"UsedPctColumnFormatEditorConfig": {
+					"number": {
+						"unitPosition": "after",
+						"unit": "%",
+						"precision": 1,
+						"thousandSeparated": true
+					}
+				},
+				"TotalGBColumnFormatEditorConfig": {
+					"number": {
+						"thousandSeparated": false,
+						"unitPosition": "after",
+						"unit": "GB",
+						"precision": 1
+					}
+				},
+				"UsedGBColumnFormatEditorConfig": {
+					"number": {
+						"thousandSeparated": false,
+						"unitPosition": "after",
+						"unit": "GB",
+						"precision": 1
+					}
+				}
+			}
+		},
+		"viz_meRponmI": {
+			"type": "splunk.table",
+			"options": {
+				"columnFormat": {
+					"Patch": {
+						"width": 61
+					},
+					"Description": {
+						"width": 72
+					},
+					"host": {
+						"width": 66
+					},
+					"Install Date": {
+						"width": 70
+					}
+				},
+				"backgroundColor": "#2f3241",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				},
+				"fontSize": "small"
+			},
+			"dataSources": {
+				"primary": "ds_pJObXv1H"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "SI-2 - Flaw Remediation",
+			"description": "Windows Security Updates"
+		},
+		"viz_KqGJKGqc": {
+			"type": "splunk.table",
+			"options": {
+				"backgroundColor": "#2f3241",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_N5yUOAp6"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "SC-45 - System Time Synchronization",
+			"description": "NTP Source and Sync Time"
+		},
+		"viz_sO6RpuFP": {
+			"type": "splunk.column",
+			"dataSources": {
+				"primary": "ds_9x4fuMkA"
+			},
+			"title": "CP-9 - Systems Backup",
+			"options": {
+				"backgroundColor": "transparent",
+				"xAxisTitleVisibility": "hide",
+				"yAxisTitleVisibility": "hide"
+			},
+			"description": "Windows Server Backup - Success"
+		},
+		"viz_jDC36uNL": {
+			"type": "splunk.column",
+			"dataSources": {
+				"primary": "ds_jhgs57LV_ds_9x4fuMkA"
+			},
+			"title": "CP-9 - Systems Backup",
+			"options": {
+				"backgroundColor": "transparent",
+				"yAxisTitleVisibility": "hide",
+				"xAxisTitleVisibility": "hide",
+				"seriesColors": [
+					"#dc4e41",
+					"#f8be34",
+					"#f1813f",
+					"#ec9960",
+					"#f8be44",
+					"#af575a",
+					"#dc4e41",
+					"#f8be34",
+					"#f1813f",
+					"#ec9960",
+					"#af575a"
+				]
+			},
+			"description": "Windows Server Backup - Failure"
+		},
+		"viz_V3lcPSIq": {
+			"type": "splunk.table",
+			"options": {
+				"fontSize": "small",
+				"backgroundColor": "#2f3241",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				},
+				"columnFormat": {
+					"Type": {
+						"data": "> table | seriesByName(\"Type\") | formatByType(TypeColumnFormatEditorConfig)",
+						"rowColors": "> table | seriesByName('Type') | pick(TypeRowColorsEditorConfig)",
+						"rowBackgroundColors": "> table | seriesByName('Type') | matchValue(TypeRowBackgroundColorsEditorConfig)",
+						"width": 60
+					},
+					"host": {
+						"width": 72
+					}
+				}
+			},
+			"dataSources": {
+				"primary": "ds_xxxj9dVO"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"context": {
+				"TypeColumnFormatEditorConfig": {
+					"string": {
+						"unitPosition": "after"
+					}
+				},
+				"TypeRowColorsEditorConfig": [
+					"#ffffff"
+				],
+				"TypeRowBackgroundColorsEditorConfig": [
+					{
+						"match": "Error",
+						"value": "#DC4E41"
+					}
+				]
+			},
+			"title": "CP-9 - System Backups",
+			"description": "Windows Server Backup"
+		},
+		"viz_k85JVc3i": {
+			"type": "splunk.table",
+			"dataSources": {
+				"primary": "ds_WQexR9pU"
+			},
+			"title": "SI-3 - Malicious Code Protection",
+			"description": "Antivirus & Antispyware Definitions",
+			"options": {
+				"backgroundColor": "#2f3241",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				},
+				"columnFormat": {
+					"Antispyware Age": {
+						"width": 60,
+						"data": "> table | seriesByName(\"Antispyware Age\") | formatByType(Antispyware_AgeColumnFormatEditorConfig)",
+						"rowColors": "> table | seriesByName('Antispyware Age') | pick(Antispyware_AgeRowColorsEditorConfig)",
+						"rowBackgroundColors": "> table | seriesByName(\"Antispyware Age\") | rangeValue(Antispyware_AgeRowBackgroundColorsEditorConfig)"
+					},
+					"host": {
+						"width": 78
+					},
+					"Antivirus Age": {
+						"width": 67
+					},
+					"AV Age": {
+						"width": 60,
+						"data": "> table | seriesByName(\"AV Age\") | formatByType(AV_AgeColumnFormatEditorConfig)",
+						"rowColors": "> table | seriesByName('AV Age') | pick(AV_AgeRowColorsEditorConfig)",
+						"rowBackgroundColors": "> table | seriesByName(\"AV Age\") | rangeValue(AV_AgeRowBackgroundColorsEditorConfig)"
+					}
+				},
+				"fontSize": "small"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"context": {
+				"Antispyware_AgeColumnFormatEditorConfig": {
+					"number": {
+						"thousandSeparated": false,
+						"unitPosition": "after"
+					}
+				},
+				"Antispyware_AgeRowColorsEditorConfig": [
+					"#ffffff"
+				],
+				"Antispyware_AgeRowBackgroundColorsEditorConfig": [
+					{
+						"value": "#53A051",
+						"to": 8
+					},
+					{
+						"value": "#F1813F",
+						"from": 8,
+						"to": 14
+					},
+					{
+						"value": "#D93F3C",
+						"from": 14
+					}
+				],
+				"AV_AgeColumnFormatEditorConfig": {
+					"number": {
+						"thousandSeparated": false,
+						"unitPosition": "after"
+					}
+				},
+				"AV_AgeRowColorsEditorConfig": [
+					"#ffffff"
+				],
+				"AV_AgeRowBackgroundColorsEditorConfig": [
+					{
+						"value": "#53A051",
+						"to": 8
+					},
+					{
+						"value": "#F1813F",
+						"from": 8,
+						"to": 14
+					},
+					{
+						"value": "#D93F3C",
+						"from": 14
+					}
+				]
+			}
+		}
+	},
+	"dataSources": {
+		"ds_YrnPGVWT": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=security EventCode=4688 \"LogCollection.ps1\"\n| timechart count by Keywords",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Log Collection"
+		},
+		"ds_Us973SEk": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=\"script:getpsdrive\"\n| dedup host Name\n| table host Name UsedGB TotalGB UsedPct",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Storage Capacity Warning Windows"
+		},
+		"ds_pJObXv1H": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows sourcetype=_json  source=\"Script:Windows-update-status\" \n| dedup host Description\n| rename HotFixID AS Patch \n| eval Install_Date = strftime(strptime('InstalledOn.DateTime', \"%A, %B %d, %Y %I:%M:%S %p\"), \"%Y-%m-%d %H:%M:%S\")\n| rename Install_Date AS \"Install Date\"  \n| table  \"Install Date\" host Description Patch InstalledBy \n| sort - \"Install Date\"",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Windows Updates"
+		},
+		"ds_N5yUOAp6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=windows source=script:get-ntpstatus\n| dedup host\n| table host NtpSource LastSyncTime PollInterval",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "System Time Sync"
+		},
+		"ds_9x4fuMkA": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=win_backups EventCode=4\n| timechart count by host",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Windows Server Backup"
+		},
+		"ds_jhgs57LV_ds_9x4fuMkA": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=win_backups EventCode=19 OR EventCode=49\n| timechart count by host",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Windows Server Backup Failure"
+		},
+		"ds_xxxj9dVO": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents sourcetype=win_backups EventCode=4 OR EventCode=19 OR EventCode=49\r\n| eval Event=case(EventCode==49, \"Backup Failed: No backup storage location could be found\", EventCode==19, \"Backup Failed: Operation failed to start\", EventCode==4, \"Backup Successfully Completed\")\r\n| eval Time=strftime(_time, \"%Y-%m-%d %H:%M:%S\")\r\n| table Time host Type Event",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Windows Server Backup Table"
+		},
+		"ds_WQexR9pU": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"WinEventLog:Microsoft-Windows-Windows Defender/Operational\" EventCode=1151\r\n| eval Antispyware_security_intelligence_creation_time = strftime(strptime(Antispyware_security_intelligence_creation_time, \"%Y-%m-%dT%H:%M:%SZ\"), \"%Y-%m-%d %H:%M:%S\")\r\n| eval Antivirus_security_intelligence_creation_time = strftime(strptime(Antivirus_security_intelligence_creation_time, \"%Y-%m-%dT%H:%M:%SZ\"), \"%Y-%m-%d %H:%M:%S\")\r\n| stats latest(Antispyware_security_intelligence_age) AS \"Antispyware Age\" latest(Antispyware_security_intelligence_creation_time) AS \"Antispyware Definitions Date\" latest(Antivirus_security_intelligence_age) AS \"AV Age\" latest(Antivirus_security_intelligence_creation_time) AS \"Antivirus Definitions Date\" by host",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Antivirus"
+		}
+	},
+	"defaults": {
+		"dataSources": {
+			"ds.search": {
+				"options": {
+					"queryParameters": {
+						"latest": "$global_time.latest$",
+						"earliest": "$global_time.earliest$"
+					}
+				}
+			}
+		}
+	},
+	"inputs": {
+		"input_global_trp": {
+			"type": "input.timerange",
+			"options": {
+				"token": "global_time",
+				"defaultValue": "-7d@d,now"
+			},
+			"title": ""
+		}
+	},
+	"layout": {
+		"type": "absolute",
+		"options": {
+			"width": 1440,
+			"height": 2000,
+			"backgroundImage": {
+				"x": 0,
+				"y": 0,
+				"src": "splunk-enterprise-kvstore://68225b7e3653a013370b201a",
+				"sizeType": "cover"
+			},
+			"display": "fit-to-width",
+			"showTitleAndDescription": false
+		},
+		"structure": [
+			{
+				"item": "viz_DDCf4y6Y",
+				"type": "block",
+				"position": {
+					"x": 730,
+					"y": 70,
+					"w": 700,
+					"h": 230
+				}
+			},
+			{
+				"item": "viz_KmFL39is",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 70,
+					"w": 705,
+					"h": 550
+				}
+			},
+			{
+				"item": "viz_meRponmI",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 1170,
+					"w": 705,
+					"h": 520
+				}
+			},
+			{
+				"item": "viz_KqGJKGqc",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 630,
+					"w": 705,
+					"h": 530
+				}
+			},
+			{
+				"item": "viz_sO6RpuFP",
+				"type": "block",
+				"position": {
+					"x": 730,
+					"y": 300,
+					"w": 700,
+					"h": 210
+				}
+			},
+			{
+				"item": "viz_jDC36uNL",
+				"type": "block",
+				"position": {
+					"x": 730,
+					"y": 510,
+					"w": 700,
+					"h": 210
+				}
+			},
+			{
+				"item": "input_global_trp",
+				"type": "input",
+				"position": {
+					"x": 1240,
+					"y": -10,
+					"w": 184,
+					"h": 82
+				}
+			},
+			{
+				"item": "viz_V3lcPSIq",
+				"type": "block",
+				"position": {
+					"x": 730,
+					"y": 730,
+					"w": 700,
+					"h": 520
+				}
+			},
+			{
+				"item": "viz_k85JVc3i",
+				"type": "block",
+				"position": {
+					"x": 730,
+					"y": 1260,
+					"w": 700,
+					"h": 430
+				}
+			}
+		],
+		"globalInputs": []
+	},
+	"description": "",
+	"title": "Windows - ConMon"
+}
+    ]]></definition>
+    <meta type="hiddenElements"><![CDATA[
+{
+	"hideEdit": false,
+	"hideOpenInSearch": false,
+	"hideExport": false
+}
+    ]]></meta>
+</dashboard>

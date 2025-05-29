@@ -1,0 +1,1158 @@
+
+<dashboard version="2" theme="dark">
+    <label>Authentications</label>
+    <description>Windows &amp; Linux</description>
+    <definition><![CDATA[
+{
+	"visualizations": {
+		"viz_ecsStjP9": {
+			"type": "splunk.table",
+			"options": {
+				"columnFormat": {
+					"host": {
+						"width": 65
+					},
+					"user": {
+						"width": 60
+					},
+					"_time": {
+						"width": 119
+					},
+					"Time": {
+						"width": 90
+					}
+				},
+				"fontSize": "small",
+				"backgroundColor": "#12282b",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_B2KBGtyi"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "Successful Logons",
+			"description": "Windows"
+		},
+		"viz_39U6hbel": {
+			"type": "splunk.table",
+			"options": {
+				"columnFormat": {
+					"host": {
+						"width": 68
+					},
+					"user": {
+						"width": 109
+					},
+					"_time": {
+						"width": 119
+					},
+					"count": {
+						"data": "> table | seriesByName(\"count\") | formatByType(countColumnFormatEditorConfig)"
+					}
+				},
+				"fontSize": "small",
+				"backgroundColor": "#12282b",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_eJRdTt4t_ds_B2KBGtyi"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "Failed Logons Summary by User",
+			"context": {
+				"countColumnFormatEditorConfig": {
+					"number": {
+						"thousandSeparated": false,
+						"unitPosition": "after"
+					}
+				}
+			},
+			"description": "Windows & Linux"
+		},
+		"viz_70IKxxzq": {
+			"type": "splunk.table",
+			"options": {
+				"fontSize": "small",
+				"columnFormat": {
+					"Logon_Type": {
+						"width": 60
+					},
+					"user": {
+						"width": 77
+					},
+					"host": {
+						"width": 68
+					},
+					"Time": {
+						"width": 87
+					}
+				},
+				"backgroundColor": "#12282b",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_gV8Us9OB"
+			},
+			"title": "Failed Logons",
+			"description": "Windows",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			]
+		},
+		"viz_kPCyDYlZ": {
+			"type": "splunk.singlevalue",
+			"showProgressBar": true,
+			"dataSources": {
+				"primary": "ds_I7IxYdl6"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": true
+					}
+				}
+			],
+			"title": "Interactive Logons",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Windows",
+			"options": {
+				"underLabel": "Successful Logons",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#708794",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			}
+		},
+		"viz_jGn5y424": {
+			"type": "splunk.singlevalue",
+			"showProgressBar": true,
+			"dataSources": {
+				"primary": "ds_HBrSjawP_ds_I7IxYdl6"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": true
+					}
+				}
+			],
+			"title": "Unlocks",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Windows",
+			"options": {
+				"underLabel": "Successful Logons",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#708794",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			}
+		},
+		"viz_SQHc7sRS": {
+			"type": "splunk.singlevalue",
+			"showProgressBar": true,
+			"dataSources": {
+				"primary": "ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": true
+					}
+				}
+			],
+			"title": "Remote Logons",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Windows",
+			"options": {
+				"underLabel": "Successful Logons",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#708794",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			}
+		},
+		"viz_9Ma8gvmQ": {
+			"type": "splunk.singlevalue",
+			"showProgressBar": true,
+			"dataSources": {
+				"primary": "ds_ZkoWnzYY_ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": true
+					}
+				}
+			],
+			"title": "Interactive Logons",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Windows",
+			"options": {
+				"underLabel": "Failed Logons",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			}
+		},
+		"viz_BxU9JTMt": {
+			"type": "splunk.singlevalue",
+			"showProgressBar": true,
+			"dataSources": {
+				"primary": "ds_Y6zLGfPa_ds_ZkoWnzYY_ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": true
+					}
+				}
+			],
+			"title": "Unlocks",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Windows",
+			"options": {
+				"underLabel": "Failed Logons",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			}
+		},
+		"viz_fT7w8JWO": {
+			"type": "splunk.singlevalue",
+			"showProgressBar": true,
+			"dataSources": {
+				"primary": "ds_AdQ32AbM_ds_Y6zLGfPa_ds_ZkoWnzYY_ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": true
+					}
+				}
+			],
+			"title": "Remote Logons",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Windows",
+			"options": {
+				"underLabel": "Failed Logons",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			}
+		},
+		"viz_yYigAOCa": {
+			"type": "splunk.singlevalue",
+			"showProgressBar": true,
+			"dataSources": {
+				"primary": "ds_uwWHcCgz_ds_AdQ32AbM_ds_Y6zLGfPa_ds_ZkoWnzYY_ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": true
+					}
+				}
+			],
+			"title": "Logoffs",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Windows",
+			"options": {
+				"underLabel": "Logoffs",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#708794",
+						"to": 1
+					},
+					{
+						"value": "#1182f3",
+						"from": 1
+					}
+				]
+			}
+		},
+		"viz_ez6guOvA": {
+			"type": "splunk.singlevalue",
+			"showProgressBar": true,
+			"dataSources": {
+				"primary": "ds_fwLEIHmc_ds_I7IxYdl6"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": true
+					}
+				}
+			],
+			"title": "GNOME Logons",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Linux",
+			"options": {
+				"underLabel": "Successful Logons",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#708794",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			}
+		},
+		"viz_56RMYLey": {
+			"type": "splunk.singlevalue",
+			"showProgressBar": true,
+			"dataSources": {
+				"primary": "ds_wo7MY9hb_ds_fwLEIHmc_ds_I7IxYdl6"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": true
+					}
+				}
+			],
+			"title": "SSH Logons",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Linux",
+			"options": {
+				"underLabel": "Successful Logons",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#708794",
+						"to": 1
+					},
+					{
+						"value": "#53a051",
+						"from": 1
+					}
+				]
+			}
+		},
+		"viz_tX8OfBfI": {
+			"type": "splunk.table",
+			"options": {
+				"columnFormat": {
+					"host": {
+						"width": 144
+					},
+					"user": {
+						"width": 60
+					},
+					"_time": {
+						"width": 119
+					},
+					"Time": {
+						"width": 122
+					},
+					"acct": {
+						"width": 162
+					}
+				},
+				"fontSize": "small",
+				"backgroundColor": "#12282b",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_YIWyhvDH_ds_B2KBGtyi"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "Successful Logons",
+			"description": "Linux"
+		},
+		"viz_EjPLAmAU": {
+			"type": "splunk.table",
+			"options": {
+				"columnFormat": {
+					"host": {
+						"width": 144
+					},
+					"user": {
+						"width": 60
+					},
+					"_time": {
+						"width": 119
+					},
+					"Time": {
+						"width": 122
+					},
+					"acct": {
+						"width": 162
+					}
+				},
+				"fontSize": "small",
+				"backgroundColor": "#12282b",
+				"tableFormat": {
+					"rowBackgroundColors": "> table | seriesByIndex(0) | pick(tableAltRowBackgroundColorsByBackgroundColor)",
+					"headerBackgroundColor": "> backgroundColor | setColorChannel(tableHeaderBackgroundColorConfig)",
+					"rowColors": "> rowBackgroundColors | maxContrast(tableRowColorMaxContrast)",
+					"headerColor": "> headerBackgroundColor | maxContrast(tableRowColorMaxContrast)"
+				}
+			},
+			"dataSources": {
+				"primary": "ds_sHsgVtgE_ds_YIWyhvDH_ds_B2KBGtyi"
+			},
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"title": "Failed Logons",
+			"description": "Linux"
+		},
+		"viz_59BXlLsB": {
+			"type": "splunk.singlevalue",
+			"showProgressBar": true,
+			"dataSources": {
+				"primary": "ds_m0fiVcCS_ds_Y6zLGfPa_ds_ZkoWnzYY_ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": true
+					}
+				}
+			],
+			"title": "GNOME Logons",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Linux",
+			"options": {
+				"underLabel": "Failed Logons",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			}
+		},
+		"viz_w5xckwoG": {
+			"type": "splunk.singlevalue",
+			"showProgressBar": true,
+			"dataSources": {
+				"primary": "ds_nP1L7jGD_ds_m0fiVcCS_ds_Y6zLGfPa_ds_ZkoWnzYY_ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToSearch",
+					"options": {
+						"type": "auto",
+						"newTab": true
+					}
+				}
+			],
+			"title": "SSH Logons",
+			"cornerRadius": [
+				8,
+				8,
+				8,
+				8
+			],
+			"description": "Linux",
+			"options": {
+				"underLabel": "Failed Logons",
+				"backgroundColor": "> majorValue | rangeValue(backgroundColorEditorConfig)"
+			},
+			"context": {
+				"convertedColorRange": [
+					{
+						"from": 90,
+						"value": "#f7bc38"
+					},
+					{
+						"to": 90,
+						"value": "#53a051"
+					}
+				],
+				"backgroundColorEditorConfig": [
+					{
+						"value": "#53a051",
+						"to": 1
+					},
+					{
+						"value": "#d93f3c",
+						"from": 1
+					}
+				]
+			}
+		}
+	},
+	"dataSources": {
+		"ds_B2KBGtyi": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" (EventCode=4624 Security_ID=\"PROGRAM*\" Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10)\n| dedup _time host user\n| eval Logon_Type=case(Logon_Type==2, \"Interactive\", Logon_Type==7, \"Unlock\", Logon_Type==10, \"Remote Interactive\")\n| eval Time = strftime(_time, \"%Y-%m-%d %H:%M:%S\")\n| table Time host user Logon_Type",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Successful Logons Windows"
+		},
+		"ds_eJRdTt4t_ds_B2KBGtyi": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" EventCode=4625 Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 \n| dedup _time Account_Name\n| append [search index=nix (sourcetype=audit_log op=\"PAM:authentication\"  exe=\"/usr/lib/gdm3/gdm-session-worker\" NOT acct=gdm res=failed)]\n| stats count by user\n| sort -count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Failed Logons Summary"
+		},
+		"ds_gV8Us9OB": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" EventCode=4625 Logon_Type=2 OR Logon_Type=7 OR Logon_Type=10 \n| dedup _time\n| eval Logon_Type=case(Logon_Type==2, \"Interactive\", Logon_Type==7, \"Unlock\", Logon_Type==10, \"Remote Interactive\")\n| eval Time = strftime(_time, \"%Y-%m-%d %H:%M:%S\")\n| table Time host user Logon_Type Failure_Reason"
+			},
+			"name": "Search_1"
+		},
+		"ds_I7IxYdl6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" EventCode=4624 Security_ID=\"PROGRAM*\" Logon_Type=2\n| dedup _time Account_Name \n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Interactive Logon"
+		},
+		"ds_HBrSjawP_ds_I7IxYdl6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" EventCode=4624 Security_ID=\"PROGRAM*\" Logon_Type=7\n| dedup _time Account_Name \n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Unlock Logon"
+		},
+		"ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" EventCode=4624 Security_ID=\"PROGRAM*\" Logon_Type=10\n| dedup _time Account_Name \n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Remote Logon"
+		},
+		"ds_ZkoWnzYY_ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" EventCode=4625 Logon_Type=2\n| dedup _time Account_Name \n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Failed Interactive Logons"
+		},
+		"ds_Y6zLGfPa_ds_ZkoWnzYY_ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" EventCode=4625 Logon_Type=7\n| dedup _time Account_Name \n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Failed Unlocks"
+		},
+		"ds_AdQ32AbM_ds_Y6zLGfPa_ds_ZkoWnzYY_ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" EventCode=4625 Logon_Type=10\n| dedup _time Account_Name \n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Failed Remote Logons"
+		},
+		"ds_uwWHcCgz_ds_AdQ32AbM_ds_Y6zLGfPa_ds_ZkoWnzYY_ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=winevents source=\"wineventlog:security\" EventCode=4800 OR EventCode=4647\n| dedup _time\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Logoffs"
+		},
+		"ds_fwLEIHmc_ds_I7IxYdl6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix sourcetype=audit_log op=\"PAM:authentication\"  exe=\"/usr/lib/gdm3/gdm-session-worker\" NOT acct=gdm res=success\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "GNOME Logon"
+		},
+		"ds_wo7MY9hb_ds_fwLEIHmc_ds_I7IxYdl6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix sourcetype=audit_log op=\"PAM:authentication\" exe=\"/usr/sbin/sshd\" res=success acct!=program_svc acct!=ProgramSVC\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "SSH Logon"
+		},
+		"ds_YIWyhvDH_ds_B2KBGtyi": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix sourcetype=audit_log op=\"PAM:authentication\"  res=success exe=\"/usr/lib/gdm3/gdm-session-worker\" OR exe=\"/usr/sbin/sshd\" acct!=gdm acct!=program_svc acct!=ProgramSVC\n| eval Time = strftime(_time, \"%Y-%m-%d %H:%M:%S\")\n| eval Type=case(exe=\"/usr/lib/gdm3/gdm-session-worker\", \"GNOME\", exe=\"/usr/sbin/sshd\", \"SSH\")\n| eval Host=replace(host, \"\\..*\", \"\") \n| rename acct AS User\n| table Time Host User Type",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Successful Logons Linux"
+		},
+		"ds_sHsgVtgE_ds_YIWyhvDH_ds_B2KBGtyi": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix sourcetype=audit_log op=\"PAM:authentication\"  res=failed exe=\"/usr/lib/gdm3/gdm-session-worker\" OR exe=\"/usr/sbin/sshd\" acct!=gdm acct!=program_svc acct!=ProgramSVC acct!=\"${jndi\"\n| eval Time = strftime(_time, \"%Y-%m-%d %H:%M:%S\")\n| eval Type=case(exe=\"/usr/lib/gdm3/gdm-session-worker\", \"GNOME\", exe=\"/usr/sbin/sshd\", \"SSH\")\n| eval Host=replace(host, \"\\..*\", \"\") \n| rename acct AS User\n| table Time Host User Type",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Failed Logons Linux"
+		},
+		"ds_m0fiVcCS_ds_Y6zLGfPa_ds_ZkoWnzYY_ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix sourcetype=audit_log op=\"PAM:authentication\" exe=\"/usr/lib/gdm3/gdm-session-worker\" res=failed acct!=gdm acct!=program_svc acct!=ProgramSVC acct!=\"${jndi\"\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Failed GNOME"
+		},
+		"ds_nP1L7jGD_ds_m0fiVcCS_ds_Y6zLGfPa_ds_ZkoWnzYY_ds_qc0MV8XU_ds_HBrSjawP_ds_I7IxYdl6": {
+			"type": "ds.search",
+			"options": {
+				"query": "index=nix sourcetype=audit_log op=\"PAM:authentication\" exe=\"/usr/sbin/sshd\" res=failed acct!=program_svc acct!=ProgramSVC acct!=\"${jndi\"\n| stats count",
+				"queryParameters": {
+					"earliest": "$global_time.earliest$",
+					"latest": "$global_time.latest$"
+				}
+			},
+			"name": "Failed SSH"
+		}
+	},
+	"defaults": {
+		"dataSources": {
+			"ds.search": {
+				"options": {
+					"queryParameters": {
+						"latest": "$global_time.latest$",
+						"earliest": "$global_time.earliest$"
+					}
+				}
+			}
+		}
+	},
+	"inputs": {
+		"input_global_trp": {
+			"type": "input.timerange",
+			"options": {
+				"token": "global_time",
+				"defaultValue": "-7d@d,now"
+			},
+			"title": "Global Time"
+		}
+	},
+	"layout": {
+		"type": "absolute",
+		"options": {
+			"width": 1440,
+			"height": 1440,
+			"display": "fit-to-width",
+			"backgroundImage": {
+				"sizeType": "cover",
+				"x": 0,
+				"y": 0,
+				"src": "splunk-enterprise-kvstore://6822517e3653a013370b2017"
+			},
+			"showTitleAndDescription": false
+		},
+		"structure": [
+			{
+				"item": "viz_39U6hbel",
+				"type": "block",
+				"position": {
+					"x": 1170,
+					"y": 810,
+					"w": 260,
+					"h": 390
+				}
+			},
+			{
+				"item": "input_global_trp",
+				"type": "input",
+				"position": {
+					"x": 1266,
+					"y": 10,
+					"w": 168,
+					"h": 82
+				}
+			},
+			{
+				"item": "viz_ecsStjP9",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 160,
+					"w": 530,
+					"h": 490
+				}
+			},
+			{
+				"item": "viz_70IKxxzq",
+				"type": "block",
+				"position": {
+					"x": 550,
+					"y": 160,
+					"w": 880,
+					"h": 490
+				}
+			},
+			{
+				"item": "viz_kPCyDYlZ",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 10,
+					"w": 170,
+					"h": 140
+				}
+			},
+			{
+				"item": "viz_jGn5y424",
+				"type": "block",
+				"position": {
+					"x": 190,
+					"y": 10,
+					"w": 170,
+					"h": 140
+				}
+			},
+			{
+				"item": "viz_SQHc7sRS",
+				"type": "block",
+				"position": {
+					"x": 370,
+					"y": 10,
+					"w": 170,
+					"h": 140
+				}
+			},
+			{
+				"item": "viz_9Ma8gvmQ",
+				"type": "block",
+				"position": {
+					"x": 550,
+					"y": 10,
+					"w": 170,
+					"h": 140
+				}
+			},
+			{
+				"item": "viz_BxU9JTMt",
+				"type": "block",
+				"position": {
+					"x": 730,
+					"y": 10,
+					"w": 170,
+					"h": 140
+				}
+			},
+			{
+				"item": "viz_fT7w8JWO",
+				"type": "block",
+				"position": {
+					"x": 910,
+					"y": 10,
+					"w": 170,
+					"h": 140
+				}
+			},
+			{
+				"item": "viz_yYigAOCa",
+				"type": "block",
+				"position": {
+					"x": 1090,
+					"y": 10,
+					"w": 170,
+					"h": 140
+				}
+			},
+			{
+				"item": "viz_ez6guOvA",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 660,
+					"w": 170,
+					"h": 140
+				}
+			},
+			{
+				"item": "viz_56RMYLey",
+				"type": "block",
+				"position": {
+					"x": 190,
+					"y": 660,
+					"w": 170,
+					"h": 140
+				}
+			},
+			{
+				"item": "viz_tX8OfBfI",
+				"type": "block",
+				"position": {
+					"x": 10,
+					"y": 810,
+					"w": 570,
+					"h": 390
+				}
+			},
+			{
+				"item": "viz_EjPLAmAU",
+				"type": "block",
+				"position": {
+					"x": 590,
+					"y": 810,
+					"w": 570,
+					"h": 390
+				}
+			},
+			{
+				"item": "viz_59BXlLsB",
+				"type": "block",
+				"position": {
+					"x": 590,
+					"y": 660,
+					"w": 170,
+					"h": 140
+				}
+			},
+			{
+				"item": "viz_w5xckwoG",
+				"type": "block",
+				"position": {
+					"x": 770,
+					"y": 660,
+					"w": 170,
+					"h": 140
+				}
+			}
+		],
+		"globalInputs": []
+	},
+	"description": "Windows & Linux",
+	"title": "Authentications"
+}
+    ]]></definition>
+    <meta type="hiddenElements"><![CDATA[
+{
+	"hideEdit": false,
+	"hideOpenInSearch": false,
+	"hideExport": false
+}
+    ]]></meta>
+</dashboard>

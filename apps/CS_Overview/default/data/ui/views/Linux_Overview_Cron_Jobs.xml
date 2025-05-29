@@ -1,0 +1,74 @@
+<form version="1.1" theme="dark">
+  <label>Cron Review</label>
+  <description>Displays all Linux Cronjob Events</description>
+  <fieldset submitButton="false">
+    <input type="time" token="time1">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+        <head>
+          <h2>
+            <center>Raytheon Proprietary</center>
+          </h2>
+        </head>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Unix Cron Jobs</title>
+      <table>
+        <title>Click on the Cron to view where the task is located</title>
+        <search>
+          <query>index=nix sourcetype="cron" |dedup CronPath |table CronPath |sort CronPath</query>
+          <earliest>$time1.earliest$</earliest>
+          <latest>$time1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">15</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">row</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <drilldown>
+          <set token="selected_app2">$click.value2$</set>
+          <set token="show_app_list2">true</set>
+        </drilldown>
+      </table>
+    </panel>
+    <panel depends="$show_app_list2$">
+      <title>All Cron Instances for: $selected_app2$</title>
+      <table>
+        <search>
+          <query>index=nix sourcetype="cron" |where CronPath="$selected_app2$" |dedup host |table host, CronPath, CronUser, CronSchedule |sort CronPath|rename host as "Host" CronPath as "Command" CronUser as "User" CronSchedule as "Schedule"</query>
+          <earliest>-14d@h</earliest>
+          <latest>now</latest>
+        </search>
+        <!--User interactivity: (2click) to populate next panel-->
+        <option name="count">15</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+        <head>
+          <h3>
+            RAYTHEON PROPRIETARY:  The U.S. Government recipient of this document understands and agrees that this information is to be treated as proprietary and restricted in use in accordance with applicable federal statutes including 18 U.S.C. §1905 as follows – Raytheon Company (Raytheon) authorizes distribution of this Raytheon Proprietary Information only to U.S. Government Department of Defense employees to use this information solely for internal review purposes.  The Raytheon Proprietary Information may NOT be disclosed or distributed to any other U.S. Government agency or third party without Raytheon’s prior written authorization.
+          </h3>
+        </head>
+      </html>
+    </panel>
+  </row>
+</form>

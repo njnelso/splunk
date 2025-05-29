@@ -1,0 +1,684 @@
+<form version="1.1" theme="dark">
+  <label>NIST AU-2 Windows_In_Progress</label>
+  <description>Note:  Dashboard panels are populated with cached data to optimize speed.  Drill downs are populated with live search results so results can vary</description>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" searchWhenChanged="true">
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>AU-2a1(1) Authentication Events - Logons (Success)</title>
+      <chart>
+        <title>Windows - Interactive Logon Success (Type 2 - Interactive / Type 10 - Remote Interactive)</title>
+        <search ref="Windows_Interactive_Logon_Success"></search>
+        <option name="charting.drilldown">all</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>AU-2a1(1) Authentication Events - Logons (Failure)</title>
+      <chart>
+        <title>Windows - Interactive Logon Failure (Type 2 - Interactive / Type 10 - Remote Interactive)</title>
+        <search ref="Windows_Interactive_Logon_Failure"></search>
+        <option name="charting.drilldown">all</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>AU-2a5(1) User &amp; Group Management</title>
+      <chart>
+        <title>Windows - User Account Management Events [Select Category to Populate Tables]</title>
+        <search ref="Windows_User_Account_Management"></search>
+        <drilldown>
+          <set token="subject1">$click.value$</set>
+        </drilldown>
+      </chart>
+    </panel>
+    <panel>
+      <title>AU-2a5(1) User &amp; Group Management ($subject1$)</title>
+      <table>
+        <search>
+          <query>index=winevents subject="$subject1$"
+| eval Admin_Account=mvindex(Account_Name, 0)
+| eval Target_Account=mvindex(Account_Name, 1)
+| search Admin_Account!="ANONYMOUS LOGON"
+| rename subject AS Action
+| table _time Admin_Account Action Target_Account RecordNumber</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="wrap">false</option>
+      </table>
+    </panel>
+    <panel>
+      <title>AU-2a5(1) User &amp; Group Management ($subject1$)</title>
+      <table>
+        <search>
+          <query>index=winevents subject="$subject1$"
+| eval Admin_Account=mvindex(Account_Name, 0)
+| eval Target_Account=mvindex(Account_Name, 1)
+| search Admin_Account!="ANONYMOUS LOGON"
+| fillnull value="N/A" MSADChangedAttributes 
+| rename MSADChangedAttributes AS Changed_Attributes 
+| table _time RecordNumber Changed_Attributes</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="count">1</option>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>AU-2a6(1) Use of Privileged/Special Rights - Security or Audit Policy Changes</title>
+      <table>
+        <title>Windows - Security or Audit Policy Changes</title>
+        <search ref="Windows_Audit_Policy_Changes"></search>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <set token="Host_Token">$row.host$</set>
+        </drilldown>
+      </table>
+    </panel>
+    <panel>
+      <title>Drilldown Panel</title>
+      <table>
+        <title>Windows - Logon Session Correlation  (INSTRUCTIONS: Select the host name in the panel to the left to populate this table)</title>
+        <search>
+          <query>index=winevents EventCode=4624 Logon_Type=2 OR Logon_Type=10 Security_ID="Program\\*" host="$Host_Token$"
+| eval Account_Name=mvindex(Account_Name, 1)
+| dedup _time Account_Name
+| table _time Account_Name signature</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>AU-2a(7) Admin or Root-Level Access</title>
+      <table>
+        <title>Windows - Special Logons with Administrative Rights</title>
+        <search ref="Windows_Logons_w_Admin_Rights"></search>
+        <option name="drilldown">cell</option>
+      </table>
+    </panel>
+    <panel>
+      <title>AU-2a(8) Privilege Escalation</title>
+      <table>
+        <title>Windows Full Token Elevation -  System &amp; Service Accounts</title>
+        <search ref="Windows_Full_Privilege_Access"></search>
+        <option name="drilldown">cell</option>
+        <format type="color" field="Account_Name">
+          <colorPalette type="map"></colorPalette>
+        </format>
+      </table>
+    </panel>
+    <panel>
+      <title>AU-2a(8) Privilege Escalation</title>
+      <table>
+        <title>Windows Limited Token Elevation - User &amp; Group Accounts</title>
+        <search ref="Windows_Limited_Privilege_Access"></search>
+        <option name="drilldown">cell</option>
+      </table>
+    </panel>
+    <panel>
+      <title>AU-2a(8) Privilege Escalation</title>
+      <chart>
+        <title>Windows - Privileged Services Called by Group Account</title>
+        <search ref="Windows_Privileged_Service_by_Group_Account"></search>
+        <option name="charting.drilldown">all</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>AU-2a(8) Privilege Escalation</title>
+      <chart>
+        <title>Windows - Privileged Services Called by Host</title>
+        <search ref="Windows_Privileged_Service_by_Host"></search>
+        <option name="charting.drilldown">all</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>AU-2a(8) Privilege Escalation</title>
+      <chart>
+        <title>Windows - Privileged Services Called</title>
+        <search ref="Windows_Privileged_Service_Called"></search>
+        <option name="charting.axisTitleX.text">Time</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisEnd</option>
+        <option name="charting.legend.mode">standard</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+        <h1>
+          <center>NIST AU-2.a.9 (Audit/Security Log Access)</center>
+        </h1>
+      </html>
+      <single>
+        <title>Log was cleared</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Audit_Log_Cleared | stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-7d</option>
+        <option name="underLabel">log cleared</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=index=winevents EventCode=1102 | table EventCode, signature, host, user, _time</link>
+        </drilldown>
+      </single>
+      <single>
+        <title>Log is full</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Audit_Log_Full | stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-7d</option>
+        <option name="underLabel">log is full</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=index=winevents EventCode=1104 | table EventCode, signature, host, user, _time</link>
+        </drilldown>
+      </single>
+      <single>
+        <title>Log was backed up</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Audit_log_Backedup | stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-7d</option>
+        <option name="underLabel">log backed-up</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=index=winevents EventCode=1105 | table EventCode, signature, host, user, _time</link>
+        </drilldown>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+    <div style="text-align: center;">
+    <h1>NIST AU-2.a.3 (Exports/Writes/downloads to devices/digital media)</h1>
+    </div>
+    </html>
+      <single>
+        <title>Success</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Shadow_write_Success | stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Shadow Writes</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/DLP_Detailed</link>
+        </drilldown>
+      </single>
+      <single>
+        <title>Failures</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_write_Failure | stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0x555"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Failed Writes</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/DLP_Detailed</link>
+        </drilldown>
+      </single>
+    </panel>
+    <panel>
+      <html>
+        <h1>
+          <center>NIST AU-2.a.4 (Imports/Uploads to devices/digital media)</center>
+        </h1>
+      </html>
+      <single>
+        <title>File Shadow Reads</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Shadow_Read_Success | stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-7d</option>
+        <option name="underLabel">Shadow Reads</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/DLP_Detailed</link>
+        </drilldown>
+      </single>
+      <single>
+        <title>File Failed Reads</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Read_Failure | stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Failed Reads</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/DLP_Detailed</link>
+        </drilldown>
+      </single>
+      <single>
+        <title>Media/Device Actions</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Media_Device_Actions | stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Media/Device Actions</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/DLP_Detailed</link>
+        </drilldown>
+      </single>
+    </panel>
+    <panel>
+      <html>
+        <h1>
+          <center>NIST AU-2.a.10 (System Reboot, Restart, and Shutdown)</center>
+        </h1>
+      </html>
+      <single>
+        <title>Windows Starting UP</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Start_Up | stats count(host)</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="height">128</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,3,5]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Starts</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=index=winevents EventCode=4608 OR EventCode=512 | table _time, host, EventCode, signature</link>
+        </drilldown>
+      </single>
+      <single>
+        <title>Shutdowns Computer</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Shut_Downs | stats count(host)</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="height">128</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,3,5]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Shutdowns</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown>
+          <link target="_blank">/app/CS_Overview/search?q=index=winevents%20EventCode=4609%20OR%20EventCode=513%20%7C%20table%20_time,%20host,%20EventCode,%20signature</link>
+        </drilldown>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+        <h1>
+          <center>NIST AU-2.a.6(2) (Use of Privileged Use/Special Rights - Configuration Changes)</center>
+        </h1>
+      </html>
+      <single>
+        <title>Computers Added</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Computers_Added | stats count(host)</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-7d</option>
+        <option name="underLabel">New Computers</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=index=winevents EventCode=4741 OR EventCode=645 | table EventCode, signature, host, user, _time</link>
+        </drilldown>
+      </single>
+      <single>
+        <title>Computers Removed</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Computers_Deleted | stats count(host)</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-7d</option>
+        <option name="underLabel">Deleted Computers</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=index=winevents EventCode=4743 OR EventCode=647 | table EventCode, signature, host, user, _time</link>
+        </drilldown>
+      </single>
+      <single>
+        <title>Software Installs</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Software_Installs | stats count(host)</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-7d</option>
+        <option name="underLabel">Software Installs</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=index=winevents SourceName=MsiInstaller EventCode=11707  host="*" | rex field=Message "(%3Fs)Product: (%3F&lt;product_name&gt;.*) --" | table _time, host, product_name, EventCode, Message</link>
+        </drilldown>
+      </single>
+      <single>
+        <title>Software Uninstalls</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Software_Uninstalls | stats count(host)</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-7d</option>
+        <option name="underLabel">Software Uninstalls</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=index=winevents SourceName=MsiInstaller EventCode=11724  host="*" | rex field=Message "(%3Fs)Product: (%3F&lt;product_name&gt;.*) --" | table _time, host, product_name, EventCode, Message</link>
+        </drilldown>
+      </single>
+      <single>
+        <title>AV Updates</title>
+        <search>
+          <query>index=winevents EventCode=7 EventType=4 latest=now earliest=-30d@d| stats first(1) by host| stats count(host)</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0xd93f3c","0x65a637"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-7d</option>
+        <option name="underLabel">AV Updates</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=index=winevents EventCode=7 EventType=4 | stats count sparkline AS Trend by host| sort + Date</link>
+        </drilldown>
+      </single>
+      <single>
+        <title>Missing Forwaders</title>
+        <search>
+          <query>| metadata type=hosts index=winevents | table host, lastTime | eval Checkin = relative_time(now(),"-2h") | where lastTime &lt; Checkin | convert ctime(lastTime) as lastTime | stats count(host)</query>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,10,100]</option>
+        <option name="showSparkline">true</option>
+        <option name="showTrendIndicator">true</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-7d</option>
+        <option name="underLabel">Missing Forwaders</option>
+        <option name="useColors">true</option>
+        <option name="useThousandSeparators">true</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=| metadata type=hosts index=winevents | table host, lastTime | eval Checkin = relative_time(now(),"-2h") | where lastTime &lt; Checkin | convert ctime(lastTime) as lastTime| table host, lastTime | sort - lastTime</link>
+        </drilldown>
+        <option name="drilldown">all</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+        <h1>
+          <center>NIST AU-2.a.(11/12) (Print Actions)</center>
+        </h1>
+      </html>
+      <single>
+        <title>Print to a Device</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Files_Printed | stats count(printer)</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,3,5]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Files Printed</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=index=winevents source=job printer!="*Microsoft*" OR printer!="*PDF" | dedup _time, user, printer, document | table _time, user, host, printer, document</link>
+        </drilldown>
+      </single>
+      <single>
+        <title>Print to a File</title>
+        <search>
+          <query>index=win_summary report=Summary_Windows_Printed_To_File | stats count(printer)</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,3,5]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Files Printed</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <drilldown target="new">
+          <link>/app/CS_Overview/search?q=index=winevents source=job printer="*Microsoft*" OR printer="*PDF" | dedup _time, user, printer, document | table _time, user, host, printer, document</link>
+        </drilldown>
+      </single>
+    </panel>
+  </row>
+</form>

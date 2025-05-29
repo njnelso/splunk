@@ -1,0 +1,53 @@
+<form version="1.1" theme="dark">
+  <label>Linux Network Security</label>
+  <fieldset submitButton="false"></fieldset>
+  <row>
+    <panel>
+      <title>Listening Ports - 7 Day Summary</title>
+      <chart>
+        <search ref="Linux_Listening_Ports_Chart"></search>
+        <option name="charting.drilldown">all</option>
+        <option name="height">347</option>
+        <drilldown>
+          <set token="selected_app">$click.value2$</set>
+        </drilldown>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Listening Ports - Drilldown Report</title>
+      <table>
+        <search ref="Linux_Listening_Ports"></search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Accounts - Interactive Command Execution Environment</title>
+      <table>
+        <search ref="Linux_Interactive_Command_Execution"></search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Service Lookup</title>
+      <input type="text" token="service_name">
+        <label>Service Name - (Use Wildcards) Example: *Service*</label>
+        <default></default>
+      </input>
+      <table>
+        <search>
+          <query>index=nix source="Unix:Service" $service_name$ service!="\\x97\\x8F" NOT "file_hash"
+| dedup service host
+| table  host service type ACTIVE LOADED DESCRIPTION</query>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>

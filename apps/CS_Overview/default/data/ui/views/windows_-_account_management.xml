@@ -1,0 +1,279 @@
+<form version="1.1" theme="dark">
+  <label>Windows - Account Management</label>
+  <description>Drilldown Dashboard</description>
+  <fieldset submitButton="false">
+    <input type="time" token="field1" searchWhenChanged="true">
+      <label>Time</label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>NIST AU-2.a.5(1) (User Management Events)</h1>
+      </div>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h2>User Account Management</h2>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents Security_ID=PROGRAM* EventCode=4720 OR EventCode=4726 OR EventCode=4725 OR EventCode=4722 OR EventCode=4740
+| dedup src_user msad_action user
+| rename src_user AS "Admin Account" 
+| rename msad_action AS Action  
+| table  _time "Admin Account" Action  user
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h2>User Account Modification [Drilldown: Select the <span style="color: dodgerblue;">RecordNumber</span> Field Below]</h2>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents EventCode=4738
+| rename src_user AS "Admin Account" 
+| rename msad_action AS Action
+| table  _time RecordNumber "Admin Account" Action user
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <set token="record_token">$click.value2$</set>
+        </drilldown>
+      </table>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h2>User Account Modification - Details</h2>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents EventCode=4738 RecordNumber=$record_token$
+| rename MSADChangedAttributes AS Attributes
+| table Attributes</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">1</option>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>NIST AU-2.a.5(2) (Group Management Events)</h1>
+      </div>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h2>Group Account Management</h2>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents EventCode=4731 OR EventCode=4727 OR EventCode=4754 OR EventCode=4744 OR EventCode=4749 OR EventCode=4759 OR EventCode=4734 OR EventCode=4730 OR EventCode=4758 OR EventCode=4748 OR EventCode=4753 OR EventCode=4763 OR (EventCode=4735 OR EventCode=4737 OR EventCode=4755 OR EventCode=4745 OR EventCode=4750 OR EventCode=4760 Security_ID="PROGRAM*")
+| rename Account_Name AS "Admin Account"
+| table _time "Admin Account" action Group_Name Group_Domain
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h2>Group Account Management - Users Added &amp; Removed</h2>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents EventCode=4732 OR EventCode=4728 OR EventCode=4756 OR EventCode=4746 OR EventCode=4751 OR EventCode=4761 OR EventCode=4733 OR EventCode=4729 OR EventCode=4757 OR EventCode=4747 OR EventCode=4752 OR EventCode=4762
+| eval Member_ID=mvindex(Security_ID, 1)
+| eval Admin_Account=mvindex(Account_Name, 0)
+| search Admin_Account!=*$
+| table _time Admin_Account subject user_name Group_Name Group_Domain
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Active Directory Accounts - Enabled</title>
+      <single>
+        <search>
+          <query>index=windows source="script:get-aduser_details.bat" Enabled=true
+| stats dc(SamAccountName)</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x555","0x0877a6"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Enabled</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Active Directory Accounts - Locked Out</title>
+      <single>
+        <search>
+          <query>index=windows source="script:get-aduser_details.bat" LockedOut=true
+| stats dc(SamAccountName)</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x555","0xf58f39"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Locked Out</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Active Directory Accounts - Disabled</title>
+      <single>
+        <search>
+          <query>index=windows source="script:get-aduser_details.bat" Enabled=false
+| stats dc(SamAccountName)</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x555","0x555"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Disabled</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Active Directory Accounts</title>
+      <table>
+        <search>
+          <query>index=windows source="script:get-aduser_details.bat"
+| dedup SamAccountName
+| eval timestamp1 = replace(PasswordLastSet, "/Date\\((\\d+)\\)/", "\1")
+| eval timestamp2 = replace(LastBadPasswordAttempt, "/Date\\((\\d+)\\)/", "\1")
+| eval "Password Last Set" = strftime(timestamp1/1000, "%Y-%m-%d %H:%M:%S")
+| eval "Last Bad Password Attempt" = strftime(timestamp2/1000, "%Y-%m-%d %H:%M:%S")
+| table _time Name SamAccountName Enabled LockedOut PasswordExpired "Last Bad Password Attempt" "Password Last Set" PasswordNeverExpires PasswordNotRequired
+| sort SamAccountName</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Active Directory Accounts - Continued</title>
+      <table>
+        <search>
+          <query>index=windows source="script:get-aduser_details.bat"
+| dedup SamAccountName
+| eval Administrator = case(adminCount==1, "Yes", adminCount="null", "No")
+| rename msDS-FailedInteractiveLogonCount AS "Total Failed Login Count"
+| table _time SamAccountName CanonicalName "Total Failed Login Count" ObjectSid Administrator Description
+| sort SamAccountName</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h2>Active Directory User &amp; Group Object Modification</h2>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=winevents EventCode=5136 Class=group OR Class=user
+| eval Operation_Type=mvindex(Type, 2)
+| rex field=DN "CN=(?&lt;Common_Name&gt;[^,]+)"
+| rename LDAP_Display_Name AS Attribute
+| rename Account_Name AS "Admin Account"
+| table _time "Admin Account" Class Operation_Type Common_Name Attribute Value
+| sort -_time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Local User Accounts</title>
+      <table>
+        <title>Excludes Active Directory Accounts</title>
+        <search>
+          <query>index=windows source="Script:LocalUsers" Name!="*$"
+| dedup host Name Enabled AccountExpires PasswordRequired
+| eval timestamp1 = replace(PasswordLastSet, "/Date\\((\\d+)\\)/", "\1")
+| eval timestamp2 = replace(PasswordExpires, "/Date\\((\\d+)\\)/", "\1")
+| eval "Password Last Set" = strftime(timestamp1/1000, "%Y-%m-%d %H:%M:%S")
+| eval "Password Expires" = strftime(timestamp2/1000, "%Y-%m-%d %H:%M:%S")
+| table _time host Name Enabled AccountExpires PasswordRequired "Password Last Set" "Password Expires" Description
+| sort Name</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+</form>

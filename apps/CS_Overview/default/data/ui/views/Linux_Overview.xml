@@ -1,0 +1,628 @@
+<form version="1.1" theme="dark">
+  <label>Executive Summary</label>
+  <!-- Second row of 2 panels -->
+  <fieldset autoRun="true" submitButton="false">
+    <input type="time" searchWhenChanged="true">
+      <default>
+        <earliestTime>-7d@d</earliestTime>
+        <latestTime>now</latestTime>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>AU-2.a.1(1) (Authentication Events)</h1>
+      </div>
+      </html>
+      <single>
+        <title>GNOME Logons</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication"  exe="/usr/lib/gdm3/gdm-session-worker" NOT acct=gdm res=success
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x555","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Success</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>GNOME Logons</title>
+        <search>
+          <query>index=nix pam_type="gdm-password:auth" "authentication failure"
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Failed Attempts</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>SSHD Logons</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/sbin/sshd" res=success
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x555","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Success</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>SSHD Logons</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" exe="/usr/sbin/sshd" res=failed
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Failed Attempts</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <input type="dropdown" token="login_method">
+        <label>Login Method</label>
+        <choice value="*">All</choice>
+        <choice value="/usr/lib/gdm3/gdm-session-worker">GNOME</choice>
+        <choice value="/usr/sbin/sshd">SSH</choice>
+        <default>*</default>
+        <initialValue>*</initialValue>
+      </input>
+      <input type="dropdown" token="result" searchWhenChanged="true">
+        <label>Result</label>
+        <choice value="success">Success</choice>
+        <choice value="failed">Failure</choice>
+        <default>success</default>
+        <initialValue>success</initialValue>
+      </input>
+      <html>
+      <div style="text-align: center;">
+      <h1>AU-2.a.1(1) (Authentication Events)</h1>
+      </div>
+      </html>
+      <chart>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication"  exe="$login_method$" res="$result$" NOT acct=gdm 
+| timechart count by acct</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.drilldown">all</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>AU-2.a.1(1) (Authentication Events)</h1>
+      </div>
+      </html>
+      <single>
+        <title>Switch User Logons</title>
+        <search>
+          <query>index=nix pam_type="su:auth" "authenticated"
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x555","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Success</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Switch User Logons</title>
+        <search>
+          <query>index=nix pam_type="su:auth" "authentication failure"
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Failed Attempts</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>AU-2.a.1(1) (Authentication Events)</h1>
+      </div>
+      </html>
+      <chart>
+        <title>Total Authentication Failures</title>
+        <search>
+          <query>index=nix pam_type="*auth" "authentication failure" user=*
+| timechart count BY user</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.drilldown">all</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>AU-2.a.1(1) (Authentication Events)</h1>
+      </div>
+      </html>
+      <chart>
+        <title>Remote User Authentication Failures</title>
+        <search>
+          <query>index=nix pam_type="*auth" ruser=* "authentication failure"
+| rename ruser AS Remote_User
+| timechart count by Remote_User</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.drilldown">all</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>AU-2.a.2 (Security-Relevant Files and Objects)</h1>
+      </div>
+      </html>
+      <single>
+        <title>Sudoers File Events - [visudo command]</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=SYSCALL "visudo"
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf1813f","0xdc4e41"]</option>
+        <option name="rangeValues">[0,1]</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Security-Relevant File Events - [ /etc/passwd - /etc/shadow - /etc/sudoers - /etc/ssh ]</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=EXECVE
+"/etc/passwd*" OR
+"/etc/shadow*" OR
+"/etc/sudoers*" OR
+"/etc/ssh*"
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf7bc38","0xf58f39","0xdc4e41"]</option>
+        <option name="rangeValues">[0,1,5]</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>AU-2.a.3-4 (Removable Media - Blacklist Configuration)</h1>
+      </div>
+      </html>
+      <chart>
+        <search>
+          <query>index=nix sourcetype="modprobe.d"  
+| chart count BY source</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">all</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <link target="_blank">/app/CS_Overview/linux_-_configuration_changes</link>
+        </drilldown>
+      </chart>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>AU-2.a.5 (User and Group Management)</h1>
+      </div>
+      </html>
+      <single>
+        <title>User Management Events</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_MGMT OR (type=EXECVE "userdel")
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,1,10]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Group Management Events</title>
+        <search>
+          <query>index=nix sourcetype="audit_log" type=USER_ACCT exe="/usr/bin/gpasswd"
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,1,10]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Password Changes</title>
+        <search>
+          <query>index=nix sourcetype=audit_log "passwd" type=USER_ACCT OR type=USER_CMD
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,5]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Changes</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>AU-2.a.6 (Use of Privileged/Special Rights)</h1>
+      </div>
+      </html>
+      <single>
+        <title>User Commands Executed</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_CMD
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf7bc38","0xf58f39","0xdc4e41"]</option>
+        <option name="rangeValues">[0,10,250]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Configuration Changes</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=CONFIG_CHANGE
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,50,250]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Software Installs/Uninstalls (Package Managers: apt, dpkg, snap)</title>
+        <search>
+          <query>index=nix sourcetype=audit_log "*dpkg*" OR "*apt*" OR "*snap*" type=EXECVE
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,50,250]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>AU-2.a.7 (Admin or Root-Level Access)</h1>
+      </div>
+      </html>
+      <single>
+        <title>Root User Logons</title>
+        <search>
+          <query>index=nix sourcetype=audit_log op="PAM:authentication" (exe="/usr/lib/gdm3/gdm-session-worker" OR exe="/usr/sbin/sshd") acct=root res=success
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Successful Logons</option>
+        <option name="useColors">1</option>
+      </single>
+      <chart>
+        <title>User Authentications with Sudo</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_AUTH exe="/usr/bin/sudo" res=success
+| rename acct AS User
+| stats count by User
+| sort - count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">bar</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>AU-2.a.8 (Privileged/Role Escalation)</h1>
+      </div>
+      </html>
+      <single>
+        <title>Initial Sudo Logons</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_AUTH exe="/usr/bin/sudo" res=success
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x555","0xf7bc38","0xf58f39"]</option>
+        <option name="rangeValues">[0,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Success</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Initial Sudo Logons</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_AUTH exe="/usr/bin/sudo" res=failed
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Failed Attempts</option>
+        <option name="useColors">1</option>
+      </single>
+      <chart>
+        <title>Successful Sudo Attempts</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_AUTH exe="/usr/bin/sudo" res=success
+| timechart count BY acct</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.showDataLabels">minmax</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>AU-2.a.9 (Audit and Security-Relevant Log Access)</h1>
+      </div>
+      </html>
+      <single>
+        <title>Audit Daemon (auditd) Access Attempts</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=EXECVE ("*audit.rules*" OR "*auditd.conf*" OR "*stig.rules*")
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf7bc38","0xf58f39"]</option>
+        <option name="rangeValues">[0,3]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Auditd Service Start</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=SERVICE_START unit=auditd
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf58f39"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Auditd Service Stop</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=SERVICE_STOP unit=auditd
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+      <single>
+        <title>Audit Log Access Attempts - [ /var/log/ ]</title>
+        <search>
+          <query>index=nix sourcetype=audit_log type=EXECVE ("*audit.log*" OR "auth.log" OR "/var/log/audit*")
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xf7bc38","0xf58f39"]</option>
+        <option name="rangeValues">[0,3]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Events</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>ClamAV Scan Status</title>
+      <chart>
+        <title>Results from Linux client running a simple scan</title>
+        <search>
+          <query>index=nix_summary report="summary_linux_clamav_status" 
+| dedup host 
+| chart count(host) by clamstatus</query>
+          <earliest>-1w@w</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>ClamAV Scan Results</title>
+      <single>
+        <title>Infected Files Found</title>
+        <search>
+          <query>index=nix "clam*" "infected"
+| stats count</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Files</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>ClamAV Def Date</title>
+      <table>
+        <search>
+          <query>index=nix CLAMAV_AGE 
+| dedup host 
+| eval "Date and Time"=strftime(_time, "%m/%d/%Y - %I:%M %p") 
+| table "Date and Time", host, CLAMAV_AGE</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <format type="color" field="CLAMAV_AGE">
+          <colorPalette type="list">[#53A051,#53A051,#F8BE34,#DC4E41]</colorPalette>
+          <scale type="threshold">1,25,30</scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>

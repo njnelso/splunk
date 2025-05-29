@@ -1,0 +1,61 @@
+<form version="1.1" theme="dark">
+  <label>Software Action Detailed</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" searchWhenChanged="true">
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+        <h1>
+          <center>Software Action Panel</center>
+        </h1>
+        <h3>
+          <center>(Investigate any actions that appear here)</center>
+        </h3>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Software Installs</title>
+        <search>
+          <query>index=winevents SourceName=MsiInstaller EventCode=11707  host="*" | rex field=Message "(?s)Product: (?&lt;product_name&gt;.*) --" | stats sparkline as "Trend", count by product_name | sort -count</query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">true</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">10</option>
+        <format field="Trend" type="sparkline">
+          <option name="lineWidth">1</option>
+          <option name="lineColor">#5379af</option>
+          <option name="fillColor">#CCDDFF</option>
+          <option name="height">25px</option>
+        </format>
+      </table>
+      <table>
+        <title>Software Uninstalls</title>
+        <search>
+          <query>index=winevents SourceName=MsiInstaller EventCode=11724  host="*" | rex field=Message "(?s)Product: (?&lt;product_name&gt;.*) --" | stats sparkline as "Trend", count by product_name | sort -count</query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">true</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">10</option>
+        <format field="Trend" type="sparkline">
+          <option name="lineWidth">1</option>
+          <option name="lineColor">#5379af</option>
+          <option name="fillColor">#CCDDFF</option>
+          <option name="height">25px</option>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>

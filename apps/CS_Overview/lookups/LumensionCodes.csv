@@ -1,0 +1,7 @@
+EventCode,EventCodeDesc
+14,Media Inserted
+16,Device Attached
+18,Read Denied
+19,Write Denied
+25,Shadow Write
+26,Shadow Read

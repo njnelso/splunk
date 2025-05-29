@@ -1,0 +1,92 @@
+<form version="1.1" theme="dark">
+  <label>Linux - Account Management</label>
+  <description>Drilldown Dashboard</description>
+  <fieldset submitButton="false">
+    <input type="time" token="field1" searchWhenChanged="true">
+      <label>Time</label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>User Management</h1>
+      <h3>For Local Accounts (Excluding Active Directory-based Accounts)</h3>
+      </div>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <input type="text" token="host_token1">
+        <label>Host</label>
+        <default>*</default>
+        <initialValue>*</initialValue>
+      </input>
+      <html>
+      <div style="text-align: center;">
+      <h1>Local Users with Logon Privileges</h1>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=nix sourcetype="usersWithLoginPrivs" host=$host_token1$
+| table _time host USERNAME USER_INFO UID GID HOME_DIR
+| sort UID</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <input type="text" token="host_token1">
+        <label>Host</label>
+        <default>*</default>
+        <initialValue>*</initialValue>
+      </input>
+      <html>
+      <div style="text-align: center;">
+      <h1>All Local Accounts</h1>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=nix sourcetype=UserAccounts host=$host_token1$ NOT file_hash=*
+| dedup host user user_id
+| table _time host user password user_id user_group_id home shell
+| sort user</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+      <div style="text-align: center;">
+      <h1>Local User Account Management</h1>
+      </div>
+      </html>
+      <table>
+        <search>
+          <query>index=nix sourcetype=audit_log type=USER_MGMT</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>
